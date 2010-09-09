@@ -1,11 +1,11 @@
-OBJS = player.o main.o engine.o
+OBJS = player.o main.o engine.o position.o tile.o map.o floor.o wall.o
 CFLAGS = -Wall -c -g
 LFLAGS = -Wall -g -lncurses
 CC = g++
 EXECUTABLE = rogue
 
-run: clean all
-	$(EXECUTABLE)
+run: all
+	./$(EXECUTABLE)
 
 all: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(EXECUTABLE)

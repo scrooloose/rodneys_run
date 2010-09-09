@@ -2,6 +2,7 @@
 #include <exception>
 
 #include "player.h"
+#include "map.h"
 #include "engine.h"
 
 int main() {

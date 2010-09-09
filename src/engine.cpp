@@ -1,12 +1,13 @@
 #include "engine.h"
 
 Engine::Engine() {
-    setup_curses();
-    this->player = new Player(1,1);
+    Position* p = new Position(1,1);
+    map = new Map();
+    player = new Player(p, map);
 }
 
 Engine::~Engine() {
-    delete this->player;
+    delete player;
 }
 
 void Engine::setup_curses() {
@@ -15,6 +16,7 @@ void Engine::setup_curses() {
     noecho();
     cbreak();
     keypad(stdscr, true);
+    curs_set(0);
     refresh();
 }
 
@@ -22,32 +24,70 @@ void Engine::teardown_curses() {
     endwin();
 }
 
-void Engine::render() {}
+void Engine::render() {
+    clear();
+    for (int x = 0; x < map->width(); x++) {
+        for (int y = 0; y < map->height(); y++) {
+            Tile* t = map->tile_for(new Position(x,y));
+            mvprintw(y, x, t->to_char()->c_str());
+        }
+    }
+    mvprintw(player->pos()->get_y(), player->pos()->get_x(), "@");
+}
 
-void Engine::handle_keypress(int key) {
+bool Engine::handle_keypress(int key) {
     switch(key) {
         case KEY_LEFT:
-            printw("left");
+            player->move_left();
             break;
         case KEY_RIGHT:
-            printw("right");
+            player->move_right();
             break;
         case KEY_UP:
-            printw("up");
+            player->move_up();
             break;
         case KEY_DOWN:
-            printw("down");
+            player->move_down();
+            break;
+        case KEY_C1:
+        case KEY_END:
+            player->move_down_left();
+            break;
+        case KEY_C3:
+        case KEY_NPAGE:
+            player->move_down_right();
+            break;
+        case KEY_A1:
+        case KEY_HOME:
+            player->move_up_left();
+            break;
+        case KEY_A3:
+        case KEY_PPAGE:
+            player->move_up_right();
+            break;
+        case (int)'q':
+            return true;
             break;
 
         default:
             printw("Unknown keypress");
+            refresh();
             //throw exception
     }
+    return false;
 }
 void Engine::main_loop() {
     int key;
 
-    key = getch();
-    handle_keypress(key);
-    getch();
+    setup_curses();
+
+    render();
+    bool loop_done = false;
+    while(!loop_done) {
+        key = getch();
+        loop_done = handle_keypress(key);
+        render();
+    }
+
+    teardown_curses();
 }

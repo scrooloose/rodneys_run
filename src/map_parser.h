@@ -8,6 +8,7 @@
 #include "tile.h"
 #include "floor.h"
 #include "wall.h"
+#include "path.h"
 #include "map_parsing_exception.h"
 
 using namespace std;

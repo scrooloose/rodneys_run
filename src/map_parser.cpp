@@ -53,6 +53,9 @@ Tile* MapParser::tile_for(char c, int x, int y) {
         case (int)'#':
             return new Wall(p);
             break;
+        case (int)'*':
+            return new Path(p);
+            break;
 
         default:
             throw new MapParsingException("Unknown map character");

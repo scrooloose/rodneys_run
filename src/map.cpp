@@ -3,13 +3,14 @@
 Map::Map(int width, int height) {
     this->width = width;
     this->height = height;
+    resize_tiles(width, height);
+}
 
+void Map::resize_tiles(int width, int height) {
     tiles.resize(width);
     for (int x = 0; x < width; x++) {
         tiles[x].resize(height);
     }
-
-
 }
 
 int Map::get_width() {

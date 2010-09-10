@@ -15,6 +15,8 @@ class Map {
         int width;
         int height;
 
+        void resize_tiles(int width, int height);
+
     public:
         Map(int width, int height);
         ~Map();

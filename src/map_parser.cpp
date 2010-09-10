@@ -59,9 +59,33 @@ Tile* MapParser::tile_for(char c, int x, int y) {
 }
 
 int MapParser::find_width() {
-    return 20;
+    ifstream* map_file = open_map_file();
+    int longest_line = 0;
+
+    if (map_file->is_open()) {
+        while (!map_file->eof()) {
+            string line;
+            getline(*map_file, line);
+            if (line.length() > longest_line) {
+                longest_line = line.length();
+            }
+        }
+    }
+
+    return longest_line;
 }
 
 int MapParser::find_height() {
-    return 20;
+    ifstream* map_file = open_map_file();
+    int num_lines = 0;
+
+    if (map_file->is_open()) {
+        while (!map_file->eof()) {
+            string line;
+            getline(*map_file, line);
+            num_lines++;
+        }
+    }
+
+    return num_lines;
 }

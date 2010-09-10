@@ -8,5 +8,5 @@ bool EmptyTile::is_walkable() {
 }
 
 string* EmptyTile::to_char() {
-    return new string(".");
+    return new string(" ");
 }

@@ -8,5 +8,5 @@ bool Floor::is_walkable() {
 }
 
 string* Floor::to_char() {
-    return new string("+");
+    return new string(".");
 }

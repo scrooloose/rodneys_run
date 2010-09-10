@@ -48,7 +48,7 @@ Map* MapParser::parse() {
 Tile* MapParser::tile_for(char c, int x, int y) {
     Position* p = new Position(x, y);
     switch(c) {
-        case (int)'+':
+        case (int)'.':
             return new Floor(p);
             break;
         case (int)'#':

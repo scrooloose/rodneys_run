@@ -1,7 +1,7 @@
 #include "engine.h"
 
 Engine::Engine() {
-    MapParser* m = new MapParser(new string("test.map"));
+    MapParser* m = new MapParser(new string("../maps/1.map"));
     map = m->parse();
 
     Position* p = new Position(1,1);

@@ -27,7 +27,10 @@ Map* MapParser::parse() {
             getline(*map_file, line);
 
             for (int i = 0; i < line.size(); i++) {
-                map->add_tile(tile_for(line[i], i, line_no));
+                Tile* t = tile_for(line[i], i, line_no);
+                if (t != NULL) {
+                    map->add_tile(t);
+                }
             }
 
 

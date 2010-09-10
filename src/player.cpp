@@ -15,7 +15,7 @@ Position* Player::pos() {
 
 void Player::move_to(Position* position) {
     Tile* t = map->tile_for(position);
-    if (t->is_walkable()) {
+    if (t != NULL && t->is_walkable()) {
         this->position = position;
     }
 }

@@ -9,6 +9,7 @@
 #include "floor.h"
 #include "wall.h"
 #include "path.h"
+#include "empty_tile.h"
 #include "map_parsing_exception.h"
 
 using namespace std;

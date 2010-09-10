@@ -32,9 +32,7 @@ void Engine::render() {
     for (int x = 0; x < map->get_width(); x++) {
         for (int y = 0; y < map->get_height(); y++) {
             Tile* t = map->tile_for(new Position(x,y));
-            if (t) {
-                mvprintw(y, x, t->to_char()->c_str());
-            }
+            mvprintw(y, x, t->to_char()->c_str());
         }
     }
     mvprintw(player->pos()->get_y(), player->pos()->get_x(), "@");

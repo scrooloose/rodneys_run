@@ -19,20 +19,21 @@ Map* MapParser::parse() {
 
     Map* map = new Map(find_width(), find_height());
 
-
     if (map_file->is_open()) {
 
         int line_no = 0;
         while (!map_file->eof()) {
             getline(*map_file, line);
 
-            for (int i = 0; i < line.size(); i++) {
-                Tile* t = tile_for(line[i], i, line_no);
-                if (t != NULL) {
-                    map->add_tile(t);
+            for (int i = 0; i < map->get_width(); i++) {
+                char c = ' ';
+                if (i < line.length()) {
+                    c = line[i];
                 }
-            }
+                Tile* t = tile_for(c, i, line_no);
 
+                map->add_tile(t);
+            }
 
             line_no++;
         }
@@ -55,6 +56,9 @@ Tile* MapParser::tile_for(char c, int x, int y) {
             break;
         case (int)'*':
             return new Path(p);
+            break;
+        case (int)' ':
+            return new EmptyTile(p);
             break;
 
         default:

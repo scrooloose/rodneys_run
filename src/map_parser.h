@@ -24,6 +24,8 @@ class MapParser {
         MapParser(string* fname);
         ~MapParser();
 
+        static Map* parse_file(string* fname);
+
         Map* parse();
         Tile* tile_for(char c, int x, int y);
         int find_width();

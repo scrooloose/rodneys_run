@@ -1,8 +1,7 @@
 #include "engine.h"
 
 Engine::Engine() {
-    MapParser* m = new MapParser(new string("../maps/1.map"));
-    map = m->parse();
+    map = MapParser::parse_file(new string("../maps/1.map"));
 
     Position* p = new Position(1,1);
     player = new Player(p, map);

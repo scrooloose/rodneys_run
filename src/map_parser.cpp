@@ -12,6 +12,11 @@ ifstream* MapParser::open_map_file() {
     return new ifstream(fname->c_str());
 }
 
+Map* MapParser::parse_file(string* fname) {
+    MapParser* mp = new MapParser(fname);
+    return mp->parse();
+}
+
 Map* MapParser::parse() {
     string line;
 

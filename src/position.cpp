@@ -16,44 +16,36 @@ int Position::get_y() {
     return this->y;
 }
 
-Position* Position::new_position_for(int x, int y) {
-    if (are_coords_valid(x, y)) {
-        return new Position(x, y);
-    }else{
-        throw new PositionException("Invalid position");
-    }
-}
-
 Position* Position::up() {
-    return new_position_for(x, y-1);
+    return new Position(x, y-1);
 }
 
 Position* Position::down() {
-    return new_position_for(x, y+1);
+    return new Position(x, y+1);
 }
 
 Position* Position::left() {
-    return new_position_for(x-1, y);
+    return new Position(x-1, y);
 }
 
 Position* Position::right() {
-    return new_position_for(x+1, y);
+    return new Position(x+1, y);
 }
 
 Position* Position::up_left() {
-    return new_position_for(x-1, y-1);
+    return new Position(x-1, y-1);
 }
 
 Position* Position::up_right() {
-    return new_position_for(x+1, y-1);
+    return new Position(x+1, y-1);
 }
 
 Position* Position::down_left() {
-    return new_position_for(x-1, y+1);
+    return new Position(x-1, y+1);
 }
 
 Position* Position::down_right() {
-    return new_position_for(x+1, y+1);
+    return new Position(x+1, y+1);
 }
 
 bool Position::are_coords_valid(int x, int y) {

@@ -1,4 +1,4 @@
-OBJS = player.o main.o engine.o position.o tile.o map.o floor.o wall.o
+OBJS = player.o main.o engine.o position.o tile.o map.o floor.o wall.o map_parser.o
 CFLAGS = -Wall -c -g
 LFLAGS = -Wall -g -lncurses
 CC = g++

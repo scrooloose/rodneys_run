@@ -3,6 +3,7 @@
 
 #include "player.h"
 #include "map.h"
+#include "map_parser.h"
 #include "position.h"
 #include <ncurses.h>
 

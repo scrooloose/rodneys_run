@@ -1,9 +1,12 @@
 #include "engine.h"
 
 Engine::Engine() {
+    MapParser* m = new MapParser(new string("test.map"));
+    map = m->parse();
+
     Position* p = new Position(1,1);
-    map = new Map();
     player = new Player(p, map);
+
 }
 
 Engine::~Engine() {
@@ -26,10 +29,12 @@ void Engine::teardown_curses() {
 
 void Engine::render() {
     clear();
-    for (int x = 0; x < map->width(); x++) {
-        for (int y = 0; y < map->height(); y++) {
+    for (int x = 0; x < map->get_width(); x++) {
+        for (int y = 0; y < map->get_height(); y++) {
             Tile* t = map->tile_for(new Position(x,y));
-            mvprintw(y, x, t->to_char()->c_str());
+            if (t) {
+                mvprintw(y, x, t->to_char()->c_str());
+            }
         }
     }
     mvprintw(player->pos()->get_y(), player->pos()->get_x(), "@");

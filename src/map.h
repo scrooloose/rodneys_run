@@ -12,14 +12,17 @@ class Player;
 class Map {
     private:
         vector< vector<Tile*> > tiles;
+        int width;
+        int height;
 
     public:
-        Map();
+        Map(int width, int height);
         ~Map();
 
         Tile* tile_for(Position* p);
-        int width();
-        int height();
+        int get_width();
+        int get_height();
+        void add_tile(Tile* t);
 
 };
 

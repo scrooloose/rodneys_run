@@ -27,7 +27,7 @@ Map* MapParser::parse() {
 
             for (int i = 0; i < map->get_width(); i++) {
                 char c = ' ';
-                if (i < line.length()) {
+                if (i < (int)line.length()) {
                     c = line[i];
                 }
                 Tile* t = tile_for(c, i, line_no);
@@ -76,7 +76,7 @@ int MapParser::find_width() {
         while (!map_file->eof()) {
             string line;
             getline(*map_file, line);
-            if (line.length() > longest_line) {
+            if ((int)line.length() > longest_line) {
                 longest_line = line.length();
             }
         }

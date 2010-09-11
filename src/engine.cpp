@@ -3,9 +3,7 @@
 Engine::Engine() {
     this->map_list = new MapList(new string("../maps/"));
     this->map = map_list->get_current_map();
-
-    Position* p = new Position(1,1);
-    this->player = new Player(p, map);
+    this->player = new Player(map);
 }
 
 Engine::~Engine() {

@@ -29,3 +29,11 @@ void Map::add_tile(Tile* t) {
     Position* p = t->pos();
     tiles[p->get_x()][p->get_y()] = t;
 }
+
+void Map::set_starting_pos(Position* p) {
+    this->starting_pos = p;
+}
+
+Position* Map::get_starting_pos() {
+    return starting_pos;
+}

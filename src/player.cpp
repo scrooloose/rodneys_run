@@ -1,7 +1,7 @@
 #include "player.h"
 
-Player::Player(Position* position, Map* map) {
-    this->position = position;
+Player::Player(Map* map) {
+    this->position = map->get_starting_pos();
     this->map = map;
 }
 
@@ -62,7 +62,5 @@ Tile* Player::current_tile() {
 
 void Player::set_map(Map* m) {
     this->map = m;
-
-    //hardcode this for now
-    this->position = new Position(1,1);
+    this->position = map->get_starting_pos();
 }

@@ -13,7 +13,7 @@ class Player {
         void move_to(Position* position);
 
     public:
-        Player(Position* position, Map* map);
+        Player(Map* map);
         ~Player();
 
         Position* pos();

@@ -35,7 +35,13 @@ Map* MapParser::parse() {
                 if (i < (int)line.length()) {
                     c = line[i];
                 }
-                Tile* t = tile_for(c, i, line_no);
+
+                Position* p = new Position(i, line_no);
+                if (c == '@') {
+                    map->set_starting_pos(p);
+                }
+
+                Tile* t = tile_for(c, p);
 
                 map->add_tile(t);
             }
@@ -50,10 +56,10 @@ Map* MapParser::parse() {
 }
 
 
-Tile* MapParser::tile_for(char c, int x, int y) {
-    Position* p = new Position(x, y);
+Tile* MapParser::tile_for(char c, Position* p) {
     switch(c) {
         case (int)'.':
+        case (int)'@':
             return new Floor(p);
             break;
         case (int)'#':

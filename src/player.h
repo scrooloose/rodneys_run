@@ -30,6 +30,8 @@ class Player {
         void move_down_right();
         bool move_downstairs();
 
+        void open(Position* p);
+
 };
 
 #endif

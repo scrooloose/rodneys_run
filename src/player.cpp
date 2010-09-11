@@ -64,3 +64,14 @@ void Player::set_map(Map* m) {
     this->map = m;
     this->position = map->get_starting_pos();
 }
+
+void Player::open(Position* target_pos){
+    if (!position->is_adjacent(target_pos)) {
+        throw new runtime_error("Cannot open non-adjacent tile");
+    }
+
+    Tile* target_tile = map->tile_for(target_pos);
+    if (target_tile->is_openable()) {
+        target_tile->open();
+    }
+}

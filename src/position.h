@@ -2,6 +2,7 @@
 #define POSITION_H
 
 #include "position_exception.h"
+#include <stdlib.h>
 
 
 class Position {
@@ -26,6 +27,8 @@ class Position {
         Position* up_right();
         Position* down_left();
         Position* down_right();
+
+        bool is_adjacent(Position* p);
 };
 
 #endif

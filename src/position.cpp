@@ -51,3 +51,10 @@ Position* Position::down_right() {
 bool Position::are_coords_valid(int x, int y) {
     return x >= 0 && y >= 0;
 }
+
+bool Position::is_adjacent(Position* p) {
+    int x_delta = abs(this->get_x() - p->get_x());
+    int y_delta = abs(this->get_y() - p->get_y());
+
+    return x_delta <= 1 && y_delta <= 1;
+}

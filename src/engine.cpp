@@ -90,51 +90,52 @@ bool Engine::handle_keypress(int key) {
     return false;
 }
 
-void Engine::do_open() {
-    Position* target_pos;
+Position* Engine::get_adjacent_position_from_user() {
     Position* player_pos = player->pos();
 
     int key = getch();
     switch(key) {
         case KEY_LEFT:
-            target_pos = player_pos->left();
+            return player_pos->left();
             break;
         case KEY_RIGHT:
-            target_pos = player_pos->right();
+            return player_pos->right();
             break;
         case KEY_UP:
-            target_pos = player_pos->up();
+            return player_pos->up();
             break;
         case KEY_DOWN:
-            target_pos = player_pos->down();
+            return player_pos->down();
             break;
         case KEY_C1:
         case KEY_END:
-            target_pos = player_pos->down_left();
+            return player_pos->down_left();
             break;
         case KEY_C3:
         case KEY_NPAGE:
-            target_pos = player_pos->down_right();
+            return player_pos->down_right();
             break;
         case KEY_A1:
         case KEY_HOME:
-            target_pos = player_pos->up_left();
+            return player_pos->up_left();
             break;
         case KEY_A3:
         case KEY_PPAGE:
-            target_pos = player_pos->up_right();
+            return player_pos->up_right();
             break;
 
         default:
-            //dont open anything
+            return NULL;
             break;
     }
+}
 
-    Tile* target_tile = map->tile_for(target_pos);
-    if (target_tile->is_openable()) {
-        target_tile->open();
+void Engine::do_open() {
+    Position* target_pos = get_adjacent_position_from_user();
+
+    if (target_pos) {
+        player->open(target_pos);
     }
-
 }
 
 void Engine::start_next_level() {

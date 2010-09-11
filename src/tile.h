@@ -18,6 +18,9 @@ class Tile {
         virtual bool is_walkable() = 0;
         virtual string* to_char() = 0;
         virtual bool is_descendable();
+
+        virtual bool is_openable();
+        virtual void open();
 };
 
 #endif

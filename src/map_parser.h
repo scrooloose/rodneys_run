@@ -10,6 +10,7 @@
 #include "wall.h"
 #include "path.h"
 #include "stairs.h"
+#include "door.h"
 #include "empty_tile.h"
 #include "map_parsing_exception.h"
 

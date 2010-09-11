@@ -23,6 +23,7 @@ class Engine {
         bool handle_keypress(int key);
         void main_loop();
         void start_next_level();
+        void do_open();
 
 };
 

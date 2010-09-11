@@ -65,6 +65,9 @@ bool Engine::handle_keypress(int key) {
         case KEY_PPAGE:
             player->move_up_right();
             break;
+        case (int)'o':
+            do_open();
+            break;
         case (int)'>':
             if (player->move_downstairs()) {
                 if (map_list->has_next_map()) {
@@ -85,6 +88,53 @@ bool Engine::handle_keypress(int key) {
             //throw exception
     }
     return false;
+}
+
+void Engine::do_open() {
+    Position* target_pos;
+    Position* player_pos = player->pos();
+
+    int key = getch();
+    switch(key) {
+        case KEY_LEFT:
+            target_pos = player_pos->left();
+            break;
+        case KEY_RIGHT:
+            target_pos = player_pos->right();
+            break;
+        case KEY_UP:
+            target_pos = player_pos->up();
+            break;
+        case KEY_DOWN:
+            target_pos = player_pos->down();
+            break;
+        case KEY_C1:
+        case KEY_END:
+            target_pos = player_pos->down_left();
+            break;
+        case KEY_C3:
+        case KEY_NPAGE:
+            target_pos = player_pos->down_right();
+            break;
+        case KEY_A1:
+        case KEY_HOME:
+            target_pos = player_pos->up_left();
+            break;
+        case KEY_A3:
+        case KEY_PPAGE:
+            target_pos = player_pos->up_right();
+            break;
+
+        default:
+            //dont open anything
+            break;
+    }
+
+    Tile* target_tile = map->tile_for(target_pos);
+    if (target_tile->is_openable()) {
+        target_tile->open();
+    }
+
 }
 
 void Engine::start_next_level() {

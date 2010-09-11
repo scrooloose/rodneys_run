@@ -15,3 +15,11 @@ Position* Tile::pos() {
 bool Tile::is_descendable() {
     return false;
 }
+
+bool Tile::is_openable() {
+    return false;
+}
+
+void Tile::open() {
+    throw new runtime_error("Tile::open not implemented");
+}

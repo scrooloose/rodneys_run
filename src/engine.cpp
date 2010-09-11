@@ -67,7 +67,11 @@ bool Engine::handle_keypress(int key) {
             break;
         case (int)'>':
             if (player->move_downstairs()) {
-                start_next_level();
+                if (map_list->has_next_map()) {
+                    start_next_level();
+                }else{
+                    return true;
+                }
             }
             break;
 

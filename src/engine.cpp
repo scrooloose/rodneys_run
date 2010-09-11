@@ -1,11 +1,11 @@
 #include "engine.h"
 
 Engine::Engine() {
-    map = MapParser::parse_file(new string("../maps/1.map"));
+    MapList* ms = new MapList(new string("../maps/"));
+    map = ms->get_current_map();
 
     Position* p = new Position(1,1);
     player = new Player(p, map);
-
 }
 
 Engine::~Engine() {

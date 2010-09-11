@@ -62,6 +62,9 @@ Tile* MapParser::tile_for(char c, int x, int y) {
         case (int)'*':
             return new Path(p);
             break;
+        case (int)'>':
+            return new Stairs(p);
+            break;
         case (int)' ':
             return new EmptyTile(p);
             break;

@@ -12,6 +12,7 @@ class Engine {
     private:
         Player* player;
         Map* map;
+        MapList* map_list;
 
     public:
         Engine();
@@ -21,6 +22,7 @@ class Engine {
         void render();
         bool handle_keypress(int key);
         void main_loop();
+        void start_next_level();
 
 };
 

@@ -17,6 +17,7 @@ class Tile {
         Position* pos();
         virtual bool is_walkable() = 0;
         virtual string* to_char() = 0;
+        virtual bool is_descendable();
 };
 
 #endif

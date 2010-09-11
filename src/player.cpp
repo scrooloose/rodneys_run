@@ -51,3 +51,18 @@ void Player::move_down_left() {
 void Player::move_down_right() {
     move_to(position->down_right());
 }
+
+bool Player::move_downstairs() {
+    return current_tile()->is_descendable();
+}
+
+Tile* Player::current_tile() {
+    return map->tile_for(position);
+}
+
+void Player::set_map(Map* m) {
+    this->map = m;
+
+    //hardcode this for now
+    this->position = new Position(1,1);
+}

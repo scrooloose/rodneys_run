@@ -1,11 +1,11 @@
 #include "engine.h"
 
 Engine::Engine() {
-    MapList* ms = new MapList(new string("../maps/"));
-    map = ms->get_current_map();
+    this->map_list = new MapList(new string("../maps/"));
+    this->map = map_list->get_current_map();
 
     Position* p = new Position(1,1);
-    player = new Player(p, map);
+    this->player = new Player(p, map);
 }
 
 Engine::~Engine() {
@@ -67,6 +67,12 @@ bool Engine::handle_keypress(int key) {
         case KEY_PPAGE:
             player->move_up_right();
             break;
+        case (int)'>':
+            if (player->move_downstairs()) {
+                start_next_level();
+            }
+            break;
+
         case (int)'q':
             return true;
             break;
@@ -78,6 +84,12 @@ bool Engine::handle_keypress(int key) {
     }
     return false;
 }
+
+void Engine::start_next_level() {
+    map = map_list->goto_next_map();
+    player->set_map(map);
+}
+
 void Engine::main_loop() {
     int key;
 

@@ -17,6 +17,8 @@ class Player {
         ~Player();
 
         Position* pos();
+        Tile* current_tile();
+        void set_map(Map* m);
 
         void move_up();
         void move_down();
@@ -26,6 +28,8 @@ class Player {
         void move_up_right();
         void move_down_left();
         void move_down_right();
+        bool move_downstairs();
+
 };
 
 #endif

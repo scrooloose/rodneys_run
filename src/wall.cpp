@@ -10,3 +10,7 @@ bool Wall::is_walkable() {
 string* Wall::to_char() {
     return new string("#");
 }
+
+bool Wall::is_transparent() {
+    return false;
+}

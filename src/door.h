@@ -12,11 +12,10 @@ class Door : public Tile {
 
         bool is_walkable();
         string* to_char();
+        bool is_transparent();
 
         bool is_openable();
         void open();
-
-
 };
 
 #endif

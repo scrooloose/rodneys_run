@@ -58,3 +58,79 @@ bool Position::is_adjacent(Position* p) {
 
     return x_delta <= 1 && y_delta <= 1;
 }
+
+vector<Position*>* Position::positions_between(Position* p){
+    //using Bresenham's algorithm
+
+    int x1 = this->x;
+    int x2 = p->get_x();
+    int y1 = this->y;
+    int y2 = p->get_y();
+
+    vector<Position*>* positions = new vector<Position*>;
+
+
+    signed char ix;
+    signed char iy;
+
+    // if x1 == x2 or y1 == y2, then it does not matter what we set here
+    int delta_x = (x2 > x1?(ix = 1, x2 - x1):(ix = -1, x1 - x2)) << 1;
+    int delta_y = (y2 > y1?(iy = 1, y2 - y1):(iy = -1, y1 - y2)) << 1;
+
+    positions->push_back(new Position(x1, y1));
+
+    if (delta_x >= delta_y)
+    {
+        // error may go below zero
+        int error = delta_y - (delta_x >> 1);
+
+        while (x1 != x2)
+        {
+            if (error >= 0)
+            {
+                if (error || (ix > 0))
+                {
+                    y1 += iy;
+                    error -= delta_x;
+                }
+                // else do nothing
+            }
+            // else do nothing
+
+            x1 += ix;
+            error += delta_y;
+
+            positions->push_back(new Position(x1, y1));
+        }
+    }
+    else
+    {
+        // error may go below zero
+        int error = delta_x - (delta_y >> 1);
+
+        while (y1 != y2)
+        {
+            if (error >= 0)
+            {
+                if (error || (iy > 0))
+                {
+                    x1 += ix;
+                    error -= delta_y;
+                }
+                // else do nothing
+            }
+            // else do nothing
+
+            y1 += iy;
+            error += delta_x;
+
+            positions->push_back(new Position(x1, y1));
+        }
+    }
+
+    return positions;
+}
+
+bool Position::equals(Position* that) {
+    return this->x == that->get_x() && this->y == that->get_y();
+}

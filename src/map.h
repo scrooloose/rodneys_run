@@ -28,6 +28,8 @@ class Map {
         void add_tile(Tile* t);
         void set_starting_pos(Position* p);
         Position* get_starting_pos();
+        vector<Tile*>* get_all_tiles();
+        void update_visibility_from(Position* p);
 
 };
 

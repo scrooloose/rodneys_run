@@ -3,7 +3,9 @@
 
 #include "position_exception.h"
 #include <stdlib.h>
+#include <vector>
 
+using namespace std;
 
 class Position {
     private:
@@ -28,7 +30,9 @@ class Position {
         Position* down_left();
         Position* down_right();
 
+        vector<Position*>* positions_between(Position* p);
         bool is_adjacent(Position* p);
+        bool equals(Position* that);
 };
 
 #endif

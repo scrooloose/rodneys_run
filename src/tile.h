@@ -9,6 +9,7 @@ using namespace std;
 class Tile {
     private:
         Position* position;
+        bool visible;
 
     public:
         Tile(Position* p);
@@ -21,6 +22,11 @@ class Tile {
 
         virtual bool is_openable();
         virtual void open();
+
+        bool is_visible();
+        void set_visiblity(bool visibile);
+
+        virtual bool is_transparent();
 };
 
 #endif

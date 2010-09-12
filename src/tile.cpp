@@ -2,6 +2,7 @@
 
 Tile::Tile(Position* p) {
     position = p;
+    visible = false;
 }
 
 Tile::~Tile() {
@@ -22,4 +23,16 @@ bool Tile::is_openable() {
 
 void Tile::open() {
     throw new runtime_error("Tile::open not implemented");
+}
+
+bool Tile::is_visible() {
+    return visible;
+}
+
+void Tile::set_visiblity(bool visible) {
+    this->visible = visible;
+}
+
+bool Tile::is_transparent() {
+    return true;
 }

@@ -12,6 +12,10 @@ string* Door::to_char() {
     return new string(is_open ? "'" : "+");
 }
 
+bool Door::is_transparent() {
+    return is_open;
+}
+
 bool Door::is_openable() {
     return true;
 }

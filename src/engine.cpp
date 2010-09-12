@@ -29,9 +29,12 @@ void Engine::render() {
     for (int x = 0; x < map->get_width(); x++) {
         for (int y = 0; y < map->get_height(); y++) {
             Tile* t = map->tile_for(new Position(x,y));
-            mvprintw(y, x, t->to_char()->c_str());
+            if (t->is_visible()) {
+                mvprintw(y, x, t->to_char()->c_str());
+            }
         }
     }
+
     mvprintw(player->pos()->get_y(), player->pos()->get_x(), "@");
 }
 
@@ -148,11 +151,14 @@ void Engine::main_loop() {
 
     setup_curses();
 
+    map->update_visibility_from(player->pos());
     render();
+
     bool loop_done = false;
     while(!loop_done) {
         key = getch();
         loop_done = handle_keypress(key);
+        map->update_visibility_from(player->pos());
         render();
     }
 

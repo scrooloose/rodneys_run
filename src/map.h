@@ -14,7 +14,7 @@ class Map {
         vector< vector<Tile*> > tiles;
         int width;
         int height;
-	Position* starting_pos;
+        Position* starting_pos;
 
         void resize_tiles(int width, int height);
 

@@ -42,7 +42,7 @@ vector<Tile*> Map::get_all_tiles() {
     vector<Tile*> all_tiles;
 
     for (unsigned x=0; x < tiles.size(); x++) {
-       	for (unsigned y=0; y < tiles.at(x).size(); y++) {
+        for (unsigned y=0; y < tiles.at(x).size(); y++) {
             all_tiles.push_back(tiles.at(x).at(y));
         }
     }

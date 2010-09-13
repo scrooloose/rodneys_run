@@ -6,6 +6,7 @@
 #include "map_parser.h"
 #include "map_list.h"
 #include "position.h"
+#include "viewport_calculator.h"
 #include <ncurses.h>
 
 class Engine {
@@ -13,6 +14,10 @@ class Engine {
         Player* player;
         Map* map;
         MapList* map_list;
+
+        WINDOW* map_window;
+        static const int map_win_width = 51;
+        static const int map_win_height = 21;
 
     public:
         Engine();

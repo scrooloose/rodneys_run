@@ -17,6 +17,7 @@ void Engine::setup_curses() {
     cbreak();
     keypad(stdscr, true);
     curs_set(0);
+    map_window = newwin(map_win_height, map_win_width, 0, 0);
     refresh();
 }
 
@@ -26,16 +27,30 @@ void Engine::teardown_curses() {
 
 void Engine::render() {
     clear();
-    for (int x = 0; x < map->get_width(); x++) {
-        for (int y = 0; y < map->get_height(); y++) {
-            Tile* t = map->tile_for(Position(x,y));
-            if (t->is_visible()) {
-                mvprintw(y, x, t->to_char()->c_str());
-            }
+    wclear(map_window);
+
+    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->pos(), map);
+    vector<Position> to_render = vpc.contained_positions();
+
+    int x_offset = vpc.get_x_offset();
+    int y_offset = vpc.get_y_offset();
+
+    for (unsigned i = 0; i < to_render.size(); i++) {
+        Tile* t = map->tile_for(to_render.at(i));
+        if (t->is_visible()) {
+            int xpos = t->pos()->get_x() - x_offset + 1;
+            int ypos = t->pos()->get_y() - y_offset + 1;
+            mvwprintw(map_window, ypos, xpos , t->to_char()->c_str());
         }
     }
 
-    mvprintw(player->pos()->get_y(), player->pos()->get_x(), "@");
+    int ypos = player->pos()->get_y() - y_offset + 1;
+    int xpos = player->pos()->get_x() - x_offset + 1;
+    mvwprintw(map_window, ypos, xpos, "@");
+
+    box(map_window, '|', '-');
+    refresh();
+    wrefresh(map_window);
 }
 
 bool Engine::handle_keypress(int key) {

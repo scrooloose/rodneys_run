@@ -1,7 +1,12 @@
 #include "engine.h"
 
 int main() {
-    Engine* engine = new Engine();
-    engine->main_loop();
+    Engine engine;
+    try {
+        engine.main_loop();
+    }catch(exception e){
+        engine.teardown_curses();
+        throw;
+    }
     return 0;
 }

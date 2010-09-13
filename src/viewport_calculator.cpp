@@ -15,7 +15,10 @@ ViewportCalculator::~ViewportCalculator() {
 }
 
 void ViewportCalculator::calculate_bounds() {
-    if (vp_against_left_map_edge() || map_narrower_than_vp()) {
+    if(map_narrower_than_vp()) {
+        left_bound = 0;
+        right_bound = map->get_width();
+    }else if (vp_against_left_map_edge()) {
         left_bound = 0;
         right_bound = vp_width - 1;
     }else if(vp_against_right_map_edge()) {
@@ -26,7 +29,10 @@ void ViewportCalculator::calculate_bounds() {
         right_bound = position->get_x() + width_radius();
     }
 
-    if (vp_against_top_map_edge() || map_shorter_than_vp()){
+    if(map_shorter_than_vp()){
+        top_bound = 0;
+        bottom_bound = map->get_height();
+    }else if (vp_against_top_map_edge()) {
         top_bound = 0;
         bottom_bound = vp_height - 1;
     }else if(vp_against_bottom_map_edge()) {

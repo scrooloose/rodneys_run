@@ -28,7 +28,7 @@ void Engine::render() {
     clear();
     for (int x = 0; x < map->get_width(); x++) {
         for (int y = 0; y < map->get_height(); y++) {
-            Tile* t = map->tile_for(new Position(x,y));
+            Tile* t = map->tile_for(Position(x,y));
             if (t->is_visible()) {
                 mvprintw(y, x, t->to_char()->c_str());
             }
@@ -71,6 +71,7 @@ bool Engine::handle_keypress(int key) {
         case (int)'o':
             do_open();
             break;
+        case (int)'.': // fall through to '>'
         case (int)'>':
             if (player->move_downstairs()) {
                 if (map_list->has_next_map()) {

@@ -14,7 +14,7 @@ Position* Player::pos() {
 }
 
 void Player::move_to(Position* position) {
-    Tile* t = map->tile_for(position);
+    Tile* t = map->tile_for(*position);
     if (t->is_walkable()) {
         this->position = position;
     }
@@ -57,7 +57,7 @@ bool Player::move_downstairs() {
 }
 
 Tile* Player::current_tile() {
-    return map->tile_for(position);
+    return map->tile_for(*position);
 }
 
 void Player::set_map(Map* m) {
@@ -70,7 +70,7 @@ void Player::open(Position* target_pos){
         throw new runtime_error("Cannot open non-adjacent tile");
     }
 
-    Tile* target_tile = map->tile_for(target_pos);
+    Tile* target_tile = map->tile_for(*target_pos);
     if (target_tile->is_openable()) {
         target_tile->open();
     }

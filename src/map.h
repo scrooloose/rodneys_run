@@ -14,7 +14,7 @@ class Map {
         vector< vector<Tile*> > tiles;
         int width;
         int height;
-        Position* starting_pos;
+	Position* starting_pos;
 
         void resize_tiles(int width, int height);
 
@@ -22,13 +22,13 @@ class Map {
         Map(int width, int height);
         ~Map();
 
-        Tile* tile_for(Position* p);
+        Tile* tile_for(Position p);
         int get_width();
         int get_height();
         void add_tile(Tile* t);
         void set_starting_pos(Position* p);
         Position* get_starting_pos();
-        vector<Tile*>* get_all_tiles();
+        vector<Tile*> get_all_tiles();
         void update_visibility_from(Position* p);
 
 };

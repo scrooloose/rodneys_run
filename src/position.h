@@ -30,7 +30,7 @@ class Position {
         Position* down_left();
         Position* down_right();
 
-        vector<Position*>* positions_between(Position* p);
+        vector<Position> positions_between(Position* p);
         bool is_adjacent(Position* p);
         bool equals(Position* that);
 };

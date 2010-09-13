@@ -59,7 +59,7 @@ bool Position::is_adjacent(Position* p) {
     return x_delta <= 1 && y_delta <= 1;
 }
 
-vector<Position*>* Position::positions_between(Position* p){
+vector<Position> Position::positions_between(Position* p){
     //using Bresenham's algorithm
 
     int x1 = this->x;
@@ -67,7 +67,7 @@ vector<Position*>* Position::positions_between(Position* p){
     int y1 = this->y;
     int y2 = p->get_y();
 
-    vector<Position*>* positions = new vector<Position*>;
+    vector<Position> positions;
 
 
     signed char ix;
@@ -77,7 +77,7 @@ vector<Position*>* Position::positions_between(Position* p){
     int delta_x = (x2 > x1?(ix = 1, x2 - x1):(ix = -1, x1 - x2)) << 1;
     int delta_y = (y2 > y1?(iy = 1, y2 - y1):(iy = -1, y1 - y2)) << 1;
 
-    positions->push_back(new Position(x1, y1));
+    positions.push_back(Position(x1, y1));
 
     if (delta_x >= delta_y)
     {
@@ -100,7 +100,7 @@ vector<Position*>* Position::positions_between(Position* p){
             x1 += ix;
             error += delta_y;
 
-            positions->push_back(new Position(x1, y1));
+            positions.push_back(Position(x1, y1));
         }
     }
     else
@@ -124,7 +124,7 @@ vector<Position*>* Position::positions_between(Position* p){
             y1 += iy;
             error += delta_x;
 
-            positions->push_back(new Position(x1, y1));
+            positions.push_back(Position(x1, y1));
         }
     }
 

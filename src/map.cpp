@@ -6,6 +6,10 @@ Map::Map(int width, int height) {
     resize_tiles(width, height);
 }
 
+Map::~Map() {
+    delete name;
+}
+
 void Map::resize_tiles(int width, int height) {
     tiles.resize(width);
     for (int x = 0; x < width; x++) {
@@ -72,4 +76,12 @@ void Map::update_visibility_from(Position* p) {
         }
 
     }
+}
+
+void Map::set_name(string* name) {
+    this->name = name;
+}
+
+string* Map::get_name() {
+    return name;
 }

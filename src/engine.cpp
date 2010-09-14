@@ -4,6 +4,7 @@ Engine::Engine() {
     this->map_list = new MapList(new string("../maps/"));
     this->map = map_list->get_current_map();
     this->player = new Player(map);
+    add_level_entry_msg();
 }
 
 Engine::~Engine() {
@@ -177,6 +178,7 @@ void Engine::do_open() {
 void Engine::start_next_level() {
     map = map_list->goto_next_map();
     player->set_map(map);
+    add_level_entry_msg();
 }
 
 void Engine::main_loop() {
@@ -196,4 +198,10 @@ void Engine::main_loop() {
     }
 
     teardown_curses();
+}
+
+void Engine::add_level_entry_msg() {
+    string* msg = new string("Entering ");
+    msg->append(*map->get_name());
+    MessageLog::add_message(msg);
 }

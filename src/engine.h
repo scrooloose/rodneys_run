@@ -9,6 +9,7 @@
 #include "viewport_calculator.h"
 #include "message_log.h"
 #include <ncurses.h>
+#include <string.h>
 
 class Engine {
     private:
@@ -21,6 +22,8 @@ class Engine {
         static const int map_win_height = 21;
 
         WINDOW* msg_window;
+
+        void add_level_entry_msg();
 
     public:
         Engine();

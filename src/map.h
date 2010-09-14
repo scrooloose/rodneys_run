@@ -6,8 +6,9 @@
 #include "floor.h"
 #include "wall.h"
 #include <vector>
+#include <string>
 
-class Player;
+using namespace std;
 
 class Map {
     private:
@@ -15,6 +16,7 @@ class Map {
         int width;
         int height;
         Position* starting_pos;
+        string* name;
 
         void resize_tiles(int width, int height);
 
@@ -30,6 +32,8 @@ class Map {
         Position* get_starting_pos();
         vector<Tile*> get_all_tiles();
         void update_visibility_from(Position* p);
+        void set_name(string* name);
+        string* get_name();
 
 };
 

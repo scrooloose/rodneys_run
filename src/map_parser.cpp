@@ -52,6 +52,8 @@ Map* MapParser::parse() {
         map_file->close();
     }
 
+    map->set_name(fname);
+
     return map;
 }
 

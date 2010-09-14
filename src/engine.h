@@ -7,6 +7,7 @@
 #include "map_list.h"
 #include "position.h"
 #include "viewport_calculator.h"
+#include "message_log.h"
 #include <ncurses.h>
 
 class Engine {
@@ -19,12 +20,16 @@ class Engine {
         static const int map_win_width = 51;
         static const int map_win_height = 21;
 
+        WINDOW* msg_window;
+
     public:
         Engine();
         ~Engine();
         void setup_curses();
         void teardown_curses();
         void render();
+        void render_map();
+        void render_messages();
         bool handle_keypress(int key);
         void main_loop();
         void start_next_level();

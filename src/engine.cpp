@@ -18,6 +18,7 @@ void Engine::setup_curses() {
     keypad(stdscr, true);
     curs_set(0);
     map_window = newwin(map_win_height, map_win_width, 0, 0);
+    msg_window = newwin(5, map_win_width, map_win_height, 0);
     refresh();
 }
 
@@ -27,6 +28,14 @@ void Engine::teardown_curses() {
 
 void Engine::render() {
     clear();
+    refresh();
+
+    render_map();
+    render_messages();
+
+}
+
+void Engine::render_map() {
     wclear(map_window);
 
     ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->pos(), map);
@@ -47,10 +56,18 @@ void Engine::render() {
     int ypos = player->pos()->get_y() - y_offset + 1;
     int xpos = player->pos()->get_x() - x_offset + 1;
     mvwprintw(map_window, ypos, xpos, "@");
-
     box(map_window, 0, 0);
-    refresh();
     wrefresh(map_window);
+
+}
+
+void Engine::render_messages() {
+    vector<string*> messages = MessageLog::latest_messages(3);
+    for (unsigned i = 0; i < messages.size(); i++) {
+        mvwprintw(msg_window, i + 1, 1, messages.at(i)->c_str());
+    }
+    box(msg_window, 0, 0);
+    wrefresh(msg_window);
 }
 
 bool Engine::handle_keypress(int key) {

@@ -48,7 +48,7 @@ void Engine::render() {
     int xpos = player->pos()->get_x() - x_offset + 1;
     mvwprintw(map_window, ypos, xpos, "@");
 
-    box(map_window, '|', '-');
+    box(map_window, 0, 0);
     refresh();
     wrefresh(map_window);
 }

@@ -52,6 +52,14 @@ void Engine::render_map() {
             int ypos = t->get_pos()->get_y() - y_offset + 1;
             mvwprintw(map_window, ypos, xpos , t->to_char().c_str());
         }
+
+        Mobile* mob = (Mobile*) map->mobile_for(to_render.at(i));
+        if (mob && mob->is_visible_from(player->get_pos())) {
+            int xpos = mob->get_pos()->get_x() - x_offset + 1;
+            int ypos = mob->get_pos()->get_y() - y_offset + 1;
+            mvwprintw(map_window, ypos, xpos , mob->to_char().c_str());
+        }
+
     }
 
     int ypos = player->get_pos()->get_y() - y_offset + 1;

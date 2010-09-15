@@ -41,7 +41,14 @@ Map* MapParser::parse() {
                     map->set_starting_pos(p);
                 }
 
-                Tile* t = tile_for(c, p);
+                Positionable* mob;
+                Tile* t;
+                if ((mob = mobile_for(c, p, map)) != NULL) {
+                    t = tile_for('.', p);
+                    map->add_mobile(mob);
+                } else {
+                    t = tile_for(c, p);
+                }
 
                 map->add_tile(t);
             }
@@ -85,6 +92,16 @@ Tile* MapParser::tile_for(char c, Position* p) {
             break;
     }
 
+}
+
+Positionable* MapParser::mobile_for(char c, Position* p, Map* m) {
+    switch(c) {
+        case (int)'z':
+            return new Zombie(p, m);
+            break;
+    }
+
+    return NULL;
 }
 
 int MapParser::find_width() {

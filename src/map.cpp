@@ -3,17 +3,22 @@
 Map::Map(int width, int height) {
     this->width = width;
     this->height = height;
-    resize_tiles(width, height);
+    resize_map(width, height);
 }
 
 Map::~Map() {
     delete name;
 }
 
-void Map::resize_tiles(int width, int height) {
+void Map::resize_map(int width, int height) {
     tiles.resize(width);
     for (int x = 0; x < width; x++) {
         tiles[x].resize(height);
+    }
+
+    mobiles.resize(width);
+    for (int x = 0; x < width; x++) {
+        mobiles[x].resize(height);
     }
 }
 
@@ -29,9 +34,18 @@ Tile* Map::tile_for(Position p) {
     return tiles.at(p.get_x()).at(p.get_y());
 }
 
+Positionable* Map::mobile_for(Position p) {
+    return mobiles.at(p.get_x()).at(p.get_y());
+}
+
 void Map::add_tile(Tile* t) {
     Position* p = t->get_pos();
     tiles[p->get_x()][p->get_y()] = t;
+}
+
+void Map::add_mobile(Positionable* m) {
+    Position* p = m->get_pos();
+    mobiles[p->get_x()][p->get_y()] = m;
 }
 
 void Map::set_starting_pos(Position* p) {
@@ -54,6 +68,19 @@ vector<Tile*> Map::get_all_tiles() {
     return all_tiles;
 }
 
+bool Map::positions_have_los(Position* p1, Position* p2) {
+    vector<Position> positions = p1->positions_between(p2);
+
+    for (unsigned j=0; j < positions.size() - 1; j++) {
+        Tile* tile_in_line = tile_for(positions.at(j));
+        if (!tile_in_line->is_transparent()) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void Map::update_visibility_from(Position* p) {
     vector<Tile*> all_tiles = get_all_tiles();
 
@@ -61,20 +88,9 @@ void Map::update_visibility_from(Position* p) {
         Tile* current = all_tiles.at(i);
         if (current->is_visible()) continue;
 
-        vector<Position> positions = p->positions_between(current->get_pos());
-
-        bool sight_blocked = false;
-        for (unsigned j=0; j < positions.size() - 1; j++) {
-            Tile* tile_in_line = tile_for(positions.at(j));
-            if (!tile_in_line->is_transparent()) {
-                sight_blocked = true;
-            }
-        }
-
-        if (!sight_blocked) {
+        if (positions_have_los(p, current->get_pos())) {
             current->set_visiblity(true);
         }
-
     }
 }
 

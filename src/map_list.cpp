@@ -34,7 +34,7 @@ void MapList::init_maps(){
 }
 
 bool MapList::has_next_map() {
-    return current_map_idx < (maps.size() - 1);
+    return current_map_idx < ((int)maps.size() - 1);
 }
 
 bool MapList::has_prev_map() {

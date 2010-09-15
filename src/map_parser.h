@@ -14,6 +14,9 @@
 #include "empty_tile.h"
 #include "map_parsing_exception.h"
 
+#include "mobile.h"
+#include "zombie.h"
+
 using namespace std;
 
 class MapParser {
@@ -30,6 +33,7 @@ class MapParser {
 
         Map* parse();
         Tile* tile_for(char c, Position* p);
+        Positionable* mobile_for(char c, Position* p, Map* m);
         int find_width();
         int find_height();
 

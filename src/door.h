@@ -11,7 +11,7 @@ class Door : public Tile {
         Door(Position* p);
 
         bool is_walkable();
-        string* to_char();
+        string to_char();
         bool is_transparent();
 
         bool is_openable();

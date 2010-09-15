@@ -8,8 +8,8 @@ bool Door::is_walkable() {
     return is_open;
 }
 
-string* Door::to_char() {
-    return new string(is_open ? "'" : "+");
+string Door::to_char() {
+    return string(is_open ? "'" : "+");
 }
 
 bool Door::is_transparent() {

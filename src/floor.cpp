@@ -7,6 +7,6 @@ bool Floor::is_walkable() {
     return true;
 }
 
-string* Floor::to_char() {
-    return new string(".");
+string Floor::to_char() {
+    return string(".");
 }

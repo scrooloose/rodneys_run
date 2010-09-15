@@ -7,6 +7,6 @@ bool Path::is_walkable() {
     return true;
 }
 
-string* Path::to_char() {
-    return new string("*");
+string Path::to_char() {
+    return string("*");
 }

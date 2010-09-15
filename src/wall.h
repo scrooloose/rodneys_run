@@ -7,7 +7,7 @@ class Wall : public Tile {
     public:
         Wall(Position* p);
         bool is_walkable();
-        string* to_char();
+        string to_char();
         bool is_transparent();
 };
 

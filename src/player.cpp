@@ -75,3 +75,7 @@ void Player::open(Position* target_pos){
         target_tile->open();
     }
 }
+
+string Player::to_char() {
+    return string("@");
+}

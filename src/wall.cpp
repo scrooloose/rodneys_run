@@ -7,8 +7,8 @@ bool Wall::is_walkable() {
     return false;
 }
 
-string* Wall::to_char() {
-    return new string("#");
+string Wall::to_char() {
+    return string("#");
 }
 
 bool Wall::is_transparent() {

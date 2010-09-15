@@ -3,9 +3,10 @@
 
 #include "position.h"
 #include "map.h"
+#include "renderable.h"
 
 
-class Player {
+class Player : public IRenderable {
     private:
         Position* position;
         Map* map;
@@ -31,6 +32,9 @@ class Player {
         bool move_downstairs();
 
         void open(Position* p);
+
+        //from IRenderable
+        string to_char();
 
 };
 

@@ -8,7 +8,7 @@ class EmptyTile : public Tile {
         EmptyTile(Position* p);
         bool is_walkable();
         bool is_transparent();
-        string* to_char();
+        string to_char();
 };
 
 #endif

@@ -7,7 +7,7 @@ class Path : public Tile {
     public:
         Path(Position* p);
         bool is_walkable();
-        string* to_char();
+        string to_char();
 };
 
 #endif

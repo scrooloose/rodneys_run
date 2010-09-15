@@ -11,6 +11,6 @@ bool Stairs::is_descendable() {
     return true;
 }
 
-string* Stairs::to_char() {
-    return new string(">");
+string Stairs::to_char() {
+    return string(">");
 }

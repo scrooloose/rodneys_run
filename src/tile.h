@@ -2,11 +2,12 @@
 #define TILE_H
 
 #include "position.h"
+#include "renderable.h"
 #include <string>
 
 using namespace std;
 
-class Tile {
+class Tile : public IRenderable {
     private:
         Position* position;
         bool visible;
@@ -17,7 +18,6 @@ class Tile {
 
         Position* pos();
         virtual bool is_walkable() = 0;
-        virtual string* to_char() = 0;
         virtual bool is_descendable();
 
         virtual bool is_openable();

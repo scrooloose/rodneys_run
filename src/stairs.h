@@ -9,7 +9,7 @@ class Stairs : public Tile {
         Stairs(Position* p);
         bool is_walkable();
         bool is_descendable();
-        string* to_char();
+        string to_char();
 };
 
 #endif

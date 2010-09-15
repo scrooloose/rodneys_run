@@ -11,6 +11,6 @@ bool EmptyTile::is_transparent() {
     return false;
 }
 
-string* EmptyTile::to_char() {
-    return new string(" ");
+string EmptyTile::to_char() {
+    return string(" ");
 }

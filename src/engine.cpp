@@ -50,13 +50,13 @@ void Engine::render_map() {
         if (t->is_visible()) {
             int xpos = t->pos()->get_x() - x_offset + 1;
             int ypos = t->pos()->get_y() - y_offset + 1;
-            mvwprintw(map_window, ypos, xpos , t->to_char()->c_str());
+            mvwprintw(map_window, ypos, xpos , t->to_char().c_str());
         }
     }
 
     int ypos = player->pos()->get_y() - y_offset + 1;
     int xpos = player->pos()->get_x() - x_offset + 1;
-    mvwprintw(map_window, ypos, xpos, "@");
+    mvwprintw(map_window, ypos, xpos, player->to_char().c_str());
     box(map_window, 0, 0);
     wrefresh(map_window);
 

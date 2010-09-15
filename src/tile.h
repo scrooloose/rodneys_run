@@ -16,7 +16,7 @@ class Tile : public IRenderable {
         Tile(Position* p);
         ~Tile();
 
-        Position* pos();
+        Position* get_pos();
         virtual bool is_walkable() = 0;
         virtual bool is_descendable();
 

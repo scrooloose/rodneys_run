@@ -30,7 +30,7 @@ Tile* Map::tile_for(Position p) {
 }
 
 void Map::add_tile(Tile* t) {
-    Position* p = t->pos();
+    Position* p = t->get_pos();
     tiles[p->get_x()][p->get_y()] = t;
 }
 
@@ -61,7 +61,7 @@ void Map::update_visibility_from(Position* p) {
         Tile* current = all_tiles.at(i);
         if (current->is_visible()) continue;
 
-        vector<Position> positions = p->positions_between(current->pos());
+        vector<Position> positions = p->positions_between(current->get_pos());
 
         bool sight_blocked = false;
         for (unsigned j=0; j < positions.size() - 1; j++) {

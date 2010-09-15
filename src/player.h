@@ -2,13 +2,13 @@
 #define PLAYER_H
 
 #include "position.h"
+#include "positionable.h"
 #include "map.h"
 #include "renderable.h"
 
 
-class Player : public IRenderable {
+class Player : public IRenderable, public Positionable {
     private:
-        Position* position;
         Map* map;
 
         void move_to(Position* position);
@@ -17,7 +17,6 @@ class Player : public IRenderable {
         Player(Map* map);
         ~Player();
 
-        Position* pos();
         Tile* current_tile();
         void set_map(Map* m);
 

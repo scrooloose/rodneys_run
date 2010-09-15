@@ -1,7 +1,6 @@
 #include "player.h"
 
-Player::Player(Map* map) {
-    this->position = map->get_starting_pos();
+Player::Player(Map* map) : Positionable(map->get_starting_pos()) {
     this->map = map;
 }
 
@@ -9,14 +8,10 @@ Player::~Player() {
     delete position;
 }
 
-Position* Player::pos() {
-    return position;
-}
-
 void Player::move_to(Position* position) {
     Tile* t = map->tile_for(*position);
     if (t->is_walkable()) {
-        this->position = position;
+        set_pos(position);
     }
 }
 

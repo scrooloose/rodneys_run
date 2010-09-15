@@ -9,7 +9,7 @@ Tile::~Tile() {
     delete position;
 }
 
-Position* Tile::pos() {
+Position* Tile::get_pos() {
     return position;
 }
 

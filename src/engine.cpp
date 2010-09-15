@@ -39,7 +39,7 @@ void Engine::render() {
 void Engine::render_map() {
     wclear(map_window);
 
-    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->pos(), map);
+    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
     vector<Position> to_render = vpc.contained_positions();
 
     int x_offset = vpc.get_x_offset();
@@ -48,14 +48,14 @@ void Engine::render_map() {
     for (unsigned i = 0; i < to_render.size(); i++) {
         Tile* t = map->tile_for(to_render.at(i));
         if (t->is_visible()) {
-            int xpos = t->pos()->get_x() - x_offset + 1;
-            int ypos = t->pos()->get_y() - y_offset + 1;
+            int xpos = t->get_pos()->get_x() - x_offset + 1;
+            int ypos = t->get_pos()->get_y() - y_offset + 1;
             mvwprintw(map_window, ypos, xpos , t->to_char().c_str());
         }
     }
 
-    int ypos = player->pos()->get_y() - y_offset + 1;
-    int xpos = player->pos()->get_x() - x_offset + 1;
+    int ypos = player->get_pos()->get_y() - y_offset + 1;
+    int xpos = player->get_pos()->get_x() - x_offset + 1;
     mvwprintw(map_window, ypos, xpos, player->to_char().c_str());
     box(map_window, 0, 0);
     wrefresh(map_window);
@@ -128,7 +128,7 @@ bool Engine::handle_keypress(int key) {
 }
 
 Position* Engine::get_adjacent_position_from_user() {
-    Position* player_pos = player->pos();
+    Position* player_pos = player->get_pos();
 
     int key = getch();
     switch(key) {
@@ -186,14 +186,14 @@ void Engine::main_loop() {
 
     setup_curses();
 
-    map->update_visibility_from(player->pos());
+    map->update_visibility_from(player->get_pos());
     render();
 
     bool loop_done = false;
     while(!loop_done) {
         key = getch();
         loop_done = handle_keypress(key);
-        map->update_visibility_from(player->pos());
+        map->update_visibility_from(player->get_pos());
         render();
     }
 

@@ -29,13 +29,11 @@ vector<string*> MessageLog::latest_messages(unsigned count) {
     MessageLog* ml = get_instance();
 
     if (ml->messages.size() < count) {
-        return ml->messages;
+        count = ml->messages.size();
     }
 
-    for (unsigned i = 0; i < count; i++) {
-        string* s = ml->messages.at(ml->messages.size() - i - 1);
-        msgs.push_back(s);
-    }
+    msgs.resize(count);
+    copy(ml->messages.end()-count, ml->messages.end(), msgs.begin());
 
     return msgs;
 }

@@ -71,6 +71,8 @@ void Engine::render_map() {
 }
 
 void Engine::render_messages() {
+    wclear(msg_window);
+
     vector<string*> messages = MessageLog::latest_messages(3);
     for (int i = messages.size()-1; i >= 0; i--) {
         mvwprintw(msg_window, i + 1, 1, messages.at(i)->c_str());

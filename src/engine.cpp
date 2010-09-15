@@ -126,11 +126,6 @@ bool Engine::handle_keypress(int key) {
         case (int)'q':
             return true;
             break;
-
-        default:
-            printw("Unknown keypress");
-            refresh();
-            //throw exception
     }
     return false;
 }

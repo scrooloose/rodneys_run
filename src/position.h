@@ -33,6 +33,7 @@ class Position {
         vector<Position> positions_between(Position* p);
         bool is_adjacent(Position* p);
         bool equals(Position* that);
+        int distance_to(Position* p);
 };
 
 #endif

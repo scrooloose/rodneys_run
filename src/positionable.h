@@ -2,6 +2,7 @@
 #define POSITIONABLE_H
 
 #include "position.h"
+#include <vector>
 
 class Positionable {
     protected:
@@ -11,8 +12,8 @@ class Positionable {
         Positionable(Position* p);
         ~Positionable();
 
-        Position* get_pos();
-        void set_pos(Position* p);
+        virtual Position* get_pos();
+        virtual void set_pos(Position* p);
 };
 
 #endif

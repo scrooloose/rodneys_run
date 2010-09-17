@@ -17,6 +17,7 @@ class Map {
         int height;
         Position* starting_pos;
         string* name;
+        Positionable* player;
 
         void resize_map(int width, int height);
 
@@ -33,11 +34,15 @@ class Map {
         void set_starting_pos(Position* p);
         Position* get_starting_pos();
         vector<Tile*> get_all_tiles();
+        vector<Positionable*> get_all_mobiles();
         bool positions_have_los(Position* p1, Position* p2);
         void update_visibility_from(Position* p);
         void set_name(string* name);
         string* get_name();
+        void set_player(Positionable* p);
+        Positionable* get_player();
 
+        void update_mobile_position(Positionable* mob, Position old_pos, Position new_pos);
 };
 
 #endif

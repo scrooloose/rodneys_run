@@ -14,7 +14,10 @@ class Mobile : public IRenderable, public Positionable {
         Mobile(Position* p, Map* m);
         ~Mobile();
 
+        void set_pos(Position* p);
         bool is_visible_from(Position* p);
+        virtual void do_ai() = 0;
+
 };
 
 

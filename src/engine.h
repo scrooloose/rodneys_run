@@ -38,6 +38,7 @@ class Engine {
         void start_next_level();
         Position* get_adjacent_position_from_user();
         void do_open();
+        void do_ai();
 
 };
 

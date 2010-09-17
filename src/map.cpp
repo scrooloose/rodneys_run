@@ -68,6 +68,21 @@ vector<Tile*> Map::get_all_tiles() {
     return all_tiles;
 }
 
+vector<Positionable*> Map::get_all_mobiles() {
+    vector<Positionable*> all_mobs;
+
+    for (unsigned x=0; x < mobiles.size(); x++) {
+        for (unsigned y=0; y < mobiles.at(x).size(); y++) {
+            Positionable* current = mobiles.at(x).at(y);
+            if (current) {
+                all_mobs.push_back(current);
+            }
+        }
+    }
+
+    return all_mobs;
+}
+
 bool Map::positions_have_los(Position* p1, Position* p2) {
     vector<Position> positions = p1->positions_between(p2);
 
@@ -100,4 +115,17 @@ void Map::set_name(string* name) {
 
 string* Map::get_name() {
     return name;
+}
+
+void Map::set_player(Positionable* p) {
+    this->player = p;
+}
+
+Positionable* Map::get_player() {
+    return this->player;
+}
+
+void Map::update_mobile_position(Positionable* mob, Position old_pos, Position new_pos) {
+    mobiles.at(old_pos.get_x()).at(old_pos.get_y()) = NULL;
+    mobiles[new_pos.get_x()][new_pos.get_y()] = mob;
 }

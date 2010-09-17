@@ -134,3 +134,8 @@ vector<Position> Position::positions_between(Position* p){
 bool Position::equals(Position* that) {
     return this->x == that->get_x() && this->y == that->get_y();
 }
+
+int Position::distance_to(Position* p) {
+    vector<Position> positions = positions_between(p);
+    return positions.size() - 1;
+}

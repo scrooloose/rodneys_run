@@ -3,8 +3,7 @@
 Mobile::Mobile(Position* p, Map* m, int turn_delay) : Positionable(p) {
     this->map = m;
     this->health = 20;
-    this->turn_delay = turn_delay;
-    reset_turn_timer();
+    this->turn_timer = new TurnTimer(turn_delay);
 }
 
 Mobile::~Mobile() {
@@ -32,14 +31,7 @@ void Mobile::killed() {
 }
 
 void Mobile::tick() {
-    turn_timer--;
-    if (turn_timer == 0) {
+    if (turn_timer->tick()) {
         take_turn();
-        reset_turn_timer();
     }
-}
-
-void Mobile::reset_turn_timer() {
-    MessageLog::add_message("Mobile: reset_turn_timer");
-    turn_timer = turn_delay;
 }

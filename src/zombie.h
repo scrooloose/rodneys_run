@@ -19,7 +19,7 @@ class Zombie : public Mobile {
 
         string to_char();
         int get_attack_damage();
-        void do_ai();
+        void take_turn();
 };
 
 #endif

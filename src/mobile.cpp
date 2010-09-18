@@ -1,8 +1,10 @@
 #include "mobile.h"
 
-Mobile::Mobile(Position* p, Map* m) : Positionable(p) {
+Mobile::Mobile(Position* p, Map* m, int turn_delay) : Positionable(p) {
     this->map = m;
     this->health = 20;
+    this->turn_delay = turn_delay;
+    reset_turn_timer();
 }
 
 Mobile::~Mobile() {
@@ -27,4 +29,17 @@ void Mobile::take_damage(int damage) {
 void Mobile::killed() {
     map->mobile_killed(this);
     delete this;
+}
+
+void Mobile::tick() {
+    turn_timer--;
+    if (turn_timer == 0) {
+        take_turn();
+        reset_turn_timer();
+    }
+}
+
+void Mobile::reset_turn_timer() {
+    MessageLog::add_message("Mobile: reset_turn_timer");
+    turn_timer = turn_delay;
 }

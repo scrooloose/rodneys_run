@@ -234,7 +234,7 @@ void Engine::do_ai() {
     vector<Positionable*> mobs = map->get_all_mobiles();
     for (unsigned i = 0; i < mobs.size(); i++) {
         Mobile* current = (Mobile*) mobs.at(i);
-        current->do_ai();
+        current->tick();
     }
 }
 

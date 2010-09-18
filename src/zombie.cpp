@@ -1,6 +1,6 @@
 #include "zombie.h"
 
-Zombie::Zombie(Position* p, Map* m) : Mobile(p,m) {
+Zombie::Zombie(Position* p, Map* m) : Mobile(p,m,2) {
     this->ai = new MeleeAI(this, m);
 }
 
@@ -11,7 +11,7 @@ string Zombie::to_char() {
     return string("z");
 }
 
-void Zombie::do_ai() {
+void Zombie::take_turn() {
     this->ai->do_ai();
 }
 

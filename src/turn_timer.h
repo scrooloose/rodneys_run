@@ -11,6 +11,7 @@ class TurnTimer {
         TurnTimer(int delay);
         bool tick();
         void reset();
+        void set_remaining_time(int timer);
 
 };
 

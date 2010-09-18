@@ -214,9 +214,15 @@ void Engine::main_loop() {
 
     bool loop_done = false;
     while(!loop_done) {
-        key = getch();
-        loop_done = handle_keypress(key);
-        map->update_visibility_from(player->get_pos());
+        bool player_had_turn = false;
+
+        if (player->tick()) {
+            key = getch();
+            loop_done = handle_keypress(key);
+            map->update_visibility_from(player->get_pos());
+            player_had_turn = true;
+        }
+
         do_ai();
 
         if (player->is_dead()) {
@@ -224,7 +230,9 @@ void Engine::main_loop() {
             loop_done = true;
         }
 
-        render();
+        if (player_had_turn) {
+            render();
+        }
     }
 
     teardown_curses();

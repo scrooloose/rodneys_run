@@ -7,12 +7,14 @@
 #include "renderable.h"
 #include "mobile.h"
 #include "message_log.h"
+#include "turn_timer.h"
 
 
 class Player : public Renderable, public Positionable {
     private:
         Map* map;
         int health;
+        TurnTimer* turn_timer;
 
         void move_to(Position* position);
 
@@ -39,8 +41,8 @@ class Player : public Renderable, public Positionable {
         void killed();
         bool is_dead();
         int get_health();
+        bool tick();
 
-        //from IRenderable
         string to_char();
 
 };

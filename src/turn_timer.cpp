@@ -17,3 +17,7 @@ bool TurnTimer::tick() {
 void TurnTimer::reset() {
     timer = delay;
 }
+
+void TurnTimer::set_remaining_time(int t) {
+    timer = t;
+}

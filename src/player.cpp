@@ -3,6 +3,7 @@
 Player::Player(Map* map) : Positionable(map->get_starting_pos()) {
     this->map = map;
     this->health = 100;
+    this->turn_timer = new TurnTimer(10);
 }
 
 Player::~Player() {
@@ -64,6 +65,7 @@ Tile* Player::current_tile() {
 void Player::set_map(Map* m) {
     this->map = m;
     this->position = map->get_starting_pos();
+    this->turn_timer->set_remaining_time(1);
 }
 
 void Player::open(Position* target_pos){
@@ -100,6 +102,10 @@ bool Player::is_dead() {
 
 int Player::get_health() {
     return health;
+}
+
+bool Player::tick() {
+    return turn_timer->tick();
 }
 
 string Player::to_char() {

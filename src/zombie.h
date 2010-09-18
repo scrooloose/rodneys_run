@@ -18,7 +18,7 @@ class Zombie : public Mobile {
         ~Zombie();
 
         string to_char();
-
+        int get_attack_damage();
         void do_ai();
 };
 

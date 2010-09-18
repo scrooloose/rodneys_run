@@ -39,6 +39,7 @@ class Engine {
         Position* get_adjacent_position_from_user();
         void do_open();
         void do_ai();
+        void game_over();
 
 };
 

@@ -6,6 +6,7 @@
 #include "map.h"
 #include "mobile.h"
 #include "message_log.h"
+#include "player.h"
 
 class MeleeAI : public AI {
     private:
@@ -26,6 +27,7 @@ class MeleeAI : public AI {
 
         Position* get_pos();
         void set_pos(Position* p);
+        Player* get_player();
 
     public:
         MeleeAI(Mobile* mobile, Map* map);

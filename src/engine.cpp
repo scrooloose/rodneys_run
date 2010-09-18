@@ -202,6 +202,12 @@ void Engine::main_loop() {
         loop_done = handle_keypress(key);
         map->update_visibility_from(player->get_pos());
         do_ai();
+
+        if (player->is_dead()) {
+            game_over();
+            loop_done = true;
+        }
+
         render();
     }
 
@@ -220,4 +226,8 @@ void Engine::add_level_entry_msg() {
     string* msg = new string("Entering ");
     msg->append(*map->get_name());
     MessageLog::add_message(msg);
+}
+
+void Engine::game_over() {
+    MessageLog::add_message("You died!");
 }

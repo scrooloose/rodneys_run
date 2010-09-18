@@ -9,6 +9,7 @@
 class Mobile : public Renderable, public Positionable {
     protected:
         Map* map;
+        int health;
 
     public:
         Mobile(Position* p, Map* m);
@@ -17,6 +18,9 @@ class Mobile : public Renderable, public Positionable {
         void set_pos(Position* p);
         bool is_visible_from(Position* p);
         virtual void do_ai() = 0;
+        void take_damage(int damage);
+        virtual int get_attack_damage() = 0;
+        void killed();
 
 };
 

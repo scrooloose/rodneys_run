@@ -129,3 +129,9 @@ void Map::update_mobile_position(Positionable* mob, Position old_pos, Position n
     mobiles.at(old_pos.get_x()).at(old_pos.get_y()) = NULL;
     mobiles[new_pos.get_x()][new_pos.get_y()] = mob;
 }
+
+void Map::mobile_killed(Positionable* mob) {
+    Position* p = mob->get_pos();
+    mobiles.at(p->get_x()).at(p->get_y()) = NULL;
+    MessageLog::add_message("Mobile killed");
+}

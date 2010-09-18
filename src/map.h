@@ -6,6 +6,7 @@
 #include "positionable.h"
 #include <vector>
 #include <string>
+#include "message_log.h"
 
 using namespace std;
 
@@ -43,6 +44,7 @@ class Map {
         Positionable* get_player();
 
         void update_mobile_position(Positionable* mob, Position old_pos, Position new_pos);
+        void mobile_killed(Positionable* mob);
 };
 
 #endif

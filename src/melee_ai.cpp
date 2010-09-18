@@ -52,6 +52,7 @@ bool MeleeAI::in_attack_range() {
 
 void MeleeAI::attack() {
     MessageLog::add_message("MeleeAI: attacking");
+    get_player()->attacked_by(mobile);
 }
 
 void MeleeAI::approach() {
@@ -75,4 +76,8 @@ Position* MeleeAI::get_pos() {
 
 void MeleeAI::set_pos(Position* p) {
     return mobile->set_pos(p);
+}
+
+Player* MeleeAI::get_player() {
+    return (Player*)map->get_player();
 }

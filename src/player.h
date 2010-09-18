@@ -5,11 +5,14 @@
 #include "positionable.h"
 #include "map.h"
 #include "renderable.h"
+#include "mobile.h"
+#include "message_log.h"
 
 
 class Player : public Renderable, public Positionable {
     private:
         Map* map;
+        int health;
 
         void move_to(Position* position);
 
@@ -31,6 +34,10 @@ class Player : public Renderable, public Positionable {
         bool move_downstairs();
 
         void open(Position* p);
+        void attack(Mobile* mobile);
+        void attacked_by(Mobile* mobile);
+        void killed();
+        bool is_dead();
 
         //from IRenderable
         string to_char();

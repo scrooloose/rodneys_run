@@ -14,3 +14,7 @@ string Zombie::to_char() {
 void Zombie::do_ai() {
     this->ai->do_ai();
 }
+
+int Zombie::get_attack_damage() {
+    return 10;
+}

@@ -2,6 +2,7 @@
 
 Player::Player(Map* map) : Positionable(map->get_starting_pos()) {
     this->map = map;
+    this->health = 100;
 }
 
 Player::~Player() {
@@ -9,9 +10,14 @@ Player::~Player() {
 }
 
 void Player::move_to(Position* position) {
-    Tile* t = map->tile_for(*position);
-    if (t->is_walkable()) {
-        set_pos(position);
+    if (map->mobile_for(*position)) {
+        Mobile* mobile = (Mobile*)map->mobile_for(*position);
+        attack(mobile);
+    } else {
+        Tile* t = map->tile_for(*position);
+        if (t->is_walkable()) {
+            set_pos(position);
+        }
     }
 }
 
@@ -69,6 +75,27 @@ void Player::open(Position* target_pos){
     if (target_tile->is_openable()) {
         target_tile->open();
     }
+}
+
+void Player::attack(Mobile* mobile) {
+    //TODO: implement proper damage later
+    mobile->take_damage(10);
+}
+
+void Player::attacked_by(Mobile* mobile) {
+    MessageLog::add_message("Player: Player attacked");
+    health -= mobile->get_attack_damage();
+    if (is_dead()) {
+        killed();
+    }
+}
+
+void Player::killed() {
+    //do something here like notify some observers
+}
+
+bool Player::is_dead() {
+    return health <= 0;
 }
 
 string Player::to_char() {

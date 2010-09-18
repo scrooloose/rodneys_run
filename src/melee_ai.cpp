@@ -10,9 +10,11 @@ MeleeAI::~MeleeAI() {
 }
 
 void MeleeAI::do_ai() {
+    detect_last_known_pos();
     detect_state();
     switch (state) {
         case s_waiting:
+            MessageLog::add_message("MeleeAI: waiting");
             break;
         case s_attacking:
             attack();
@@ -24,7 +26,22 @@ void MeleeAI::do_ai() {
     }
 }
 
+void MeleeAI::detect_last_known_pos() {
+    if (can_see_player()) {
+        last_known_pos = get_player()->get_pos();
+    } else {
+        if (last_known_pos && get_pos()->equals(last_known_pos)) {
+            last_known_pos = NULL;
+        }
+    }
+}
+
 void MeleeAI::detect_state() {
+    if (!can_see_player() && last_known_pos == NULL) {
+        state = s_waiting;
+        return;
+    }
+
     switch (state) {
         case s_waiting:
             if (in_attack_range()) {
@@ -58,7 +75,8 @@ void MeleeAI::attack() {
 void MeleeAI::approach() {
     MessageLog::add_message("MeleeAI: approaching");
 
-    vector<Position> path_to_player = get_pos()->positions_between(map->get_player()->get_pos());
+    Position* pos_to_approach = last_known_pos;
+    vector<Position> path_to_player = get_pos()->positions_between(pos_to_approach);
 
     if (path_to_player.size() < 2) {
         return;
@@ -68,6 +86,7 @@ void MeleeAI::approach() {
     if (tile->is_walkable()) {
         set_pos(new Position(path_to_player[1]));
     }
+
 }
 
 Position* MeleeAI::get_pos() {
@@ -80,4 +99,8 @@ void MeleeAI::set_pos(Position* p) {
 
 Player* MeleeAI::get_player() {
     return (Player*)map->get_player();
+}
+
+bool MeleeAI::can_see_player() {
+    return map->positions_have_los(get_player()->get_pos(), get_pos());
 }

@@ -6,16 +6,12 @@
 #include "positionable.h"
 #include "message_log.h"
 #include <string>
+#include "ai.h"
+#include "melee_ai.h"
 
 class Zombie : public Mobile {
-    const static int s_waiting = 1;
-    const static int s_fleeing = 2;
-    const static int s_attacking = 3;
-    const static int s_approaching = 4;
-    const static int s_taking_cover = 5;
-
-    int state;
-
+    private:
+        AI* ai;
 
     public:
         Zombie(Position* p, Map* m);
@@ -24,11 +20,6 @@ class Zombie : public Mobile {
         string to_char();
 
         void do_ai();
-        void detect_state();
-        bool in_attack_range();
-
-        void approach();
-        void attack();
 };
 
 #endif

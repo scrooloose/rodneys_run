@@ -6,7 +6,7 @@
 #include "position.h"
 #include "map.h"
 
-class Mobile : public IRenderable, public Positionable {
+class Mobile : public Renderable, public Positionable {
     protected:
         Map* map;
 

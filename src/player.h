@@ -7,7 +7,7 @@
 #include "renderable.h"
 
 
-class Player : public IRenderable, public Positionable {
+class Player : public Renderable, public Positionable {
     private:
         Map* map;
 

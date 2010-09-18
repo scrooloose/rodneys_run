@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class IRenderable {
+class Renderable {
     public:
         virtual string to_char() = 0;
 };

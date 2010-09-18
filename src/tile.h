@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Tile : public IRenderable {
+class Tile : public Renderable {
     private:
         Position* position;
         bool visible;

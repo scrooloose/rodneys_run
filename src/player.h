@@ -38,6 +38,7 @@ class Player : public Renderable, public Positionable {
         void attacked_by(Mobile* mobile);
         void killed();
         bool is_dead();
+        int get_health();
 
         //from IRenderable
         string to_char();

@@ -98,6 +98,10 @@ bool Player::is_dead() {
     return health <= 0;
 }
 
+int Player::get_health() {
+    return health;
+}
+
 string Player::to_char() {
     return string("@");
 }

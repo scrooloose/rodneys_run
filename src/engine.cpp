@@ -19,8 +19,9 @@ void Engine::setup_curses() {
     cbreak();
     keypad(stdscr, true);
     curs_set(0);
-    map_window = newwin(map_win_height, map_win_width, 0, 0);
-    msg_window = newwin(5, map_win_width, map_win_height, 0);
+    map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
+    msg_window = newwin(5, map_win_width + info_win_width, map_win_height, 0);
+    info_window = newwin(map_win_height, info_win_width, 0, 0);
     refresh();
 }
 
@@ -34,7 +35,7 @@ void Engine::render() {
 
     render_map();
     render_messages();
-
+    render_info();
 }
 
 void Engine::render_map() {
@@ -80,6 +81,21 @@ void Engine::render_messages() {
     }
     box(msg_window, 0, 0);
     wrefresh(msg_window);
+}
+
+void Engine::render_info() {
+    wclear(info_window);
+
+    mvwprintw(info_window, 1, 1, "Player Info");
+    mvwprintw(info_window, 2, 1, "-----------");
+
+    char health_str[20];
+    sprintf(health_str, "Health: %d", player->get_health());
+    mvwprintw(info_window, 3, 1, health_str);
+
+    box(info_window, 0, 0);
+    wrefresh(info_window);
+
 }
 
 bool Engine::handle_keypress(int key) {

@@ -10,6 +10,7 @@
 #include "message_log.h"
 #include <ncurses.h>
 #include <string.h>
+#include <stdio.h>
 
 class Engine {
     private:
@@ -18,10 +19,12 @@ class Engine {
         MapList* map_list;
 
         WINDOW* map_window;
-        static const int map_win_width = 51;
-        static const int map_win_height = 21;
+        static const int map_win_width = 69;
+        static const int map_win_height = 31;
 
         WINDOW* msg_window;
+        WINDOW* info_window;
+        static const int info_win_width = 20;
 
         void add_level_entry_msg();
 
@@ -33,6 +36,7 @@ class Engine {
         void render();
         void render_map();
         void render_messages();
+        void render_info();
         bool handle_keypress(int key);
         void main_loop();
         void start_next_level();

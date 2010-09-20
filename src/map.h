@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include "message_log.h"
+#include "position_exception.h"
 
 using namespace std;
 
@@ -42,6 +43,8 @@ class Map {
         string* get_name();
         void set_player(Positionable* p);
         Positionable* get_player();
+        bool is_walkable(Position p, bool ignore_player, bool ignore_mobiles);
+        bool is_walkable(Position p);
 
         void update_mobile_position(Positionable* mob, Position old_pos, Position new_pos);
         void mobile_killed(Positionable* mob);

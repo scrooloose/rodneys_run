@@ -78,13 +78,21 @@ void MeleeAI::approach() {
     PathFinder pf(map, get_pos(), get_player()->get_pos());
     list<Position> path = pf.get_path();
     if (path.size() == 0) {
+        MessageLog::add_message("MeleeAI: no approach path");
         return;
     }
 
 
     list<Position>::iterator i = path.begin();
     i++;
-    set_pos(new Position(*i));
+
+    Position* new_pos = new Position(*i);
+
+    //check here since PathFinder doesnt take into account other mobs when
+    //calculating the path
+    if (map->is_walkable(*new_pos)) {
+        set_pos(new_pos);
+    }
 }
 
 Position* MeleeAI::get_pos() {

@@ -44,9 +44,9 @@ vector<Node*> Node::get_adjacent_nodes() {
     vector<Node*> adj_nodes;
     vector<Position> adj_positions = tile->get_pos()->adjacent_positions();
     for (unsigned i = 0; i < adj_positions.size(); i++) {
-        Tile* tile = map->tile_for(adj_positions.at(i));
-        if (tile->is_walkable()) {
-            adj_nodes.push_back(new Node(map, tile, this, destination));
+        Tile* t = map->tile_for(adj_positions.at(i));
+        if (map->is_walkable(adj_positions.at(i), true, true)) {
+            adj_nodes.push_back(new Node(map, t, this, destination));
         }
     }
 

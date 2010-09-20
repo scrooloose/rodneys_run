@@ -125,7 +125,28 @@ Positionable* Map::get_player() {
     return this->player;
 }
 
+bool Map::is_walkable(Position position) {
+    return is_walkable(position, false, false);
+}
+
+bool Map::is_walkable(Position position, bool ignore_player, bool ignore_mobiles) {
+    MessageLog::add_message("Map: is_walkable");
+    if (!ignore_player && player->get_pos()->equals(&position))
+        return false;
+
+    if (!ignore_mobiles && mobile_for(position))
+        return false;
+
+    return tile_for(position)->is_walkable();
+}
+
 void Map::update_mobile_position(Positionable* mob, Position old_pos, Position new_pos) {
+    if (mobile_for(new_pos))
+        throw new PositionException("Can't move mobile on top of another.");
+
+    if (new_pos.equals(player->get_pos()))
+        throw new PositionException("Can't move mobile on top of player.");
+
     mobiles.at(old_pos.get_x()).at(old_pos.get_y()) = NULL;
     mobiles[new_pos.get_x()][new_pos.get_y()] = mob;
 }

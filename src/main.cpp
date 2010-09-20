@@ -4,7 +4,7 @@ int main() {
     Engine engine;
     try {
         engine.main_loop();
-    }catch(exception e){
+    }catch(...){
         engine.teardown_curses();
         throw;
     }

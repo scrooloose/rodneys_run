@@ -23,6 +23,7 @@ class Engine {
         static const int map_win_height = 31;
 
         WINDOW* msg_window;
+        static const int msg_win_height = 10;
         WINDOW* info_window;
         static const int info_win_width = 20;
 

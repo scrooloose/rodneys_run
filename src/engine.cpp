@@ -20,7 +20,7 @@ void Engine::setup_curses() {
     keypad(stdscr, true);
     curs_set(0);
     map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
-    msg_window = newwin(5, map_win_width + info_win_width, map_win_height, 0);
+    msg_window = newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0);
     info_window = newwin(map_win_height, info_win_width, 0, 0);
     refresh();
 }
@@ -75,7 +75,7 @@ void Engine::render_map() {
 void Engine::render_messages() {
     wclear(msg_window);
 
-    vector<string*> messages = MessageLog::latest_messages(3);
+    vector<string*> messages = MessageLog::latest_messages(msg_win_height - 2);
     for (int i = messages.size()-1; i >= 0; i--) {
         mvwprintw(msg_window, i + 1, 1, messages.at(i)->c_str());
     }

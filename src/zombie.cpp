@@ -1,6 +1,6 @@
 #include "zombie.h"
 
-Zombie::Zombie(Position* p, Map* m) : Mobile(p,m,20) {
+Zombie::Zombie(Position* p, Map* m) : Mobile(p,m,15) {
     this->ai = new MeleeAI(this, m);
 }
 

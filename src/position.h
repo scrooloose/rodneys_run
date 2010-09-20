@@ -34,6 +34,8 @@ class Position {
         bool is_adjacent(Position* p);
         bool equals(Position* that);
         int distance_to(Position* p);
+        int manhattan_distance_to(Position* p);
+        vector<Position> adjacent_positions();
 };
 
 #endif

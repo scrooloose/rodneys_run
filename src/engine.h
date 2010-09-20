@@ -11,6 +11,8 @@
 #include <ncurses.h>
 #include <string.h>
 #include <stdio.h>
+#include "path_finder.h"
+#include <list>
 
 class Engine {
     private:

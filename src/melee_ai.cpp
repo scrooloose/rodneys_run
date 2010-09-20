@@ -64,7 +64,7 @@ void MeleeAI::detect_state() {
 }
 
 bool MeleeAI::in_attack_range() {
-    return mobile->get_pos()->distance_to(map->get_player()->get_pos()) == 1;
+    return mobile->get_pos()->is_adjacent(get_player()->get_pos());
 }
 
 void MeleeAI::attack() {
@@ -75,18 +75,16 @@ void MeleeAI::attack() {
 void MeleeAI::approach() {
     MessageLog::add_message("MeleeAI: approaching");
 
-    Position* pos_to_approach = last_known_pos;
-    vector<Position> path_to_player = get_pos()->positions_between(pos_to_approach);
-
-    if (path_to_player.size() < 2) {
+    PathFinder pf(map, get_pos(), get_player()->get_pos());
+    list<Position> path = pf.get_path();
+    if (path.size() == 0) {
         return;
     }
 
-    Tile* tile = map->tile_for(path_to_player[1]);
-    if (tile->is_walkable()) {
-        set_pos(new Position(path_to_player[1]));
-    }
 
+    list<Position>::iterator i = path.begin();
+    i++;
+    set_pos(new Position(*i));
 }
 
 Position* MeleeAI::get_pos() {

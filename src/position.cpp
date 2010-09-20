@@ -139,3 +139,40 @@ int Position::distance_to(Position* p) {
     vector<Position> positions = positions_between(p);
     return positions.size() - 1;
 }
+
+int Position::manhattan_distance_to(Position* p) {
+    int x_delta = x - p->get_x();
+    int y_delta = y - p->get_y();
+
+    return abs(x_delta) + abs(y_delta);
+}
+
+vector<Position> Position::adjacent_positions() {
+    vector<Position> positions;
+
+    if (are_coords_valid(x, y-1)) //up
+        positions.push_back(Position(x, y-1));
+
+    if (are_coords_valid(x+1, y-1)) //up right
+        positions.push_back(Position(x+1, y-1));
+
+    if (are_coords_valid(x+1, y)) //right
+        positions.push_back(Position(x+1, y));
+
+    if (are_coords_valid(x+1, y+1)) //down right
+        positions.push_back(Position(x+1, y+1));
+
+    if (are_coords_valid(x, y+1)) //down
+        positions.push_back(Position(x, y+1));
+
+    if (are_coords_valid(x-1, y+1)) //down left
+        positions.push_back(Position(x-1, y+1));
+
+    if (are_coords_valid(x-1, y)) //left
+        positions.push_back(Position(x-1, y));
+
+    if (are_coords_valid(x-1, y-1)) //up left
+        positions.push_back(Position(x-1, y-1));
+
+    return positions;
+}

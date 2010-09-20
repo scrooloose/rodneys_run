@@ -29,7 +29,6 @@ list<Position> PathFinder::get_path() {
     while (!open_list.empty()) {
 
         //get node in open_list with lowest f
-        int min_f = 10000;
         unsigned min_f_idx = 0;
         for (unsigned i = 0; i < open_list.size(); i++) {
             if (open_list.at(i)->get_f() < open_list.at(min_f_idx)->get_f()) {

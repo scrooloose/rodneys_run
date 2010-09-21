@@ -8,6 +8,7 @@
 #include <string>
 #include "message_log.h"
 #include "position_exception.h"
+#include "proximity_sorter.h"
 
 using namespace std;
 
@@ -37,6 +38,7 @@ class Map {
         Position* get_starting_pos();
         vector<Tile*> get_all_tiles();
         vector<Positionable*> get_all_mobiles();
+        vector<Positionable*> get_all_mobiles_by_dist_to_player();
         bool positions_have_los(Position* p1, Position* p2);
         void update_visibility_from(Position* p);
         void set_name(string* name);

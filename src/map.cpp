@@ -83,6 +83,12 @@ vector<Positionable*> Map::get_all_mobiles() {
     return all_mobs;
 }
 
+vector<Positionable*> Map::get_all_mobiles_by_dist_to_player() {
+    vector<Positionable*> all_mobs = get_all_mobiles();
+    ProximitySorter::sort_mobiles(&all_mobs, player->get_pos());
+    return all_mobs;
+}
+
 bool Map::positions_have_los(Position* p1, Position* p2) {
     vector<Position> positions = p1->positions_between(p2);
 

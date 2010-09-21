@@ -239,7 +239,7 @@ void Engine::main_loop() {
 }
 
 void Engine::do_ai() {
-    vector<Positionable*> mobs = map->get_all_mobiles();
+    vector<Positionable*> mobs = map->get_all_mobiles_by_dist_to_player();
     for (unsigned i = 0; i < mobs.size(); i++) {
         Mobile* current = (Mobile*) mobs.at(i);
         current->tick();

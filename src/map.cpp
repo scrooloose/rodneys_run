@@ -136,7 +136,6 @@ bool Map::is_walkable(Position position) {
 }
 
 bool Map::is_walkable(Position position, bool ignore_player, bool ignore_mobiles) {
-    MessageLog::add_message("Map: is_walkable");
     if (!ignore_player && player->get_pos()->equals(&position))
         return false;
 
@@ -160,5 +159,4 @@ void Map::update_mobile_position(Positionable* mob, Position old_pos, Position n
 void Map::mobile_killed(Positionable* mob) {
     Position* p = mob->get_pos();
     mobiles.at(p->get_x()).at(p->get_y()) = NULL;
-    MessageLog::add_message("Mobile killed");
 }

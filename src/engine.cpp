@@ -93,6 +93,11 @@ void Engine::render_info() {
     sprintf(health_str, "Health: %d", player->get_health());
     mvwprintw(info_window, 3, 1, health_str);
 
+
+    mvwprintw(info_window, 6, 1, "Weapons");
+    mvwprintw(info_window, 7, 1, "-----------");
+    mvwprintw(info_window, 8, 1, player->get_ranged_weapon()->get_name().c_str());
+
     box(info_window, 0, 0);
     wrefresh(info_window);
 
@@ -127,6 +132,9 @@ bool Engine::handle_keypress(int key) {
         case KEY_A3:
         case KEY_PPAGE:
             player->move_up_right();
+            break;
+        case (int)'f':
+            fire_weapon();
             break;
         case (int)'o':
             do_open();
@@ -187,6 +195,86 @@ Position* Engine::get_adjacent_position_from_user() {
             return NULL;
             break;
     }
+}
+
+Position* Engine::get_position_from_user() {
+    //TODO: fix the mem leak here - many Position*s are created
+    Position* cursor_pos = player->get_pos();
+
+    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
+    int y = player->get_pos()->get_y() - vpc.get_y_offset() + 1;
+    int x = player->get_pos()->get_x() - vpc.get_x_offset() + 1;
+
+    curs_set(1);
+
+
+    bool done = false;
+    while (!done) {
+        wmove(map_window, y, x);
+        wrefresh(map_window);
+        keypad(map_window, TRUE);
+        int key = getch();
+        switch(key) {
+            case KEY_LEFT:
+                cursor_pos = cursor_pos->left();
+                x--;
+                break;
+            case KEY_RIGHT:
+                cursor_pos = cursor_pos->right();
+                x++;
+                break;
+            case KEY_UP:
+                cursor_pos = cursor_pos->up();
+                y--;
+                break;
+            case KEY_DOWN:
+                cursor_pos = cursor_pos->down();
+                y++;
+                break;
+            case KEY_C1:
+            case KEY_END:
+                cursor_pos = cursor_pos->down_left();
+                y++;
+                x--;
+                break;
+            case KEY_C3:
+            case KEY_NPAGE:
+                cursor_pos = cursor_pos->down_right();
+                y++;
+                x++;
+                break;
+            case KEY_A1:
+            case KEY_HOME:
+                cursor_pos = cursor_pos->up_left();
+                y--;
+                x--;
+                break;
+            case KEY_A3:
+            case KEY_PPAGE:
+                cursor_pos = cursor_pos->up_right();
+                y--;
+                x++;
+                break;
+            case KEY_B2: //5 on the keypad
+            case (int)'f': //add f too since gnome term is so fucking stupid it
+                           //doesnt recognise the center of the keypad
+                done = true;
+                break;
+        }
+    }
+
+    curs_set(0);
+    return cursor_pos;
+}
+
+void Engine::fire_weapon() {
+    Position* target_pos = get_position_from_user();
+    if (!map->mobile_for(*target_pos)) {
+        MessageLog::add_message("Shoot what?");
+        return;
+    }
+
+    player->attack(*target_pos);
 }
 
 void Engine::do_open() {

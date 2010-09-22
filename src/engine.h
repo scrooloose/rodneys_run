@@ -31,6 +31,8 @@ class Engine {
 
         void add_level_entry_msg();
 
+        Position* get_position_from_user();
+        void fire_weapon();
     public:
         Engine();
         ~Engine();

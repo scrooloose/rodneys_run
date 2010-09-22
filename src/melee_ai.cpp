@@ -14,7 +14,6 @@ void MeleeAI::do_ai() {
     detect_state();
     switch (state) {
         case s_waiting:
-            MessageLog::add_message("MeleeAI: waiting");
             break;
         case s_attacking:
             attack();
@@ -68,20 +67,15 @@ bool MeleeAI::in_attack_range() {
 }
 
 void MeleeAI::attack() {
-    MessageLog::add_message("MeleeAI: attacking");
     get_player()->attacked_by(mobile);
 }
 
 void MeleeAI::approach() {
-    MessageLog::add_message("MeleeAI: approaching");
-
     PathFinder pf(map, get_pos(), get_player()->get_pos());
     list<Position> path = pf.get_path();
     if (path.size() == 0) {
-        MessageLog::add_message("MeleeAI: no approach path");
         return;
     }
-
 
     list<Position>::iterator i = path.begin();
     i++;

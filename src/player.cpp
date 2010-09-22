@@ -4,6 +4,7 @@ Player::Player(Map* map) : Positionable(map->get_starting_pos()) {
     this->map = map;
     this->health = 100;
     this->turn_timer = new TurnTimer(10);
+    this->ranged_weapon = new RangedWeapon(7, this, map, "Combat Rifle", 4, 7, 5);
 }
 
 Player::~Player() {
@@ -12,8 +13,7 @@ Player::~Player() {
 
 void Player::move_to(Position* position) {
     if (map->mobile_for(*position)) {
-        Mobile* mobile = (Mobile*)map->mobile_for(*position);
-        attack(mobile);
+        attack(*position);
     } else {
         Tile* t = map->tile_for(*position);
         if (t->is_walkable()) {
@@ -79,14 +79,13 @@ void Player::open(Position* target_pos){
     }
 }
 
-void Player::attack(Mobile* mobile) {
-    //TODO: implement proper damage later
-    mobile->take_damage(10);
+void Player::attack(Position pos) {
+    ranged_weapon->attack(pos);
 }
 
 void Player::attacked_by(Mobile* mobile) {
-    MessageLog::add_message("Player: Player attacked");
     health -= mobile->get_attack_damage();
+    MessageLog::add_message("You were attacked!");
     if (is_dead()) {
         killed();
     }
@@ -106,6 +105,13 @@ int Player::get_health() {
 
 bool Player::tick() {
     return turn_timer->tick();
+}
+
+void Player::set_ranged_weapon(RangedWeapon* rw) {
+    this->ranged_weapon = rw;
+}
+RangedWeapon* Player::get_ranged_weapon() {
+    return this->ranged_weapon;
 }
 
 string Player::to_char() {

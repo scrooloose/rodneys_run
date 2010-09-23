@@ -9,6 +9,7 @@
 #include "message_log.h"
 #include "turn_timer.h"
 #include "ranged_weapon.h"
+#include "melee_weapon.h"
 
 
 class Player : public Renderable, public Positionable {
@@ -18,7 +19,9 @@ class Player : public Renderable, public Positionable {
         TurnTimer* turn_timer;
 
         void move_to(Position* position);
+
         RangedWeapon* ranged_weapon;
+        MeleeWeapon* melee_weapon;
 
     public:
         Player(Map* map);
@@ -38,7 +41,7 @@ class Player : public Renderable, public Positionable {
         bool move_downstairs();
 
         void open(Position* p);
-        void attack(Position pos);
+        void attack(Position pos, Weapon* w);
         void attacked_by(Mobile* mobile);
         void killed();
         bool is_dead();
@@ -47,6 +50,8 @@ class Player : public Renderable, public Positionable {
 
         void set_ranged_weapon(RangedWeapon* rw);
         RangedWeapon* get_ranged_weapon();
+        void set_melee_weapon(MeleeWeapon* mw);
+        MeleeWeapon* get_melee_weapon();
 
         string to_char();
 

@@ -21,3 +21,14 @@ int Weapon::get_dmg() {
 
     return dmg;
 }
+
+string Weapon::get_damage_desc() {
+    char str[50];
+    if (dmg_modifier != 0) {
+        sprintf(str, "%dd%d + %d", dmg_dice, dmg_dice_sides, dmg_modifier);
+    } else {
+        sprintf(str, "%dd%d", dmg_dice, dmg_dice_sides);
+    }
+
+    return string(str);
+}

@@ -6,6 +6,7 @@
 #include "positionable.h"
 #include "map.h"
 #include <cstdlib>
+#include <cstdio>
 
 class Weapon {
     protected:
@@ -22,6 +23,7 @@ class Weapon {
         string get_name();
         virtual void attack(Position pos) = 0;
         virtual int get_dmg();
+        virtual string get_damage_desc();
 
 
 };

@@ -1,18 +1,20 @@
 #include "ranged_weapon.h"
 
-RangedWeapon::RangedWeapon(int range, Positionable* player, Map* map, string name, int dmg_dice, int dmg_dice_sides, int dmg_modifier) :
+RangedWeapon::RangedWeapon(int min_range, int max_range, Positionable* player, Map* map, string name, int dmg_dice, int dmg_dice_sides, int dmg_modifier) :
               Weapon(player, map, name, dmg_dice, dmg_dice_sides, dmg_modifier) {
-    this->range = range;
+    this->min_range = min_range;
+    this->max_range = max_range;
 }
 
 bool RangedWeapon::in_range(Position p) {
-    int actual_range = player->get_pos()->positions_between(&p).size() - 2;
-    return actual_range <= range;
+    int actual_range = player->get_pos()->positions_between(&p).size() - 1;
+    return actual_range <= max_range && actual_range >= min_range;
 }
 
 void RangedWeapon::attack(Position pos) {
     Mobile* mob = (Mobile*)map->mobile_for(pos);
     if (!mob) {
+        MessageLog::add_message("Select a target!");
         return;
     }
 
@@ -30,4 +32,10 @@ void RangedWeapon::attack(Position pos) {
 
 
     mob->take_damage(dmg);
+}
+
+string RangedWeapon::get_range_desc() {
+    char str[50];
+    sprintf(str, "%d-%d", min_range, max_range);
+    return str;
 }

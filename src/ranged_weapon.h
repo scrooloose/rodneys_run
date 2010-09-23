@@ -17,7 +17,7 @@ class RangedWeapon : public Weapon {
     public:
         RangedWeapon(int min_range, int max_range, Positionable* player, Map* map, string name, int dmg_dice, int dmg_dice_sides, int dmg_modifier);
         bool in_range(Position p);
-        virtual void attack(Position pos);
+        virtual bool attack(Position pos);
         virtual string get_range_desc();
 };
 

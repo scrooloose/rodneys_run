@@ -41,7 +41,7 @@ class Player : public Renderable, public Positionable {
         bool move_downstairs();
 
         void open(Position* p);
-        void attack(Position pos, Weapon* w);
+        bool attack(Position pos, Weapon* w);
         void attacked_by(Mobile* mobile);
         void killed();
         bool is_dead();

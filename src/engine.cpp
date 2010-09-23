@@ -112,6 +112,7 @@ void Engine::render_info() {
 }
 
 bool Engine::handle_keypress(int key) {
+    bool action_taken = true;
     switch(key) {
         case KEY_LEFT:
             player->move_left();
@@ -142,7 +143,9 @@ bool Engine::handle_keypress(int key) {
             player->move_up_right();
             break;
         case (int)'f':
-            fire_weapon();
+            if (!fire_weapon()) {
+                action_taken = false;
+            }
             break;
         case (int)'o':
             do_open();
@@ -159,10 +162,14 @@ bool Engine::handle_keypress(int key) {
             break;
 
         case (int)'q':
-            return true;
+            main_loop_done = true;
+            action_taken = true;
             break;
+
+        default:
+            action_taken = false;
     }
-    return false;
+    return action_taken;
 }
 
 Position* Engine::get_adjacent_position_from_user() {
@@ -268,6 +275,11 @@ Position* Engine::get_position_from_user() {
                            //doesnt recognise the center of the keypad
                 done = true;
                 break;
+
+            case 27: //esc
+                done = true;
+                cursor_pos = NULL;
+                break;
         }
     }
 
@@ -275,14 +287,12 @@ Position* Engine::get_position_from_user() {
     return cursor_pos;
 }
 
-void Engine::fire_weapon() {
+bool Engine::fire_weapon() {
     Position* target_pos = get_position_from_user();
-    if (!map->mobile_for(*target_pos)) {
-        MessageLog::add_message("Shoot what?");
-        return;
-    }
+    if(!target_pos || !map->mobile_for(*target_pos))
+        return false;
 
-    player->attack(*target_pos, player->get_ranged_weapon());
+    return player->attack(*target_pos, player->get_ranged_weapon());
 }
 
 void Engine::do_open() {
@@ -308,13 +318,21 @@ void Engine::main_loop() {
     map->update_visibility_from(player->get_pos());
     render();
 
-    bool loop_done = false;
-    while(!loop_done) {
+    main_loop_done = false;
+    while(!main_loop_done) {
         bool player_had_turn = false;
 
         if (player->tick()) {
-            key = getch();
-            loop_done = handle_keypress(key);
+
+            bool action_taken = false;
+            while (!action_taken) {
+                key = getch();
+                action_taken = handle_keypress(key);
+                if (!action_taken) {
+                    render();
+                }
+            }
+
             map->update_visibility_from(player->get_pos());
             player_had_turn = true;
         }
@@ -323,7 +341,7 @@ void Engine::main_loop() {
 
         if (player->is_dead()) {
             game_over();
-            loop_done = true;
+            main_loop_done = true;
         }
 
         if (player_had_turn) {

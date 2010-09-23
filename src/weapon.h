@@ -21,7 +21,7 @@ class Weapon {
     public:
         Weapon(Positionable* player, Map* map, string name, int dmg_dice, int dmg_dice_sides, int dmg_modifier);
         string get_name();
-        virtual void attack(Position pos) = 0;
+        virtual bool attack(Position pos) = 0;
         virtual int get_dmg();
         virtual string get_damage_desc();
 

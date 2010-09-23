@@ -80,8 +80,8 @@ void Player::open(Position* target_pos){
     }
 }
 
-void Player::attack(Position pos, Weapon* weapon) {
-    weapon->attack(pos);
+bool Player::attack(Position pos, Weapon* weapon) {
+    return weapon->attack(pos);
 }
 
 void Player::attacked_by(Mobile* mobile) {

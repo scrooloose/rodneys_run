@@ -11,16 +11,16 @@ bool RangedWeapon::in_range(Position p) {
     return actual_range <= max_range && actual_range >= min_range;
 }
 
-void RangedWeapon::attack(Position pos) {
+bool RangedWeapon::attack(Position pos) {
     Mobile* mob = (Mobile*)map->mobile_for(pos);
     if (!mob) {
         MessageLog::add_message("Select a target!");
-        return;
+        return false;
     }
 
     if (!in_range(pos)) {
         MessageLog::add_message("Out of range!");
-        return;
+        return false;
     }
 
 
@@ -32,6 +32,8 @@ void RangedWeapon::attack(Position pos) {
 
 
     mob->take_damage(dmg);
+
+    return true;
 }
 
 string RangedWeapon::get_range_desc() {

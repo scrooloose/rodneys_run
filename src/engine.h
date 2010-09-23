@@ -16,6 +16,7 @@
 
 class Engine {
     private:
+        bool main_loop_done;
         Player* player;
         Map* map;
         MapList* map_list;
@@ -32,7 +33,7 @@ class Engine {
         void add_level_entry_msg();
 
         Position* get_position_from_user();
-        void fire_weapon();
+        bool fire_weapon();
     public:
         Engine();
         ~Engine();

@@ -361,9 +361,7 @@ void Engine::do_ai() {
 }
 
 void Engine::add_level_entry_msg() {
-    string* msg = new string("Entering ");
-    msg->append(*map->get_name());
-    MessageLog::add_message(msg);
+    MessageLog::add_message("Entering " + *map->get_name());
 }
 
 void Engine::game_over() {

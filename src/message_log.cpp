@@ -6,6 +6,10 @@ MessageLog::MessageLog() {
 }
 
 MessageLog::~MessageLog() {
+    for (unsigned i = 0; i < messages.size(); i++) {
+        delete messages.at(i);
+    }
+    messages.clear();
 }
 
 MessageLog* MessageLog::get_instance() {
@@ -16,8 +20,8 @@ MessageLog* MessageLog::get_instance() {
     return instance;
 }
 
-void MessageLog::add_message(string* msg) {
-    get_instance()->messages.push_back(msg);
+void MessageLog::add_message(string msg) {
+    get_instance()->messages.push_back(new string(msg));
 }
 
 void MessageLog::add_message(const char* msg) {

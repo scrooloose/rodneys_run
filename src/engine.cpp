@@ -164,7 +164,7 @@ bool Engine::handle_keypress(int key) {
                 if (map_list->has_next_map()) {
                     start_next_level();
                 }else{
-                    return true;
+                    action_taken = false;
                 }
             }
             break;
@@ -235,7 +235,6 @@ Position* Engine::get_position_from_user() {
     while (!done) {
         wmove(map_window, y, x);
         wrefresh(map_window);
-        keypad(map_window, TRUE);
         int key = getch();
         switch(key) {
             case KEY_LEFT:

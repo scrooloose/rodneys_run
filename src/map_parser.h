@@ -17,6 +17,8 @@
 #include "mobile.h"
 #include "zombie.h"
 
+#include "item.h"
+
 using namespace std;
 
 class MapParser {

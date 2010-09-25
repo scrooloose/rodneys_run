@@ -9,6 +9,7 @@
 #include "message_log.h"
 #include "position_exception.h"
 #include "proximity_sorter.h"
+#include "item.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Map {
     private:
         vector< vector<Tile*> > tiles;
         vector< vector<Positionable*> > mobiles;
+        vector< vector<Item*> > items;
         int width;
         int height;
         Position* starting_pos;
@@ -30,15 +32,24 @@ class Map {
 
         Tile* tile_for(Position p);
         Positionable* mobile_for(Position p);
+        Item* item_for(Position p);
+
         int get_width();
         int get_height();
-        void add_tile(Tile* t);
-        void add_mobile(Positionable* m);
+
+
         void set_starting_pos(Position* p);
         Position* get_starting_pos();
+
+        void add_tile(Tile* t);
+        void add_mobile(Positionable* m);
+        void add_item(Item* i);
+        Item* remove_item(Position p);
+
         vector<Tile*> get_all_tiles();
         vector<Positionable*> get_all_mobiles();
         vector<Positionable*> get_all_mobiles_by_dist_to_player();
+
         bool positions_have_los(Position* p1, Position* p2);
         void update_visibility_from(Position* p);
         void set_name(string* name);

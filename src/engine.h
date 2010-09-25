@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "path_finder.h"
 #include <list>
+#include "item.h"
 
 class Engine {
     private:

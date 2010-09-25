@@ -48,17 +48,22 @@ void Engine::render_map() {
     int y_offset = vpc.get_y_offset();
 
     for (unsigned i = 0; i < to_render.size(); i++) {
+        Position p = to_render.at(i);
+        int xpos = p.get_x() - x_offset + 1;
+        int ypos = p.get_y() - y_offset + 1;
+
         Tile* t = map->tile_for(to_render.at(i));
         if (t->is_visible()) {
-            int xpos = t->get_pos()->get_x() - x_offset + 1;
-            int ypos = t->get_pos()->get_y() - y_offset + 1;
             mvwprintw(map_window, ypos, xpos , t->to_char().c_str());
+        }
+
+        Item* item = map->item_for(to_render.at(i));
+        if (item && map->positions_have_los(item->get_pos(), player->get_pos())) {
+            mvwprintw(map_window, ypos, xpos , item->to_char().c_str());
         }
 
         Mobile* mob = (Mobile*) map->mobile_for(to_render.at(i));
         if (mob && mob->is_visible_from(player->get_pos())) {
-            int xpos = mob->get_pos()->get_x() - x_offset + 1;
-            int ypos = mob->get_pos()->get_y() - y_offset + 1;
             mvwprintw(map_window, ypos, xpos , mob->to_char().c_str());
         }
 
@@ -292,7 +297,7 @@ bool Engine::fire_weapon() {
     if(!target_pos || !map->mobile_for(*target_pos))
         return false;
 
-    return player->attack(*target_pos, player->get_ranged_weapon());
+    return player->attack_with_ranged(*target_pos);
 }
 
 void Engine::do_open() {

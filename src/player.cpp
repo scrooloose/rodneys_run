@@ -4,7 +4,8 @@ Player::Player(Map* map) : Positionable(map->get_starting_pos()) {
     this->map = map;
     this->health = 100;
     this->turn_timer = new TurnTimer(10);
-    this->ranged_weapon = new RangedWeapon(2, 7, this, map, "Combat Rifle", 4, 7, 5);
+    this->inventory = new Inventory();
+    this->ranged_weapon = new RangedWeapon(2, 7, this, inventory, "rifle_rounds", map, "Combat Rifle", 4, 7, 5);
     this->melee_weapon = new MeleeWeapon(this, map, "Brass Knuckles", 2, 3, 3);
 }
 
@@ -14,12 +15,24 @@ Player::~Player() {
 
 void Player::move_to(Position* position) {
     if (map->mobile_for(*position)) {
-        attack(*position, melee_weapon);
+        attack_with_melee(*position);
     } else {
         Tile* t = map->tile_for(*position);
         if (t->is_walkable()) {
             set_pos(position);
         }
+
+        pick_up_items();
+    }
+}
+
+void Player::pick_up_items() {
+    Item* item = map->remove_item(*get_pos());
+    if (item) {
+        inventory->add(*item);
+
+        string msg = string("Picked up ") + item->get_name();
+        MessageLog::add_message(msg);
     }
 }
 
@@ -80,8 +93,12 @@ void Player::open(Position* target_pos){
     }
 }
 
-bool Player::attack(Position pos, Weapon* weapon) {
-    return weapon->attack(pos);
+bool Player::attack_with_melee(Position pos) {
+    return melee_weapon->attack(pos);
+}
+
+bool Player::attack_with_ranged(Position pos) {
+    return ranged_weapon->attack(pos);
 }
 
 void Player::attacked_by(Mobile* mobile) {

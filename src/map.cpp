@@ -1,8 +1,6 @@
 #include "map.h"
 
 Map::Map(int width, int height) {
-    this->width = width;
-    this->height = height;
     resize_map(width, height);
 }
 
@@ -11,14 +9,17 @@ Map::~Map() {
 }
 
 void Map::resize_map(int width, int height) {
+    this->width = width;
+    this->height = height;
+
     tiles.resize(width);
+    mobiles.resize(width);
+    items.resize(width);
+
     for (int x = 0; x < width; x++) {
         tiles[x].resize(height);
-    }
-
-    mobiles.resize(width);
-    for (int x = 0; x < width; x++) {
         mobiles[x].resize(height);
+        items[x].resize(height);
     }
 }
 
@@ -38,6 +39,10 @@ Positionable* Map::mobile_for(Position p) {
     return mobiles.at(p.get_x()).at(p.get_y());
 }
 
+Item* Map::item_for(Position p) {
+    return items.at(p.get_x()).at(p.get_y());
+}
+
 void Map::add_tile(Tile* t) {
     Position* p = t->get_pos();
     tiles[p->get_x()][p->get_y()] = t;
@@ -47,6 +52,21 @@ void Map::add_mobile(Positionable* m) {
     Position* p = m->get_pos();
     mobiles[p->get_x()][p->get_y()] = m;
 }
+
+void Map::add_item(Item* i) {
+    Position* p = i->get_pos();
+    items[p->get_x()][p->get_y()] = i;
+}
+
+Item* Map::remove_item(Position p) {
+    Item* item = items[p.get_x()][p.get_y()];
+    if (item) {
+        items[p.get_x()][p.get_y()] = NULL;
+    }
+
+    return item;
+}
+
 
 void Map::set_starting_pos(Position* p) {
     this->starting_pos = p;

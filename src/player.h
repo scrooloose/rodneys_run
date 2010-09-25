@@ -10,6 +10,8 @@
 #include "turn_timer.h"
 #include "ranged_weapon.h"
 #include "melee_weapon.h"
+#include "item.h"
+#include "inventory.h"
 
 
 class Player : public Renderable, public Positionable {
@@ -22,6 +24,8 @@ class Player : public Renderable, public Positionable {
 
         RangedWeapon* ranged_weapon;
         MeleeWeapon* melee_weapon;
+
+        Inventory* inventory;
 
     public:
         Player(Map* map);
@@ -41,12 +45,14 @@ class Player : public Renderable, public Positionable {
         bool move_downstairs();
 
         void open(Position* p);
-        bool attack(Position pos, Weapon* w);
+        bool attack_with_ranged(Position pos);
+        bool attack_with_melee(Position pos);
         void attacked_by(Mobile* mobile);
         void killed();
         bool is_dead();
         int get_health();
         bool tick();
+        void pick_up_items();
 
         void set_ranged_weapon(RangedWeapon* rw);
         RangedWeapon* get_ranged_weapon();

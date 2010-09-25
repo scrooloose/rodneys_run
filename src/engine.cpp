@@ -36,9 +36,6 @@ void Engine::teardown_curses() {
 }
 
 void Engine::render() {
-    clear();
-    refresh();
-
     render_map();
     render_messages();
     render_info();
@@ -46,11 +43,10 @@ void Engine::render() {
         render_inv();
         show_inventory = false;
     }
+    doupdate();
 }
 
 void Engine::render_map() {
-    wclear(map_window);
-
     ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
     vector<Position> to_render = vpc.contained_positions();
 
@@ -83,23 +79,23 @@ void Engine::render_map() {
     int xpos = player->get_pos()->get_x() - x_offset + 1;
     mvwprintw(map_window, ypos, xpos, player->to_char().c_str());
     box(map_window, 0, 0);
-    wrefresh(map_window);
+    wnoutrefresh(map_window);
 
 }
 
 void Engine::render_messages() {
-    wclear(msg_window);
+    werase(msg_window);
 
     vector<string*> messages = MessageLog::latest_messages(msg_win_height - 2);
     for (int i = messages.size()-1; i >= 0; i--) {
         mvwprintw(msg_window, i + 1, 1, messages.at(i)->c_str());
     }
     box(msg_window, 0, 0);
-    wrefresh(msg_window);
+    wnoutrefresh(msg_window);
 }
 
 void Engine::render_info() {
-    wclear(info_window);
+    werase(info_window);
 
     mvwprintw(info_window, 1, 1, "Player Info");
     mvwprintw(info_window, 2, 1, "-----------");
@@ -122,12 +118,12 @@ void Engine::render_info() {
     mvwprintw(info_window, 13, 7, player->get_melee_weapon()->get_damage_desc().c_str());
 
     box(info_window, 0, 0);
-    wrefresh(info_window);
+    wnoutrefresh(info_window);
 
 }
 
 void Engine::render_inv() {
-    wclear(inv_window);
+    werase(inv_window);
     box(inv_window, 0, 0);
     mvwprintw(inv_window, 1, 1, "Inventory:");
 
@@ -138,7 +134,7 @@ void Engine::render_inv() {
         mvwprintw(inv_window, i + 3, 1, current->get_inv_string().c_str());
     }
 
-    wrefresh(inv_window);
+    wnoutrefresh(inv_window);
 }
 
 bool Engine::handle_keypress(int key) {

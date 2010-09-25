@@ -23,18 +23,21 @@ class Engine {
         MapList* map_list;
 
         WINDOW* map_window;
-        static const int map_win_width = 69;
-        static const int map_win_height = 31;
+        int map_win_width;
+        int map_win_height;
 
         WINDOW* msg_window;
-        static const int msg_win_height = 10;
+        int msg_win_height;
+
         WINDOW* info_window;
-        static const int info_win_width = 20;
+        int info_win_width;
 
         void add_level_entry_msg();
 
         Position* get_position_from_user();
         bool fire_weapon();
+
+        void calculate_window_sizes();
     public:
         Engine();
         ~Engine();

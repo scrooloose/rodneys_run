@@ -19,9 +19,12 @@ void Engine::setup_curses() {
     cbreak();
     keypad(stdscr, true);
     curs_set(0);
+
+    calculate_window_sizes();
     map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
     msg_window = newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0);
     info_window = newwin(map_win_height, info_win_width, 0, 0);
+
     refresh();
 }
 
@@ -371,4 +374,33 @@ void Engine::add_level_entry_msg() {
 
 void Engine::game_over() {
     MessageLog::add_message("You died!");
+}
+
+void Engine::calculate_window_sizes() {
+    int height, width;
+    getmaxyx(stdscr, height, width);
+
+
+    msg_win_height = 10;
+    info_win_width = 20;
+
+    if (height < 30) {
+        msg_win_height = 5;
+    }
+
+    map_win_width = width - info_win_width;
+    if (map_win_width % 2 == 0) {
+        map_win_width--;
+    }
+    if (map_win_width > 79) {
+        map_win_width = 79;
+    }
+
+    map_win_height = height - msg_win_height;
+    if (map_win_height % 2 == 0) {
+        map_win_height--;
+    }
+    if (map_win_height > 37) {
+        map_win_height = 37;
+    }
 }

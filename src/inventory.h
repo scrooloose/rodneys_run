@@ -17,6 +17,8 @@ class Inventory {
         bool has_item(string item_type);
         void use_item(string item_type);
 
+        vector<Item*> get_items();
+
 };
 
 #endif

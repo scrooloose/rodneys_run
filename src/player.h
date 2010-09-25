@@ -53,6 +53,7 @@ class Player : public Renderable, public Positionable {
         int get_health();
         bool tick();
         void pick_up_items();
+        Inventory* get_inventory();
 
         void set_ranged_weapon(RangedWeapon* rw);
         RangedWeapon* get_ranged_weapon();

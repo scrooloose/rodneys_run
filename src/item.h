@@ -26,6 +26,7 @@ class Item : public Positionable, public Renderable {
         void use(int amount);
 
         string get_pickup_msg();
+        string get_inv_string();
         string to_char();
 };
 

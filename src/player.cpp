@@ -34,6 +34,10 @@ void Player::pick_up_items() {
     }
 }
 
+Inventory* Player::get_inventory() {
+    return this->inventory;
+}
+
 void Player::move_up() {
     move_to(position->up());
 }

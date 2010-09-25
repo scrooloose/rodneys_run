@@ -6,6 +6,8 @@ Engine::Engine() {
     this->player = new Player(map);
     this->map->set_player(player);
     add_level_entry_msg();
+
+    this->show_inventory = false;
 }
 
 Engine::~Engine() {
@@ -24,6 +26,7 @@ void Engine::setup_curses() {
     map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
     msg_window = newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0);
     info_window = newwin(map_win_height, info_win_width, 0, 0);
+    inv_window = newwin(inv_window_height, inv_window_width, 0, 0);
 
     refresh();
 }
@@ -39,6 +42,10 @@ void Engine::render() {
     render_map();
     render_messages();
     render_info();
+    if (show_inventory) {
+        render_inv();
+        show_inventory = false;
+    }
 }
 
 void Engine::render_map() {
@@ -119,6 +126,21 @@ void Engine::render_info() {
 
 }
 
+void Engine::render_inv() {
+    wclear(inv_window);
+    box(inv_window, 0, 0);
+    mvwprintw(inv_window, 1, 1, "Inventory:");
+
+    vector<Item*> items = player->get_inventory()->get_items();
+    for (unsigned i=0; i < items.size(); i++) {
+        Item* current = items.at(i);
+
+        mvwprintw(inv_window, i + 3, 1, current->get_inv_string().c_str());
+    }
+
+    wrefresh(inv_window);
+}
+
 bool Engine::handle_keypress(int key) {
     bool action_taken = true;
     switch(key) {
@@ -154,6 +176,10 @@ bool Engine::handle_keypress(int key) {
             if (!fire_weapon()) {
                 action_taken = false;
             }
+            break;
+        case (int)'i':
+            show_inventory = true;
+            action_taken = false;
             break;
         case (int)'o':
             do_open();
@@ -379,7 +405,6 @@ void Engine::calculate_window_sizes() {
     int height, width;
     getmaxyx(stdscr, height, width);
 
-
     msg_win_height = 10;
     info_win_width = 20;
 
@@ -402,4 +427,7 @@ void Engine::calculate_window_sizes() {
     if (map_win_height > 37) {
         map_win_height = 37;
     }
+
+    inv_window_width = 30;
+    inv_window_height = 20;
 }

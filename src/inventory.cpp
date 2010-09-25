@@ -55,3 +55,7 @@ void Inventory::remove(string item_type, int quantity) {
 void Inventory::use_item(string item_type) {
     remove(item_type, 1);
 }
+
+vector<Item*> Inventory::get_items() {
+    return items;
+}

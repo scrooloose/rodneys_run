@@ -5,6 +5,7 @@
 #include "positionable.h"
 #include "renderable.h"
 #include <string>
+#include <cstdio>
 
 class Item : public Positionable, public Renderable {
     private:
@@ -24,6 +25,7 @@ class Item : public Positionable, public Renderable {
         void add_to_quantity(int diff);
         void use(int amount);
 
+        string get_pickup_msg();
         string to_char();
 };
 

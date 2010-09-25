@@ -63,7 +63,7 @@ Map* MapParser::parse() {
 
     //HACK: hardcode this for testing purposes
     if (*fname == string("../maps/1.map")) {
-        map->add_item(new Item("Rifle rounds", "rifle_rounds", 5, "=", new Position(35, 19)));
+        map->add_item(new Item("Rifle round", "rifle_round", 5, "=", new Position(35, 19)));
     }
 
     return map;

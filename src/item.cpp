@@ -10,6 +10,16 @@ Item::Item(string name, string type, int quantity, string renderable_char, Posit
 Item::~Item() {
 }
 
+string Item::get_pickup_msg() {
+    if (quantity > 1) {
+        char msg[200];
+        sprintf(msg, "Picked up %d * %s", quantity, name.c_str());
+        return string(msg);
+    } else {
+        return "Picked up a " + name;
+    }
+}
+
 string Item::to_char() {
     return this->renderable_char;
 }

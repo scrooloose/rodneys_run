@@ -1,0 +1,15 @@
+{
+    "name": "Test map one",
+    "start_position": {"x": 36, "y": 20},
+    "mobiles": [
+        { "type": "Zombie", "x": 33, "y": 19 },
+        { "type": "Zombie", "x": 32, "y": 19 },
+        { "type": "Zombie", "x": 31, "y": 19 },
+        { "type": "Zombie", "x": 33, "y": 18 },
+        { "type": "Zombie", "x": 32, "y": 18 },
+        { "type": "Zombie", "x": 31, "y": 18 }
+    ],
+    "items": [
+        { "type": "rifle_round", "quantity": 5, "x": 35, "y": 19 }
+    ]
+}

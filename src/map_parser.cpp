@@ -22,7 +22,7 @@ Map* MapParser::parse() {
 
     ifstream* map_file = open_map_file();
 
-    Map* map = new Map(find_width(), find_height());
+    map = new Map(find_width(), find_height());
 
     if (map_file->is_open()) {
 
@@ -37,20 +37,7 @@ Map* MapParser::parse() {
                 }
 
                 Position* p = new Position(i, line_no);
-                if (c == '@') {
-                    map->set_starting_pos(p);
-                }
-
-                Positionable* mob;
-                Tile* t;
-                if ((mob = mobile_for(c, p, map)) != NULL) {
-                    t = tile_for('.', p);
-                    map->add_mobile(mob);
-                } else {
-                    t = tile_for(c, p);
-                }
-
-                map->add_tile(t);
+                map->add_tile(tile_for(c, p));
             }
 
             line_no++;
@@ -59,12 +46,7 @@ Map* MapParser::parse() {
         map_file->close();
     }
 
-    map->set_name(fname);
-
-    //HACK: hardcode this for testing purposes
-    if (*fname == string("../maps/1.map")) {
-        map->add_item(new Item("Rifle round", "rifle_round", 5, "=", new Position(35, 19)));
-    }
+    parse_meta_inf();
 
     return map;
 }
@@ -73,7 +55,6 @@ Map* MapParser::parse() {
 Tile* MapParser::tile_for(char c, Position* p) {
     switch(c) {
         case (int)'.':
-        case (int)'@':
             return new Floor(p);
             break;
         case (int)'#':
@@ -93,7 +74,7 @@ Tile* MapParser::tile_for(char c, Position* p) {
             break;
 
         default:
-            throw new MapParsingException("Unknown map character");
+            throw MapParsingException("Unknown map character:" + string(1, c));
             break;
     }
 
@@ -139,4 +120,29 @@ int MapParser::find_height() {
     }
 
     return num_lines;
+}
+
+string MapParser::get_meta_inf_file_name() {
+    string meta_fname(*fname);
+    meta_fname.replace(meta_fname.length() - 3, 3, "json");
+    return meta_fname;
+}
+
+void MapParser::parse_meta_inf() {
+    MapMetaInfParser mmip(get_meta_inf_file_name(), map);
+    mmip.parse();
+
+    vector<Mobile*> mobs = mmip.get_mobiles();
+    for (unsigned i = 0; i < mobs.size(); i++) {
+        map->add_mobile(mobs.at(i));
+    }
+
+    map->set_name(new string(mmip.get_map_name()));
+    map->set_starting_pos(mmip.get_start_position());
+
+    vector<Item*> items = mmip.get_items();
+    for (unsigned i = 0; i < items.size(); i++) {
+        MessageLog::add_message("add item: " + items.at(i)->get_type());
+        map->add_item(items.at(i));
+    }
 }

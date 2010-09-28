@@ -19,13 +19,20 @@
 
 #include "item.h"
 
+#include "map_meta_inf_parser.h"
+
+
 using namespace std;
 
 class MapParser {
     private:
         string* fname;
+        Map* map;
 
         ifstream* open_map_file();
+
+        void parse_meta_inf();
+        string get_meta_inf_file_name();
 
     public:
         MapParser(string* fname);

@@ -47,6 +47,8 @@ void Engine::render() {
 }
 
 void Engine::render_map() {
+    werase(map_window);
+
     ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
     vector<Position> to_render = vpc.contained_positions();
 

@@ -74,6 +74,9 @@ void MeleeAI::approach() {
     PathFinder pf(map, get_pos(), get_player()->get_pos());
     list<Position> path = pf.get_path();
     if (path.size() == 0) {
+
+        //mob cant get to player, so give up
+        last_known_pos = NULL;
         return;
     }
 

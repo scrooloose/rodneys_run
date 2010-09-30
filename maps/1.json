@@ -1,21 +1,59 @@
 {
-    "name": "Test map one",
-    "start_position": {"x": 36, "y": 20},
+    "name": "The office building",
+    "start_position": {"x": 6, "y": 52},
     "mobiles": [
-        { "type": "Zombie", "x": 33, "y": 19 },
-        { "type": "Zombie", "x": 32, "y": 19 },
-        { "type": "Zombie", "x": 31, "y": 19 },
-        { "type": "Zombie", "x": 33, "y": 18 },
-        { "type": "Zombie", "x": 32, "y": 18 },
-        { "type": "Zombie", "x": 31, "y": 18 }
+        { "type": "Zombie", "x": 23, "y": 43 },
+        { "type": "Zombie", "x": 25, "y": 45 },
+        { "type": "Zombie", "x": 6, "y": 46 },
+        { "type": "Zombie", "x": 4, "y": 44 },
+        { "type": "Zombie", "x": 5, "y": 43 },
+        { "type": "Zombie", "x": 45, "y": 30 },
+        { "type": "Zombie", "x": 48, "y": 29 },
+        { "type": "Zombie", "x": 50, "y": 30 },
+        { "type": "Zombie", "x": 57, "y": 30 },
+        { "type": "Zombie", "x": 65, "y": 29 },
+        { "type": "Zombie", "x": 53, "y": 35 },
+        { "type": "Zombie", "x": 52, "y": 34 },
+        { "type": "Zombie", "x": 49, "y": 35 },
+        { "type": "Zombie", "x": 43, "y": 35 },
+        { "type": "Zombie", "x": 42, "y": 42 },
+        { "type": "Zombie", "x": 45, "y": 43 },
+        { "type": "Zombie", "x": 45, "y": 42 },
+        { "type": "Zombie", "x": 49, "y": 42 },
+        { "type": "Zombie", "x": 59, "y": 42 },
+        { "type": "Zombie", "x": 59, "y": 45 },
+        { "type": "Zombie", "x": 60, "y": 45 },
+        { "type": "Zombie", "x": 55, "y": 45 },
+        { "type": "Zombie", "x": 43, "y": 46 },
+        { "type": "Zombie", "x": 49, "y": 50 },
+        { "type": "Zombie", "x": 53, "y": 51 },
+        { "type": "Zombie", "x": 52, "y": 53 },
+        { "type": "Zombie", "x": 53, "y": 53 },
+        { "type": "Zombie", "x": 72, "y": 43 },
+        { "type": "Zombie", "x": 96, "y": 44 },
+        { "type": "Zombie", "x": 97, "y": 40 },
+        { "type": "Zombie", "x": 95, "y": 42 },
+        { "type": "Zombie", "x": 77, "y": 35 },
+        { "type": "Zombie", "x": 79, "y": 37 },
+        { "type": "Zombie", "x": 83, "y": 33 },
+        { "type": "Zombie", "x": 71, "y": 25 },
+        { "type": "Zombie", "x": 80, "y": 1 },
+        { "type": "Zombie", "x": 76, "y": 1 },
+        { "type": "Zombie", "x": 70, "y": 1 },
+        { "type": "Zombie", "x": 71, "y": 1 }
     ],
     "items": [
-        { "type": "rifle_round", "quantity": 5, "x": 35, "y": 19 }
+        { "type": "rifle_round", "quantity": 5, "x": 1, "y": 46 },
+        { "type": "rifle_round", "quantity": 5, "x": 2, "y": 46 },
+        { "type": "rifle_round", "quantity": 5, "x": 87, "y": 47 }
     ],
     "keys": [
-        { "door_id": 1, "name": "Red Key", "x": 36, "y": 19 }
+        { "door_id": 1, "name": "Office floor key", "x": 88, "y": 47 },
+        { "door_id": 2, "name": "Backstage Pass", "x": 68, "y": 35 }
     ],
     "locked-doors": [
-        { "door_id": 1, "name": "Red Door", "x": 37, "y": 19 }
+        { "door_id": 1, "name": "Office floor", "x": 39, "y": 29 },
+        { "door_id": 1, "name": "Office floor", "x": 65, "y": 52 },
+        { "door_id": 2, "name": "Backstage entrance", "x": 88, "y": 9 }
     ]
 }

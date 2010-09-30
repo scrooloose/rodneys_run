@@ -12,7 +12,7 @@
 #include "melee_weapon.h"
 #include "item.h"
 #include "inventory.h"
-
+#include "door.h"
 
 class Player : public Renderable, public Positionable {
     private:

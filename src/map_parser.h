@@ -18,6 +18,7 @@
 #include "zombie.h"
 
 #include "item.h"
+#include "door.h"
 
 #include "map_meta_inf_parser.h"
 

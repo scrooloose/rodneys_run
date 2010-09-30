@@ -11,5 +11,11 @@
     ],
     "items": [
         { "type": "rifle_round", "quantity": 5, "x": 35, "y": 19 }
+    ],
+    "keys": [
+        { "door_id": 1, "name": "Red Key", "x": 36, "y": 19 }
+    ],
+    "locked-doors": [
+        { "door_id": 1, "name": "Red Door", "x": 37, "y": 19 }
     ]
 }

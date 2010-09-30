@@ -7,8 +7,13 @@ class Door : public Tile {
     private:
         bool is_open;
 
+        int door_id;
+        string name;
+        bool locked;
+
     public:
         Door(Position* p);
+        Door(Position* p, int door_id, string name);
 
         bool is_walkable();
         string to_char();
@@ -16,6 +21,11 @@ class Door : public Tile {
 
         bool is_openable();
         void open();
+
+        bool is_locked();
+        void set_locked(bool locked);
+        bool get_door_id();
+        string get_name();
 };
 
 #endif

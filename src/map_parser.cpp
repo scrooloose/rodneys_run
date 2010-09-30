@@ -145,4 +145,9 @@ void MapParser::parse_meta_inf() {
         MessageLog::add_message("add item: " + items.at(i)->get_type());
         map->add_item(items.at(i));
     }
+
+    vector<Door*> locked_doors = mmip.get_locked_doors();
+    for (unsigned i = 0; i < locked_doors.size(); i++) {
+        map->add_tile(locked_doors.at(i));
+    }
 }

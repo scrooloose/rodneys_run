@@ -29,7 +29,7 @@ void Player::move_to(Position* position) {
 void Player::pick_up_items() {
     Item* item = map->remove_item(*get_pos());
     if (item) {
-        inventory->add(*item);
+        inventory->add(item);
         MessageLog::add_message(item->get_pickup_msg());
     }
 }
@@ -91,7 +91,21 @@ void Player::open(Position* target_pos){
 
     Tile* target_tile = map->tile_for(*target_pos);
     if (target_tile->is_openable()) {
-        target_tile->open();
+
+        //TODO: fix the design so this cast isnt needed
+        Door* d = (Door*) target_tile;
+        if (d->is_locked()) {
+            //verify we have the key
+            if (inventory->has_key(d->get_door_id())){
+                d->set_locked(false);
+                d->open();
+                MessageLog::add_message("You unlock the " + d->get_name());
+            } else {
+                MessageLog::add_message("Dont have the key for the " + d->get_name());
+            }
+        } else {
+            target_tile->open();
+        }
     }
 }
 

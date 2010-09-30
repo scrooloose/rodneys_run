@@ -3,15 +3,14 @@
 Inventory::Inventory() {
 }
 
-void Inventory::add(Item item) {
-    Item* existing_item = find(item.get_type());
+void Inventory::add(Item* item) {
+    Item* existing_item = find(item->get_type());
 
     if (existing_item) {
-        existing_item->add_to_quantity(item.get_quantity());
+        existing_item->add_to_quantity(item->get_quantity());
     } else {
-        items.push_back(new Item(item));
+        items.push_back(item);
     }
-
 }
 
 Item* Inventory::find(string item_type) {
@@ -22,6 +21,18 @@ Item* Inventory::find(string item_type) {
     }
 
     return NULL;
+}
+
+vector<Key*> Inventory::find_keys() {
+    vector<Key*> keys;
+
+    for (unsigned i = 0; i < items.size(); i++) {
+        if (items.at(i)->get_type() == "key") {
+            keys.push_back((Key*) items.at(i));
+        }
+    }
+
+    return keys;
 }
 
 bool Inventory::has_item(string item_type) {
@@ -58,4 +69,16 @@ void Inventory::use_item(string item_type) {
 
 vector<Item*> Inventory::get_items() {
     return items;
+}
+
+bool Inventory::has_key(int door_id) {
+    vector<Key*> keys = find_keys();
+
+    for (unsigned i = 0; i < keys.size(); i++) {
+        if (keys.at(i)->get_door_id() == door_id) {
+            return true;
+        }
+    }
+
+    return false;
 }

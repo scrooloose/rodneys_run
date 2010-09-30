@@ -34,6 +34,8 @@ void MapMetaInfParser::parse() {
     parse_map_name(root);
     parse_start_position(root);
     parse_items(root);
+    parse_keys(root);
+    parse_locked_doors(root);
 }
 
 void MapMetaInfParser::parse_mobiles(Json::Value root) {
@@ -89,6 +91,35 @@ void MapMetaInfParser::parse_items(Json::Value root) {
     }
 }
 
+void MapMetaInfParser::parse_keys(Json::Value root) {
+    Json::Value keys = root["keys"];
+
+    for (unsigned i = 0; i < keys.size(); i++) {
+        Json::Value current = keys[i];
+
+        int door_id  = current["door_id"].asInt();
+        string name = current["name"].asString();
+        int xpos  = current["x"].asInt();
+        int ypos  = current["y"].asInt();
+
+        this->items.push_back(new Key(door_id, name, new Position(xpos, ypos)));
+    }
+}
+
+void MapMetaInfParser::parse_locked_doors(Json::Value root) {
+    Json::Value doors = root["locked-doors"];
+    for (unsigned i = 0; i < doors.size(); i++) {
+        Json::Value current = doors[i];
+
+        int door_id  = current["door_id"].asInt();
+        string name = current["name"].asString();
+        int xpos  = current["x"].asInt();
+        int ypos  = current["y"].asInt();
+
+        this->locked_doors.push_back(new Door(new Position(xpos, ypos), door_id, name));
+    }
+}
+
 Item* MapMetaInfParser::item_for(string type, int quantity, int xpos, int ypos) {
     if (type == "rifle_round")
         return new Item("Rifle round", type, quantity, "=", new Position(xpos, ypos));
@@ -107,6 +138,10 @@ vector<Mobile*> MapMetaInfParser::get_mobiles() {
 
 vector<Item*> MapMetaInfParser::get_items() {
     return items;
+}
+
+vector<Door*> MapMetaInfParser::get_locked_doors() {
+    return locked_doors;
 }
 
 Position* MapMetaInfParser::get_start_position() {

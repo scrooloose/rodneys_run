@@ -82,7 +82,6 @@ void Engine::render_map() {
     mvwprintw(map_window, ypos, xpos, player->to_char().c_str());
     box(map_window, 0, 0);
     wnoutrefresh(map_window);
-
 }
 
 void Engine::render_messages() {
@@ -359,6 +358,7 @@ void Engine::main_loop() {
             while (!action_taken) {
                 key = getch();
                 action_taken = handle_keypress(key);
+
                 if (!action_taken) {
                     render();
                 }

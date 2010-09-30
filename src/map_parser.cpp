@@ -142,7 +142,6 @@ void MapParser::parse_meta_inf() {
 
     vector<Item*> items = mmip.get_items();
     for (unsigned i = 0; i < items.size(); i++) {
-        MessageLog::add_message("add item: " + items.at(i)->get_type());
         map->add_item(items.at(i));
     }
 

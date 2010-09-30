@@ -10,6 +10,7 @@ Door::Door(Position* p, int door_id, string name) : Tile(p) {
     this->door_id = door_id;
     this->name = name;
     this->locked = true;
+    this->is_open = false;
 }
 
 bool Door::is_walkable() {

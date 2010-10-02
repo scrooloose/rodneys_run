@@ -4,6 +4,11 @@ Inventory::Inventory() {
 }
 
 void Inventory::add(Item* item) {
+    if (item->get_type() == "key") {
+        items.push_back(item);
+        return;
+    }
+
     Item* existing_item = find(item->get_type());
 
     if (existing_item) {

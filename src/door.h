@@ -24,7 +24,7 @@ class Door : public Tile {
 
         bool is_locked();
         void set_locked(bool locked);
-        bool get_door_id();
+        int get_door_id();
         string get_name();
 };
 

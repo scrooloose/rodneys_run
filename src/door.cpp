@@ -41,7 +41,7 @@ void Door::set_locked(bool locked) {
     this->locked = locked;
 }
 
-bool Door::get_door_id() {
+int Door::get_door_id() {
     return door_id;
 }
 

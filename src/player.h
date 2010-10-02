@@ -11,10 +11,13 @@
 #include "ranged_weapon.h"
 #include "melee_weapon.h"
 #include "item.h"
+#include "item_affectee.h"
 #include "inventory.h"
 #include "door.h"
 
-class Player : public Renderable, public Positionable {
+#include "med_kit.h"
+
+class Player : public Renderable, public Positionable, public ItemAffectee {
     private:
         Map* map;
         int health;
@@ -59,6 +62,9 @@ class Player : public Renderable, public Positionable {
         RangedWeapon* get_ranged_weapon();
         void set_melee_weapon(MeleeWeapon* mw);
         MeleeWeapon* get_melee_weapon();
+
+        //ItemAffectee methods
+        void heal(int amount);
 
         string to_char();
 

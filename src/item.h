@@ -4,6 +4,7 @@
 #include "position.h"
 #include "positionable.h"
 #include "renderable.h"
+#include "item_affectee.h"
 #include <string>
 #include <cstdio>
 
@@ -24,6 +25,10 @@ class Item : public Positionable, public Renderable {
         void set_quantity(int q);
         void add_to_quantity(int diff);
         void use(int amount);
+
+        virtual void affect_recipient(ItemAffectee* ia);
+        virtual bool is_instant_usage_item();
+
 
         string get_pickup_msg();
         string get_inv_string();

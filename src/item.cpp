@@ -60,3 +60,11 @@ void Item::add_to_quantity(int amount) {
 void Item::use(int amount) {
     set_quantity(quantity - amount);
 }
+
+void Item::affect_recipient(ItemAffectee* ia) {
+    //let subclasses override and define any actions
+}
+
+bool Item::is_instant_usage_item() {
+    return false;
+}

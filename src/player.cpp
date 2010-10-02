@@ -29,8 +29,15 @@ void Player::move_to(Position* position) {
 void Player::pick_up_items() {
     Item* item = map->remove_item(*get_pos());
     if (item) {
-        inventory->add(item);
+        item->affect_recipient(this);
         MessageLog::add_message(item->get_pickup_msg());
+
+        if (!item->is_instant_usage_item()) {
+            inventory->add(item);
+        } else {
+            delete item;
+        }
+
     }
 }
 
@@ -154,6 +161,12 @@ void Player::set_melee_weapon(MeleeWeapon* mw) {
 }
 MeleeWeapon* Player::get_melee_weapon() {
     return this->melee_weapon;
+}
+
+void Player::heal(int amount) {
+    health += amount;
+    if (health > 100)
+        health = 100;
 }
 
 string Player::to_char() {

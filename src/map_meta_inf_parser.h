@@ -9,8 +9,10 @@
 #include "map_parsing_exception.h"
 #include "map.h"
 #include "position.h"
+
 #include "item.h"
 #include "key.h"
+#include "med_kit.h"
 
 #include "mobile.h"
 #include "zombie.h"

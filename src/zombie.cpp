@@ -1,6 +1,6 @@
 #include "zombie.h"
 
-Zombie::Zombie(Position* p, Map* m) : Mobile(p,m,20) {
+Zombie::Zombie(Position* p, Map* m) : Mobile(p,m,15) {
     this->ai = new MeleeAI(this, m);
 }
 
@@ -16,5 +16,11 @@ void Zombie::take_turn() {
 }
 
 int Zombie::get_attack_damage() {
-    return 10;
+    //3d6 damage
+    int dmg = 0;
+    for (int i=0; i < 3; i++) {
+        dmg += (rand() % 6)+1;
+    }
+
+    return dmg;
 }

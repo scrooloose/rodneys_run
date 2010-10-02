@@ -8,6 +8,7 @@
 #include <string>
 #include "ai.h"
 #include "melee_ai.h"
+#include <cstdlib>
 
 class Zombie : public Mobile {
     private:

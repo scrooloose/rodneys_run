@@ -1,0 +1,26 @@
+Requirements
+============
+
+g++
+---
+In ubuntu: `sudo aptitude install g++'
+
+
+Ncurses development files
+-------------------------
+In ubuntu: `sudo aptitude install ncurses-dev'
+
+
+jsoncpp development files
+-------------------------
+Downloadable from here: http://jsoncpp.sourceforge.net/.
+
+Installation is a bit of a slut since there appears to be no automated way to
+do it, and the install documentation is shit. This is what I did (for ubuntu):
+
+* wget the file and unpackage it somewhere
+* cd into it and run `scons platform=linux-gcc'
+* run `sudo cp -r include/json /usr/local/include'
+* run `sudo cp -r libs/linux-gcc-4.4.3/libjson_linux-gcc-4.4.3_libmt.so /usr/local/lib/'
+* run `sudo ln -s /usr/local/lib/libjson_linux-gcc-4.4.3_libmt.so /usr/local/lib/libjsoncpp.so'
+* run `sudo ldconfig'

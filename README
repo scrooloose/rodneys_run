@@ -1,3 +1,14 @@
+Controls
+========
+
+* Numpad to move around
+* f to fire your weapon - then move the cursor around to choose a taret and hit f again
+* i to view your inventory - hit space (or any key) to dismiss it
+* o to open/close doors - hit o then a direction to select the target door
+* > to go to the next level (when standing on the stairs)
+* q to quit
+
+
 Requirements
 ============
 

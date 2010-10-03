@@ -8,7 +8,6 @@
 #include "tile.h"
 #include "floor.h"
 #include "wall.h"
-#include "path.h"
 #include "stairs.h"
 #include "door.h"
 #include "empty_tile.h"

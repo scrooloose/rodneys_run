@@ -12,15 +12,9 @@ void Map::resize_map(int width, int height) {
     this->width = width;
     this->height = height;
 
-    tiles.resize(width);
-    mobiles.resize(width);
-    items.resize(width);
-
-    for (int x = 0; x < width; x++) {
-        tiles[x].resize(height);
-        mobiles[x].resize(height);
-        items[x].resize(height);
-    }
+    tiles.resize(width, height);
+    mobiles.resize(width, height);
+    items.resize(width, height);
 }
 
 int Map::get_width() {
@@ -32,41 +26,32 @@ int Map::get_height() {
 }
 
 Tile* Map::tile_for(Position p) {
-    return tiles.at(p.get_x()).at(p.get_y());
+    return tiles.get(p);
 }
 
 Positionable* Map::mobile_for(Position p) {
-    return mobiles.at(p.get_x()).at(p.get_y());
+    return mobiles.get(p);
 }
 
 Item* Map::item_for(Position p) {
-    return items.at(p.get_x()).at(p.get_y());
+    return items.get(p);
 }
 
 void Map::add_tile(Tile* t) {
-    Position* p = t->get_pos();
-    tiles[p->get_x()][p->get_y()] = t;
+    tiles.add(t, *t->get_pos());
 }
 
 void Map::add_mobile(Positionable* m) {
-    Position* p = m->get_pos();
-    mobiles[p->get_x()][p->get_y()] = m;
+    mobiles.add(m, *m->get_pos());
 }
 
 void Map::add_item(Item* i) {
-    Position* p = i->get_pos();
-    items[p->get_x()][p->get_y()] = i;
+    items.add(i, *i->get_pos());
 }
 
 Item* Map::remove_item(Position p) {
-    Item* item = items[p.get_x()][p.get_y()];
-    if (item) {
-        items[p.get_x()][p.get_y()] = NULL;
-    }
-
-    return item;
+    return items.remove(p);
 }
-
 
 void Map::set_starting_pos(Position* p) {
     this->starting_pos = p;
@@ -77,30 +62,11 @@ Position* Map::get_starting_pos() {
 }
 
 vector<Tile*> Map::get_all_tiles() {
-    vector<Tile*> all_tiles;
-
-    for (unsigned x=0; x < tiles.size(); x++) {
-        for (unsigned y=0; y < tiles.at(x).size(); y++) {
-            all_tiles.push_back(tiles.at(x).at(y));
-        }
-    }
-
-    return all_tiles;
+    return tiles.get_all();
 }
 
 vector<Positionable*> Map::get_all_mobiles() {
-    vector<Positionable*> all_mobs;
-
-    for (unsigned x=0; x < mobiles.size(); x++) {
-        for (unsigned y=0; y < mobiles.at(x).size(); y++) {
-            Positionable* current = mobiles.at(x).at(y);
-            if (current) {
-                all_mobs.push_back(current);
-            }
-        }
-    }
-
-    return all_mobs;
+    return mobiles.get_all();
 }
 
 vector<Positionable*> Map::get_all_mobiles_by_dist_to_player() {
@@ -172,11 +138,10 @@ void Map::update_mobile_position(Positionable* mob, Position old_pos, Position n
     if (new_pos.equals(player->get_pos()))
         throw new PositionException("Can't move mobile on top of player.");
 
-    mobiles.at(old_pos.get_x()).at(old_pos.get_y()) = NULL;
-    mobiles[new_pos.get_x()][new_pos.get_y()] = mob;
+    mobiles.remove(old_pos);
+    mobiles.add(mob, new_pos);
 }
 
 void Map::mobile_killed(Positionable* mob) {
-    Position* p = mob->get_pos();
-    mobiles.at(p->get_x()).at(p->get_y()) = NULL;
+    mobiles.remove(*mob->get_pos());
 }

@@ -10,14 +10,16 @@
 #include "position_exception.h"
 #include "proximity_sorter.h"
 #include "item.h"
+#include "map_grid.h"
 
 using namespace std;
 
 class Map {
     private:
-        vector< vector<Tile*> > tiles;
-        vector< vector<Positionable*> > mobiles;
-        vector< vector<Item*> > items;
+        MapGrid<Tile> tiles;
+        MapGrid<Positionable> mobiles;
+        MapGrid<Item> items;
+
         int width;
         int height;
         Position* starting_pos;

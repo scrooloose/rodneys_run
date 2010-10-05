@@ -6,6 +6,7 @@ Map::Map(int width, int height) {
 
 Map::~Map() {
     delete name;
+    delete starting_pos;
 }
 
 void Map::resize_map(int width, int height) {
@@ -53,8 +54,8 @@ Item* Map::remove_item(Position p) {
     return items.remove(p);
 }
 
-void Map::set_starting_pos(Position* p) {
-    this->starting_pos = p;
+void Map::set_starting_pos(Position p) {
+    this->starting_pos = new Position(p);
 }
 
 Position* Map::get_starting_pos() {
@@ -75,8 +76,8 @@ vector<Positionable*> Map::get_all_mobiles_by_dist_to_player() {
     return all_mobs;
 }
 
-bool Map::positions_have_los(Position* p1, Position* p2) {
-    vector<Position> positions = p1->positions_between(p2);
+bool Map::positions_have_los(const Position& p1, const Position& p2) {
+    vector<Position> positions = p1.positions_between(p2);
 
     for (unsigned j=0; j < positions.size() - 1; j++) {
         Tile* tile_in_line = tile_for(positions.at(j));
@@ -88,14 +89,14 @@ bool Map::positions_have_los(Position* p1, Position* p2) {
     return true;
 }
 
-void Map::update_visibility_from(Position* p) {
+void Map::update_visibility_from(const Position& p) {
     vector<Tile*> all_tiles = get_all_tiles();
 
     for (unsigned i=0; i < all_tiles.size(); i++) {
         Tile* current = all_tiles.at(i);
         if (current->is_visible()) continue;
 
-        if (positions_have_los(p, &current->get_pos())) {
+        if (positions_have_los(p, current->get_pos())) {
             current->set_visiblity(true);
         }
     }

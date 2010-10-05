@@ -59,13 +59,13 @@ bool Position::is_adjacent(Position* p) const {
     return x_delta <= 1 && y_delta <= 1;
 }
 
-vector<Position> Position::positions_between(Position* p) const {
+vector<Position> Position::positions_between(const Position& p) const {
     //using Bresenham's algorithm
 
     int x1 = this->x;
-    int x2 = p->get_x();
+    int x2 = p.get_x();
     int y1 = this->y;
-    int y2 = p->get_y();
+    int y2 = p.get_y();
 
     vector<Position> positions;
 
@@ -136,7 +136,7 @@ bool Position::equals(Position* that) const {
 }
 
 int Position::distance_to(Position* p) const {
-    vector<Position> positions = positions_between(p);
+    vector<Position> positions = positions_between(*p);
     return positions.size() - 1;
 }
 

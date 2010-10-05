@@ -40,7 +40,7 @@ class Map {
         int get_height();
 
 
-        void set_starting_pos(Position* p);
+        void set_starting_pos(Position p);
         Position* get_starting_pos();
 
         void add_tile(Tile* t);
@@ -52,8 +52,8 @@ class Map {
         vector<Positionable*> get_all_mobiles();
         vector<Positionable*> get_all_mobiles_by_dist_to_player();
 
-        bool positions_have_los(Position* p1, Position* p2);
-        void update_visibility_from(Position* p);
+        bool positions_have_los(const Position& p1, const Position& p2);
+        void update_visibility_from(const Position& p);
         void set_name(string* name);
         string* get_name();
         void set_player(Positionable* p);

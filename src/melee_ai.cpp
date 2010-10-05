@@ -105,5 +105,5 @@ Player* MeleeAI::get_player() {
 }
 
 bool MeleeAI::can_see_player() {
-    return map->positions_have_los(&get_player()->get_pos(), get_pos());
+    return map->positions_have_los(get_player()->get_pos(), *get_pos());
 }

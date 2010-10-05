@@ -66,7 +66,7 @@ void Engine::render_map() {
         }
 
         Item* item = map->item_for(to_render.at(i));
-        if (item && map->positions_have_los(&item->get_pos(), &player->get_pos())) {
+        if (item && map->positions_have_los(item->get_pos(), player->get_pos())) {
             mvwprintw(map_window, ypos, xpos , item->to_char().c_str());
         }
 
@@ -345,7 +345,7 @@ void Engine::main_loop() {
 
     setup_curses();
 
-    map->update_visibility_from(&player->get_pos());
+    map->update_visibility_from(player->get_pos());
     render();
 
     main_loop_done = false;
@@ -364,7 +364,7 @@ void Engine::main_loop() {
                 }
             }
 
-            map->update_visibility_from(&player->get_pos());
+            map->update_visibility_from(player->get_pos());
             player_had_turn = true;
         }
 

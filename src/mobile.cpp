@@ -10,7 +10,7 @@ Mobile::~Mobile() {
 }
 
 bool Mobile::is_visible_from(Position* p) {
-    return map->positions_have_los(&get_pos(), p);
+    return map->positions_have_los(get_pos(), *p);
 }
 
 void Mobile::set_pos(Position* p) {

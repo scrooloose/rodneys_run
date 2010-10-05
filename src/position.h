@@ -29,7 +29,7 @@ class Position {
         Position* down_left() const;
         Position* down_right() const;
 
-        vector<Position> positions_between(Position* p) const;
+        vector<Position> positions_between(const Position& p) const;
         bool is_adjacent(Position* p) const;
         bool equals(Position* that) const;
         int distance_to(Position* p) const;

@@ -135,7 +135,7 @@ void MapParser::parse_meta_inf() {
     }
 
     map->set_name(new string(mmip.get_map_name()));
-    map->set_starting_pos(mmip.get_start_position());
+    map->set_starting_pos(*mmip.get_start_position());
 
     vector<Item*> items = mmip.get_items();
     for (unsigned i = 0; i < items.size(); i++) {

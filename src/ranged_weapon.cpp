@@ -9,7 +9,7 @@ RangedWeapon::RangedWeapon(int min_range, int max_range, Positionable* player, I
 }
 
 bool RangedWeapon::in_range(Position p) {
-    int actual_range = player->get_pos().positions_between(&p).size() - 1;
+    int actual_range = player->get_pos().positions_between(p).size() - 1;
     return actual_range <= max_range && actual_range >= min_range;
 }
 

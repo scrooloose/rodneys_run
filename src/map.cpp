@@ -54,7 +54,7 @@ Item* Map::remove_item(Position p) {
     return items.remove(p);
 }
 
-void Map::set_starting_pos(Position p) {
+void Map::set_starting_pos(const Position& p) {
     this->starting_pos = new Position(p);
 }
 

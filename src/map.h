@@ -40,7 +40,7 @@ class Map {
         int get_height();
 
 
-        void set_starting_pos(Position p);
+        void set_starting_pos(const Position& p);
         Position* get_starting_pos();
 
         void add_tile(Tile* t);

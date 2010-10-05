@@ -1,6 +1,6 @@
 #include "med_kit.h"
 
-MedKit::MedKit(Position* p) : Item("Med Kit", "med_kit", 1, "&", p) {
+MedKit::MedKit(Position p) : Item("Med Kit", "med_kit", 1, "&", p) {
 }
 
 void MedKit::affect_recipient(ItemAffectee* ia) {

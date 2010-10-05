@@ -1,6 +1,6 @@
 #include "key.h"
 
-Key::Key(int door_id, string name, Position* position) : Item(name, "key", 1, "%%", position) {
+Key::Key(int door_id, string name, Position position) : Item(name, "key", 1, "%%", position) {
     this->door_id = door_id;
 }
 

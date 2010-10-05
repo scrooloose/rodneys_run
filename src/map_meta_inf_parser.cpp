@@ -102,7 +102,7 @@ void MapMetaInfParser::parse_keys(Json::Value root) {
         int xpos  = current["x"].asInt();
         int ypos  = current["y"].asInt();
 
-        this->items.push_back(new Key(door_id, name, new Position(xpos, ypos)));
+        this->items.push_back(new Key(door_id, name, Position(xpos, ypos)));
     }
 }
 
@@ -122,9 +122,9 @@ void MapMetaInfParser::parse_locked_doors(Json::Value root) {
 
 Item* MapMetaInfParser::item_for(string type, int quantity, int xpos, int ypos) {
     if (type == "rifle_round")
-        return new Item("Rifle round", type, quantity, "=", new Position(xpos, ypos));
+        return new Item("Rifle round", type, quantity, "=", Position(xpos, ypos));
     else if (type == "med_kit")
-        return new MedKit(new Position(xpos, ypos));
+        return new MedKit(Position(xpos, ypos));
     else
         throw MapParsingException("Unrecognised item type:" + type);
 

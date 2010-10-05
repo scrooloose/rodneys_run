@@ -10,7 +10,7 @@ class Key : public Item {
         int door_id;
 
     public:
-        Key(int door_id, string name, Position* position);
+        Key(int door_id, string name, Position position);
         int get_door_id();
         string get_door_id_as_string();
 

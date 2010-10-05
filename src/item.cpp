@@ -1,6 +1,6 @@
 #include "item.h"
 
-Item::Item(string name, string type, int quantity, string renderable_char, Position* position) : Positionable(*position) {
+Item::Item(string name, string type, int quantity, string renderable_char, Position position) : Positionable(position) {
     this->name = name;
     this->type = type;
     this->quantity = quantity;

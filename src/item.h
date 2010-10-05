@@ -16,7 +16,7 @@ class Item : public Positionable, public Renderable {
         string renderable_char;
 
     public:
-        Item(string name, string type, int quantity, string renderable_char, Position* position);
+        Item(string name, string type, int quantity, string renderable_char, Position position);
         ~Item();
 
         string get_name();

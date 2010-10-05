@@ -8,7 +8,7 @@
 
 class MedKit : public Item {
     public:
-        MedKit(Position* p);
+        MedKit(Position p);
         virtual void affect_recipient(ItemAffectee* ia);
         virtual bool is_instant_usage_item();
 };

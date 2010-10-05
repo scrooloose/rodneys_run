@@ -5,6 +5,10 @@ MapMetaInfParser::MapMetaInfParser(string fname, Map* map) {
     this->map = map;
 }
 
+MapMetaInfParser::~MapMetaInfParser() {
+    delete start_position;
+}
+
 string MapMetaInfParser::get_file_contents() {
     ifstream inf_file(fname.c_str());
 

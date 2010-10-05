@@ -43,6 +43,7 @@ class MapMetaInfParser {
 
     public:
         MapMetaInfParser(string fname, Map* map);
+        ~MapMetaInfParser();
         void parse();
 
         vector<Mobile*> get_mobiles();

@@ -42,11 +42,11 @@ void Map::add_tile(Tile* t) {
 }
 
 void Map::add_mobile(Positionable* m) {
-    mobiles.add(m, *m->get_pos());
+    mobiles.add(m, m->get_pos());
 }
 
 void Map::add_item(Item* i) {
-    items.add(i, *i->get_pos());
+    items.add(i, i->get_pos());
 }
 
 Item* Map::remove_item(Position p) {
@@ -71,7 +71,7 @@ vector<Positionable*> Map::get_all_mobiles() {
 
 vector<Positionable*> Map::get_all_mobiles_by_dist_to_player() {
     vector<Positionable*> all_mobs = get_all_mobiles();
-    ProximitySorter::sort_mobiles(&all_mobs, player->get_pos());
+    ProximitySorter::sort_mobiles(&all_mobs, &player->get_pos());
     return all_mobs;
 }
 
@@ -122,7 +122,7 @@ bool Map::is_walkable(Position position) {
 }
 
 bool Map::is_walkable(Position position, bool ignore_player, bool ignore_mobiles) {
-    if (!ignore_player && player->get_pos()->equals(&position))
+    if (!ignore_player && player->get_pos().equals(&position))
         return false;
 
     if (!ignore_mobiles && mobile_for(position))
@@ -135,7 +135,7 @@ void Map::update_mobile_position(Positionable* mob, Position old_pos, Position n
     if (mobile_for(new_pos))
         throw new PositionException("Can't move mobile on top of another.");
 
-    if (new_pos.equals(player->get_pos()))
+    if (new_pos.equals(&player->get_pos()))
         throw new PositionException("Can't move mobile on top of player.");
 
     mobiles.remove(old_pos);
@@ -143,5 +143,5 @@ void Map::update_mobile_position(Positionable* mob, Position old_pos, Position n
 }
 
 void Map::mobile_killed(Positionable* mob) {
-    mobiles.remove(*mob->get_pos());
+    mobiles.remove(mob->get_pos());
 }

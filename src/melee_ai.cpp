@@ -27,7 +27,7 @@ void MeleeAI::do_ai() {
 
 void MeleeAI::detect_last_known_pos() {
     if (can_see_player()) {
-        last_known_pos = get_player()->get_pos();
+        last_known_pos = &get_player()->get_pos();
     } else {
         if (last_known_pos && get_pos()->equals(last_known_pos)) {
             last_known_pos = NULL;
@@ -63,7 +63,7 @@ void MeleeAI::detect_state() {
 }
 
 bool MeleeAI::in_attack_range() {
-    return mobile->get_pos()->is_adjacent(get_player()->get_pos());
+    return mobile->get_pos().is_adjacent(&get_player()->get_pos());
 }
 
 void MeleeAI::attack() {
@@ -71,7 +71,7 @@ void MeleeAI::attack() {
 }
 
 void MeleeAI::approach() {
-    PathFinder pf(map, get_pos(), get_player()->get_pos());
+    PathFinder pf(map, get_pos(), &get_player()->get_pos());
     list<Position> path = pf.get_path();
     if (path.size() == 0) {
 
@@ -93,7 +93,7 @@ void MeleeAI::approach() {
 }
 
 Position* MeleeAI::get_pos() {
-    return mobile->get_pos();
+    return &mobile->get_pos();
 }
 
 void MeleeAI::set_pos(Position* p) {
@@ -105,5 +105,5 @@ Player* MeleeAI::get_player() {
 }
 
 bool MeleeAI::can_see_player() {
-    return map->positions_have_los(get_player()->get_pos(), get_pos());
+    return map->positions_have_los(&get_player()->get_pos(), get_pos());
 }

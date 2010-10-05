@@ -6,14 +6,14 @@
 
 class Positionable {
     protected:
-        Position* position;
+        Position position;
 
     public:
-        Positionable(Position* p);
+        Positionable(Position p);
         ~Positionable();
 
-        virtual Position* get_pos();
-        virtual void set_pos(Position* p);
+        virtual Position& get_pos();
+        virtual void set_pos(Position p);
 };
 
 #endif

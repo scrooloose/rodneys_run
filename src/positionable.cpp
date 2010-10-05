@@ -1,16 +1,15 @@
 #include "positionable.h"
 
-Positionable::Positionable(Position* p) {
-    this->position = p;
+Positionable::Positionable(Position p) : position(p) {
 }
 
 Positionable::~Positionable() {
 }
 
-Position* Positionable::get_pos() {
+Position& Positionable::get_pos() {
     return position;
 }
 
-void Positionable::set_pos(Position* p) {
+void Positionable::set_pos(Position p) {
     this->position = p;
 }

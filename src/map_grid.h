@@ -16,10 +16,10 @@ class MapGrid {
         MapGrid();
         MapGrid(int width, int height);
 
-        void add(T* t, Position& p);
-        T* remove(Position& p);
+        void add(T* t, const Position& p);
+        T* remove(const Position& p);
 
-        T* get(Position& p);
+        T* get(const Position& p);
         vector<T*> get_all();
 
         void resize(int new_width, int new_height);
@@ -35,12 +35,12 @@ MapGrid<T>::MapGrid(int width, int height) {
 }
 
 template <class T>
-void MapGrid<T>::add(T* t, Position& p) {
+void MapGrid<T>::add(T* t, const Position& p) {
     map_objs[p.get_x()][p.get_y()] = t;
 }
 
 template <class T>
-T* MapGrid<T>::get(Position& p) {
+T* MapGrid<T>::get(const Position& p) {
     return map_objs.at(p.get_x()).at(p.get_y());
 }
 
@@ -61,7 +61,7 @@ vector<T*> MapGrid<T>::get_all() {
 }
 
 template <class T>
-T* MapGrid<T>::remove(Position& p) {
+T* MapGrid<T>::remove(const Position& p) {
     T* map_obj = get(p);
     if (map_obj) {
         map_objs.at(p.get_x()).at(p.get_y()) = NULL;

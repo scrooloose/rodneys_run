@@ -8,58 +8,58 @@ Position::Position(int x, int y) {
     this->y = y;
 }
 
-int Position::get_x() {
+int Position::get_x() const {
     return this->x;
 }
 
-int Position::get_y() {
+int Position::get_y() const {
     return this->y;
 }
 
-Position* Position::up() {
+Position* Position::up() const {
     return new Position(x, y-1);
 }
 
-Position* Position::down() {
+Position* Position::down() const {
     return new Position(x, y+1);
 }
 
-Position* Position::left() {
+Position* Position::left() const {
     return new Position(x-1, y);
 }
 
-Position* Position::right() {
+Position* Position::right() const {
     return new Position(x+1, y);
 }
 
-Position* Position::up_left() {
+Position* Position::up_left() const {
     return new Position(x-1, y-1);
 }
 
-Position* Position::up_right() {
+Position* Position::up_right() const {
     return new Position(x+1, y-1);
 }
 
-Position* Position::down_left() {
+Position* Position::down_left() const {
     return new Position(x-1, y+1);
 }
 
-Position* Position::down_right() {
+Position* Position::down_right() const {
     return new Position(x+1, y+1);
 }
 
-bool Position::are_coords_valid(int x, int y) {
+bool Position::are_coords_valid(int x, int y) const {
     return x >= 0 && y >= 0;
 }
 
-bool Position::is_adjacent(Position* p) {
+bool Position::is_adjacent(Position* p) const {
     int x_delta = abs(this->get_x() - p->get_x());
     int y_delta = abs(this->get_y() - p->get_y());
 
     return x_delta <= 1 && y_delta <= 1;
 }
 
-vector<Position> Position::positions_between(Position* p){
+vector<Position> Position::positions_between(Position* p) const {
     //using Bresenham's algorithm
 
     int x1 = this->x;
@@ -131,23 +131,23 @@ vector<Position> Position::positions_between(Position* p){
     return positions;
 }
 
-bool Position::equals(Position* that) {
+bool Position::equals(Position* that) const {
     return this->x == that->get_x() && this->y == that->get_y();
 }
 
-int Position::distance_to(Position* p) {
+int Position::distance_to(Position* p) const {
     vector<Position> positions = positions_between(p);
     return positions.size() - 1;
 }
 
-int Position::manhattan_distance_to(Position* p) {
+int Position::manhattan_distance_to(Position* p) const {
     int x_delta = x - p->get_x();
     int y_delta = y - p->get_y();
 
     return abs(x_delta) + abs(y_delta);
 }
 
-vector<Position> Position::adjacent_positions() {
+vector<Position> Position::adjacent_positions() const {
     vector<Position> positions;
 
     if (are_coords_valid(x, y-1)) //up

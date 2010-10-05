@@ -12,30 +12,29 @@ class Position {
         int x;
         int y;
 
-        Position* new_position_for(int x, int y);
-        bool are_coords_valid(int x, int y);
+        bool are_coords_valid(int x, int y) const ;
 
     public:
         Position(int x, int y);
 
-        int get_x();
-        int get_y();
+        int get_x() const;
+        int get_y() const;
 
-        Position* up();
-        Position* down();
-        Position* left();
-        Position* right();
-        Position* up_left();
-        Position* up_right();
-        Position* down_left();
-        Position* down_right();
+        Position* up() const;
+        Position* down() const;
+        Position* left() const;
+        Position* right() const;
+        Position* up_left() const;
+        Position* up_right() const;
+        Position* down_left() const;
+        Position* down_right() const;
 
-        vector<Position> positions_between(Position* p);
-        bool is_adjacent(Position* p);
-        bool equals(Position* that);
-        int distance_to(Position* p);
-        int manhattan_distance_to(Position* p);
-        vector<Position> adjacent_positions();
+        vector<Position> positions_between(Position* p) const;
+        bool is_adjacent(Position* p) const;
+        bool equals(Position* that) const;
+        int distance_to(Position* p) const;
+        int manhattan_distance_to(Position* p) const;
+        vector<Position> adjacent_positions() const;
 };
 
 #endif

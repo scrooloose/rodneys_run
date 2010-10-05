@@ -1,6 +1,6 @@
 #include "mobile.h"
 
-Mobile::Mobile(Position* p, Map* m, int turn_delay) : Positionable(p) {
+Mobile::Mobile(Position* p, Map* m, int turn_delay) : Positionable(*p) {
     this->map = m;
     this->health = 20;
     this->turn_timer = new TurnTimer(turn_delay);
@@ -10,12 +10,12 @@ Mobile::~Mobile() {
 }
 
 bool Mobile::is_visible_from(Position* p) {
-    return map->positions_have_los(this->position, p);
+    return map->positions_have_los(&get_pos(), p);
 }
 
 void Mobile::set_pos(Position* p) {
-    map->update_mobile_position(this, *get_pos(), *p);
-    Positionable::set_pos(p);
+    map->update_mobile_position(this, get_pos(), *p);
+    Positionable::set_pos(*p);
 }
 
 void Mobile::take_damage(int damage) {

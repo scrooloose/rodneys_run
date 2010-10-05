@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(Map* map) : Positionable(map->get_starting_pos()) {
+Player::Player(Map* map) : Positionable(*map->get_starting_pos()) {
     this->map = map;
     this->health = 100;
     this->turn_timer = new TurnTimer(10);
@@ -10,7 +10,6 @@ Player::Player(Map* map) : Positionable(map->get_starting_pos()) {
 }
 
 Player::~Player() {
-    delete position;
 }
 
 void Player::move_to(Position* position) {
@@ -19,7 +18,7 @@ void Player::move_to(Position* position) {
     } else {
         Tile* t = map->tile_for(*position);
         if (t->is_walkable()) {
-            set_pos(position);
+            set_pos(*position);
         }
 
         pick_up_items();
@@ -27,7 +26,7 @@ void Player::move_to(Position* position) {
 }
 
 void Player::pick_up_items() {
-    Item* item = map->remove_item(*get_pos());
+    Item* item = map->remove_item(get_pos());
     if (item) {
         item->affect_recipient(this);
         MessageLog::add_message(item->get_pickup_msg());
@@ -46,35 +45,35 @@ Inventory* Player::get_inventory() {
 }
 
 void Player::move_up() {
-    move_to(position->up());
+    move_to(position.up());
 }
 
 void Player::move_down() {
-    move_to(position->down());
+    move_to(position.down());
 }
 
 void Player::move_left() {
-    move_to(position->left());
+    move_to(position.left());
 }
 
 void Player::move_right() {
-    move_to(position->right());
+    move_to(position.right());
 }
 
 void Player::move_up_left() {
-    move_to(position->up_left());
+    move_to(position.up_left());
 }
 
 void Player::move_up_right() {
-    move_to(position->up_right());
+    move_to(position.up_right());
 }
 
 void Player::move_down_left() {
-    move_to(position->down_left());
+    move_to(position.down_left());
 }
 
 void Player::move_down_right() {
-    move_to(position->down_right());
+    move_to(position.down_right());
 }
 
 bool Player::move_downstairs() {
@@ -82,17 +81,17 @@ bool Player::move_downstairs() {
 }
 
 Tile* Player::current_tile() {
-    return map->tile_for(*position);
+    return map->tile_for(position);
 }
 
 void Player::set_map(Map* m) {
     this->map = m;
-    this->position = map->get_starting_pos();
+    this->position = *map->get_starting_pos();
     this->turn_timer->set_remaining_time(1);
 }
 
 void Player::open(Position* target_pos){
-    if (!position->is_adjacent(target_pos)) {
+    if (!position.is_adjacent(target_pos)) {
         throw new runtime_error("Cannot open non-adjacent tile");
     }
 

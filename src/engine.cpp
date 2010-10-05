@@ -49,7 +49,7 @@ void Engine::render() {
 void Engine::render_map() {
     werase(map_window);
 
-    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
+    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, &player->get_pos(), map);
     vector<Position> to_render = vpc.contained_positions();
 
     int x_offset = vpc.get_x_offset();
@@ -66,19 +66,19 @@ void Engine::render_map() {
         }
 
         Item* item = map->item_for(to_render.at(i));
-        if (item && map->positions_have_los(item->get_pos(), player->get_pos())) {
+        if (item && map->positions_have_los(&item->get_pos(), &player->get_pos())) {
             mvwprintw(map_window, ypos, xpos , item->to_char().c_str());
         }
 
         Mobile* mob = (Mobile*) map->mobile_for(to_render.at(i));
-        if (mob && mob->is_visible_from(player->get_pos())) {
+        if (mob && mob->is_visible_from(&player->get_pos())) {
             mvwprintw(map_window, ypos, xpos , mob->to_char().c_str());
         }
 
     }
 
-    int ypos = player->get_pos()->get_y() - y_offset + 1;
-    int xpos = player->get_pos()->get_x() - x_offset + 1;
+    int ypos = player->get_pos().get_y() - y_offset + 1;
+    int xpos = player->get_pos().get_x() - x_offset + 1;
     mvwprintw(map_window, ypos, xpos, player->to_char().c_str());
     box(map_window, 0, 0);
     wnoutrefresh(map_window);
@@ -204,37 +204,37 @@ bool Engine::handle_keypress(int key) {
 }
 
 Position* Engine::get_adjacent_position_from_user() {
-    Position* player_pos = player->get_pos();
+    Position player_pos = player->get_pos();
 
     int key = getch();
     switch(key) {
         case KEY_LEFT:
-            return player_pos->left();
+            return player_pos.left();
             break;
         case KEY_RIGHT:
-            return player_pos->right();
+            return player_pos.right();
             break;
         case KEY_UP:
-            return player_pos->up();
+            return player_pos.up();
             break;
         case KEY_DOWN:
-            return player_pos->down();
+            return player_pos.down();
             break;
         case KEY_C1:
         case KEY_END:
-            return player_pos->down_left();
+            return player_pos.down_left();
             break;
         case KEY_C3:
         case KEY_NPAGE:
-            return player_pos->down_right();
+            return player_pos.down_right();
             break;
         case KEY_A1:
         case KEY_HOME:
-            return player_pos->up_left();
+            return player_pos.up_left();
             break;
         case KEY_A3:
         case KEY_PPAGE:
-            return player_pos->up_right();
+            return player_pos.up_right();
             break;
 
         default:
@@ -245,11 +245,11 @@ Position* Engine::get_adjacent_position_from_user() {
 
 Position* Engine::get_position_from_user() {
     //TODO: fix the mem leak here - many Position*s are created
-    Position* cursor_pos = player->get_pos();
+    Position* cursor_pos = &player->get_pos();
 
-    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
-    int y = player->get_pos()->get_y() - vpc.get_y_offset() + 1;
-    int x = player->get_pos()->get_x() - vpc.get_x_offset() + 1;
+    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, &player->get_pos(), map);
+    int y = player->get_pos().get_y() - vpc.get_y_offset() + 1;
+    int x = player->get_pos().get_x() - vpc.get_x_offset() + 1;
 
     curs_set(1);
 
@@ -345,7 +345,7 @@ void Engine::main_loop() {
 
     setup_curses();
 
-    map->update_visibility_from(player->get_pos());
+    map->update_visibility_from(&player->get_pos());
     render();
 
     main_loop_done = false;
@@ -364,7 +364,7 @@ void Engine::main_loop() {
                 }
             }
 
-            map->update_visibility_from(player->get_pos());
+            map->update_visibility_from(&player->get_pos());
             player_had_turn = true;
         }
 

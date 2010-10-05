@@ -16,6 +16,9 @@ class Position {
 
     public:
         Position(int x, int y);
+        static const Position null_position();
+
+        bool is_null() const;
 
         int get_x() const;
         int get_y() const;
@@ -35,6 +38,7 @@ class Position {
         int distance_to(const Position& p) const;
         int manhattan_distance_to(const Position& p) const;
         vector<Position> adjacent_positions() const;
+
 };
 
 #endif

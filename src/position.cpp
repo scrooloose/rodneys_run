@@ -8,6 +8,17 @@ Position::Position(int x, int y) {
     this->y = y;
 }
 
+const Position Position::null_position() {
+    Position p(1,1);
+    p.x = -1;
+    p.y = -1;
+    return p;
+}
+
+bool Position::is_null() const {
+    return x == -1 && y == -1;
+}
+
 int Position::get_x() const {
     return this->x;
 }

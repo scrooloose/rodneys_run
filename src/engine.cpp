@@ -203,49 +203,49 @@ bool Engine::handle_keypress(int key) {
     return action_taken;
 }
 
-Position* Engine::get_adjacent_position_from_user() {
+Position Engine::get_adjacent_position_from_user() {
     Position player_pos = player->get_pos();
 
     int key = getch();
     switch(key) {
         case KEY_LEFT:
-            return new Position(player_pos.left());
+            return player_pos.left();
             break;
         case KEY_RIGHT:
-            return new Position(player_pos.right());
+            return player_pos.right();
             break;
         case KEY_UP:
-            return new Position(player_pos.up());
+            return player_pos.up();
             break;
         case KEY_DOWN:
-            return new Position(player_pos.down());
+            return player_pos.down();
             break;
         case KEY_C1:
         case KEY_END:
-            return new Position(player_pos.down_left());
+            return player_pos.down_left();
             break;
         case KEY_C3:
         case KEY_NPAGE:
-            return new Position(player_pos.down_right());
+            return player_pos.down_right();
             break;
         case KEY_A1:
         case KEY_HOME:
-            return new Position(player_pos.up_left());
+            return player_pos.up_left();
             break;
         case KEY_A3:
         case KEY_PPAGE:
-            return new Position(player_pos.up_right());
+            return player_pos.up_right();
             break;
 
         default:
-            return NULL;
+            return Position::null_position();
             break;
     }
 }
 
-Position* Engine::get_position_from_user() {
+Position Engine::get_position_from_user() {
     //TODO: fix the mem leak here - many Position*s are created
-    Position* cursor_pos = &player->get_pos();
+    Position cursor_pos = player->get_pos();
 
     ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
     int y = player->get_pos().get_y() - vpc.get_y_offset() + 1;
@@ -261,42 +261,42 @@ Position* Engine::get_position_from_user() {
         int key = getch();
         switch(key) {
             case KEY_LEFT:
-                cursor_pos = new Position(cursor_pos->left());
+                cursor_pos = cursor_pos.left();
                 x--;
                 break;
             case KEY_RIGHT:
-                cursor_pos = new Position(cursor_pos->right());
+                cursor_pos = cursor_pos.right();
                 x++;
                 break;
             case KEY_UP:
-                cursor_pos = new Position(cursor_pos->up());
+                cursor_pos = cursor_pos.up();
                 y--;
                 break;
             case KEY_DOWN:
-                cursor_pos = new Position(cursor_pos->down());
+                cursor_pos = cursor_pos.down();
                 y++;
                 break;
             case KEY_C1:
             case KEY_END:
-                cursor_pos = new Position(cursor_pos->down_left());
+                cursor_pos = cursor_pos.down_left();
                 y++;
                 x--;
                 break;
             case KEY_C3:
             case KEY_NPAGE:
-                cursor_pos = new Position(cursor_pos->down_right());
+                cursor_pos = cursor_pos.down_right();
                 y++;
                 x++;
                 break;
             case KEY_A1:
             case KEY_HOME:
-                cursor_pos = new Position(cursor_pos->up_left());
+                cursor_pos = cursor_pos.up_left();
                 y--;
                 x--;
                 break;
             case KEY_A3:
             case KEY_PPAGE:
-                cursor_pos = new Position(cursor_pos->up_right());
+                cursor_pos = cursor_pos.up_right();
                 y--;
                 x++;
                 break;
@@ -308,7 +308,7 @@ Position* Engine::get_position_from_user() {
 
             case 27: //esc
                 done = true;
-                cursor_pos = NULL;
+                cursor_pos = Position::null_position();
                 break;
         }
     }
@@ -318,21 +318,19 @@ Position* Engine::get_position_from_user() {
 }
 
 bool Engine::fire_weapon() {
-    Position* target_pos = get_position_from_user();
-    if(!target_pos || !map->mobile_for(*target_pos))
+    Position target_pos = get_position_from_user();
+    if(target_pos.is_null() || !map->mobile_for(target_pos))
         return false;
 
-    return player->attack_with_ranged(*target_pos);
+    return player->attack_with_ranged(target_pos);
 }
 
 void Engine::do_open() {
-    Position* target_pos = get_adjacent_position_from_user();
+    Position target_pos = get_adjacent_position_from_user();
 
-    if (target_pos) {
-        player->open(*target_pos);
+    if (!target_pos.is_null()) {
+        player->open(target_pos);
     }
-
-    delete target_pos;
 }
 
 void Engine::start_next_level() {

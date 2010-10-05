@@ -38,7 +38,7 @@ class Engine {
 
         void add_level_entry_msg();
 
-        Position* get_position_from_user();
+        Position get_position_from_user();
         bool fire_weapon();
 
         void calculate_window_sizes();
@@ -59,7 +59,7 @@ class Engine {
         bool handle_keypress(int key);
         void main_loop();
         void start_next_level();
-        Position* get_adjacent_position_from_user();
+        Position get_adjacent_position_from_user();
         void do_open();
         void do_ai();
         void game_over();

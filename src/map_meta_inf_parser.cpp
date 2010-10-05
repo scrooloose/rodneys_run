@@ -116,7 +116,7 @@ void MapMetaInfParser::parse_locked_doors(Json::Value root) {
         int xpos  = current["x"].asInt();
         int ypos  = current["y"].asInt();
 
-        this->locked_doors.push_back(new Door(new Position(xpos, ypos), door_id, name));
+        this->locked_doors.push_back(new Door(Position(xpos, ypos), door_id, name));
     }
 }
 

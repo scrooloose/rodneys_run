@@ -1,6 +1,6 @@
 #include "wall.h"
 
-Wall::Wall(Position* p) : Tile(p) {
+Wall::Wall(Position p) : Tile(p) {
 }
 
 bool Wall::is_walkable() {

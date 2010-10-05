@@ -9,14 +9,14 @@ using namespace std;
 
 class Tile : public Renderable {
     private:
-        Position* position;
+        Position position;
         bool visible;
 
     public:
-        Tile(Position* p);
+        Tile(Position p);
         ~Tile();
 
-        Position* get_pos();
+        Position& get_pos();
         virtual bool is_walkable() = 0;
         virtual bool is_descendable();
 

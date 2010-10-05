@@ -12,8 +12,8 @@ class Door : public Tile {
         bool locked;
 
     public:
-        Door(const Position* p);
-        Door(const Position* p, int door_id, string name);
+        Door(Position p);
+        Door(Position p, int door_id, string name);
 
         bool is_walkable();
         string to_char();

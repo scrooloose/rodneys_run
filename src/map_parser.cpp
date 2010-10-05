@@ -36,7 +36,7 @@ Map* MapParser::parse() {
                     c = line[i];
                 }
 
-                Position* p = new Position(i, line_no);
+                Position p(i, line_no);
                 map->add_tile(tile_for(c, p));
             }
 
@@ -52,7 +52,7 @@ Map* MapParser::parse() {
 }
 
 
-Tile* MapParser::tile_for(char c, Position* p) {
+Tile* MapParser::tile_for(char c, Position p) {
     switch(c) {
         case (int)'.':
             return new Floor(p);
@@ -61,7 +61,7 @@ Tile* MapParser::tile_for(char c, Position* p) {
             return new Wall(p);
             break;
         case (int)'+':
-            return new Door(p);
+            return new Door(p); 
             break;
         case (int)'>':
             return new Stairs(p);

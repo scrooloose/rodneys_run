@@ -1,12 +1,12 @@
 #include "door.h"
 
-Door::Door(Position* p) : Tile(p) {
+Door::Door(Position p) : Tile(p) {
     this->is_open = false;
     this->locked = false;
     this->door_id = -1;
 }
 
-Door::Door(Position* p, int door_id, string name) : Tile(p) {
+Door::Door(Position p, int door_id, string name) : Tile(p) {
     this->door_id = door_id;
     this->name = name;
     this->locked = true;

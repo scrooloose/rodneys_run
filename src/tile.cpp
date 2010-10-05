@@ -1,15 +1,13 @@
 #include "tile.h"
 
-Tile::Tile(Position* p) {
-    position = p;
+Tile::Tile(Position p) : position(p) {
     visible = false;
 }
 
 Tile::~Tile() {
-    delete position;
 }
 
-Position* Tile::get_pos() {
+Position& Tile::get_pos() {
     return position;
 }
 

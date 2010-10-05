@@ -1,6 +1,6 @@
 #include "stairs.h"
 
-Stairs::Stairs(Position* p) : Tile(p) {
+Stairs::Stairs(Position p) : Tile(p) {
 }
 
 bool Stairs::is_walkable() {

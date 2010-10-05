@@ -8,7 +8,7 @@ using namespace std;
 
 class Floor : public Tile {
     public:
-        Floor(Position* p);
+        Floor(Position p);
         string to_char();
         bool is_walkable();
 };

@@ -1,6 +1,6 @@
 #include "floor.h"
 
-Floor::Floor(Position* p) : Tile(p) {
+Floor::Floor(Position p) : Tile(p) {
 }
 
 bool Floor::is_walkable() {

@@ -37,7 +37,7 @@ list<Position> PathFinder::get_path() {
         }
         Node* current = open_list.at(min_f_idx);
 
-        if (current->get_tile()->get_pos()->equals(to_pos)) {
+        if (current->get_tile()->get_pos().equals(to_pos)) {
             return reconstruct_path(current);
         }
 
@@ -107,7 +107,7 @@ list<Position> PathFinder::reconstruct_path(Node* node) {
 
     Node* current = node;
     do {
-        path.push_front(*current->get_tile()->get_pos());
+        path.push_front(current->get_tile()->get_pos());
         current = current->get_parent();
 
     } while(current);

@@ -9,7 +9,7 @@ Node::Node(Map* map, Tile* tile, Node* parent, Position* destination) {
 }
 
 void Node::calculate_h() {
-    this->h = destination->manhattan_distance_to(tile->get_pos());
+    this->h = destination->manhattan_distance_to(&tile->get_pos());
 }
 
 int Node::get_f() {
@@ -42,7 +42,7 @@ void Node::set_parent(Node* parent) {
 
 vector<Node*> Node::get_adjacent_nodes() {
     vector<Node*> adj_nodes;
-    vector<Position> adj_positions = tile->get_pos()->adjacent_positions();
+    vector<Position> adj_positions = tile->get_pos().adjacent_positions();
     for (unsigned i = 0; i < adj_positions.size(); i++) {
         Tile* t = map->tile_for(adj_positions.at(i));
         if (map->is_walkable(adj_positions.at(i), true, true)) {
@@ -54,5 +54,5 @@ vector<Node*> Node::get_adjacent_nodes() {
 }
 
 bool Node::equals(Node* other) {
-    return tile->get_pos()->equals(other->tile->get_pos());
+    return tile->get_pos().equals(&other->tile->get_pos());
 }

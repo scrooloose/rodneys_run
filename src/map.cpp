@@ -38,7 +38,7 @@ Item* Map::item_for(Position p) {
 }
 
 void Map::add_tile(Tile* t) {
-    tiles.add(t, *t->get_pos());
+    tiles.add(t, t->get_pos());
 }
 
 void Map::add_mobile(Positionable* m) {
@@ -95,7 +95,7 @@ void Map::update_visibility_from(Position* p) {
         Tile* current = all_tiles.at(i);
         if (current->is_visible()) continue;
 
-        if (positions_have_los(p, current->get_pos())) {
+        if (positions_have_los(p, &current->get_pos())) {
             current->set_visiblity(true);
         }
     }

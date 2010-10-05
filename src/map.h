@@ -32,9 +32,9 @@ class Map {
         Map(int width, int height);
         ~Map();
 
-        Tile* tile_for(Position p);
-        Positionable* mobile_for(Position p);
-        Item* item_for(Position p);
+        Tile* tile_for(const Position& p);
+        Positionable* mobile_for(const Position& p);
+        Item* item_for(const Position& p);
 
         int get_width();
         int get_height();
@@ -46,7 +46,7 @@ class Map {
         void add_tile(Tile* t);
         void add_mobile(Positionable* m);
         void add_item(Item* i);
-        Item* remove_item(Position p);
+        Item* remove_item(const Position& p);
 
         vector<Tile*> get_all_tiles();
         vector<Positionable*> get_all_mobiles();
@@ -58,10 +58,10 @@ class Map {
         string* get_name();
         void set_player(Positionable* p);
         Positionable* get_player();
-        bool is_walkable(Position p, bool ignore_player, bool ignore_mobiles);
-        bool is_walkable(Position p);
+        bool is_walkable(const Position& p, bool ignore_player, bool ignore_mobiles);
+        bool is_walkable(const Position& p);
 
-        void update_mobile_position(Positionable* mob, Position old_pos, Position new_pos);
+        void update_mobile_position(Positionable* mob, const Position& old_pos, const Position& new_pos);
         void mobile_killed(Positionable* mob);
 };
 

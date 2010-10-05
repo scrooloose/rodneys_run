@@ -6,7 +6,7 @@ Positionable::Positionable(Position p) : position(p) {
 Positionable::~Positionable() {
 }
 
-Position& Positionable::get_pos() {
+const Position& Positionable::get_pos() {
     return position;
 }
 

@@ -16,7 +16,7 @@ class Tile : public Renderable {
         Tile(Position p);
         ~Tile();
 
-        Position& get_pos();
+        const Position& get_pos();
         virtual bool is_walkable() = 0;
         virtual bool is_descendable();
 

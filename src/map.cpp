@@ -26,15 +26,15 @@ int Map::get_height() {
     return height;
 }
 
-Tile* Map::tile_for(Position p) {
+Tile* Map::tile_for(const Position& p) {
     return tiles.get(p);
 }
 
-Positionable* Map::mobile_for(Position p) {
+Positionable* Map::mobile_for(const Position& p) {
     return mobiles.get(p);
 }
 
-Item* Map::item_for(Position p) {
+Item* Map::item_for(const Position& p) {
     return items.get(p);
 }
 
@@ -50,7 +50,7 @@ void Map::add_item(Item* i) {
     items.add(i, i->get_pos());
 }
 
-Item* Map::remove_item(Position p) {
+Item* Map::remove_item(const Position& p) {
     return items.remove(p);
 }
 
@@ -72,7 +72,7 @@ vector<Positionable*> Map::get_all_mobiles() {
 
 vector<Positionable*> Map::get_all_mobiles_by_dist_to_player() {
     vector<Positionable*> all_mobs = get_all_mobiles();
-    ProximitySorter::sort_mobiles(&all_mobs, &player->get_pos());
+    ProximitySorter::sort_mobiles(&all_mobs, player->get_pos());
     return all_mobs;
 }
 
@@ -118,11 +118,11 @@ Positionable* Map::get_player() {
     return this->player;
 }
 
-bool Map::is_walkable(Position position) {
+bool Map::is_walkable(const Position& position) {
     return is_walkable(position, false, false);
 }
 
-bool Map::is_walkable(Position position, bool ignore_player, bool ignore_mobiles) {
+bool Map::is_walkable(const Position& position, bool ignore_player, bool ignore_mobiles) {
     if (!ignore_player && player->get_pos().equals(position))
         return false;
 
@@ -132,7 +132,7 @@ bool Map::is_walkable(Position position, bool ignore_player, bool ignore_mobiles
     return tile_for(position)->is_walkable();
 }
 
-void Map::update_mobile_position(Positionable* mob, Position old_pos, Position new_pos) {
+void Map::update_mobile_position(Positionable* mob, const Position& old_pos, const Position& new_pos) {
     if (mobile_for(new_pos))
         throw new PositionException("Can't move mobile on top of another.");
 

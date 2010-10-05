@@ -12,7 +12,7 @@ class Positionable {
         Positionable(Position p);
         ~Positionable();
 
-        virtual Position& get_pos();
+        virtual const Position& get_pos();
         virtual void set_pos(const Position& p);
 };
 

@@ -22,14 +22,14 @@ class MeleeAI : public AI {
         Mobile* mobile;
         Map* map;
 
-        Position* last_known_pos;
+        Position last_known_pos;
 
         void detect_state();
         bool in_attack_range();
         void approach();
         void attack();
 
-        Position& get_pos();
+        const Position& get_pos();
         void set_pos(const Position& p);
         Player* get_player();
 

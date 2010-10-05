@@ -1,6 +1,6 @@
 #include "melee_ai.h"
 
-MeleeAI::MeleeAI(Mobile* mobile, Map* map) {
+MeleeAI::MeleeAI(Mobile* mobile, Map* map) : last_known_pos(Position::null_position()) {
     this->mobile = mobile;
     this->map = map;
     this->state = s_waiting;
@@ -27,16 +27,16 @@ void MeleeAI::do_ai() {
 
 void MeleeAI::detect_last_known_pos() {
     if (can_see_player()) {
-        last_known_pos = &get_player()->get_pos();
+        last_known_pos = get_player()->get_pos();
     } else {
-        if (last_known_pos && get_pos().equals(*last_known_pos)) {
-            last_known_pos = NULL;
+        if (!last_known_pos.is_null() && get_pos().equals(last_known_pos)) {
+            last_known_pos = Position::null_position();
         }
     }
 }
 
 void MeleeAI::detect_state() {
-    if (!can_see_player() && last_known_pos == NULL) {
+    if (!can_see_player() && last_known_pos.is_null()) {
         state = s_waiting;
         return;
     }
@@ -76,7 +76,7 @@ void MeleeAI::approach() {
     if (path.size() == 0) {
 
         //mob cant get to player, so give up
-        last_known_pos = NULL;
+        last_known_pos = Position::null_position();
         return;
     }
 
@@ -92,7 +92,7 @@ void MeleeAI::approach() {
     }
 }
 
-Position& MeleeAI::get_pos() {
+const Position& MeleeAI::get_pos() {
     return mobile->get_pos();
 }
 

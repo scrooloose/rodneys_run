@@ -7,7 +7,7 @@ Tile::Tile(Position p) : position(p) {
 Tile::~Tile() {
 }
 
-Position& Tile::get_pos() {
+const Position& Tile::get_pos() {
     return position;
 }
 

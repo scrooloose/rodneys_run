@@ -150,6 +150,6 @@ vector<Door*> MapMetaInfParser::get_locked_doors() {
     return locked_doors;
 }
 
-Position* MapMetaInfParser::get_start_position() {
-    return start_position;
+const Position& MapMetaInfParser::get_start_position() {
+    return *start_position;
 }

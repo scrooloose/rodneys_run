@@ -50,7 +50,7 @@ class MapMetaInfParser {
         vector<Item*> get_items();
         vector<Door*> get_locked_doors();
         string get_map_name();
-        Position* get_start_position();
+        const Position& get_start_position();
 };
 
 #endif

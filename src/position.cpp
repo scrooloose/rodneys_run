@@ -16,45 +16,45 @@ int Position::get_y() const {
     return this->y;
 }
 
-Position* Position::up() const {
-    return new Position(x, y-1);
+Position Position::up() const {
+    return Position(x, y-1);
 }
 
-Position* Position::down() const {
-    return new Position(x, y+1);
+Position Position::down() const {
+    return Position(x, y+1);
 }
 
-Position* Position::left() const {
-    return new Position(x-1, y);
+Position Position::left() const {
+    return Position(x-1, y);
 }
 
-Position* Position::right() const {
-    return new Position(x+1, y);
+Position Position::right() const {
+    return Position(x+1, y);
 }
 
-Position* Position::up_left() const {
-    return new Position(x-1, y-1);
+Position Position::up_left() const {
+    return Position(x-1, y-1);
 }
 
-Position* Position::up_right() const {
-    return new Position(x+1, y-1);
+Position Position::up_right() const {
+    return Position(x+1, y-1);
 }
 
-Position* Position::down_left() const {
-    return new Position(x-1, y+1);
+Position Position::down_left() const {
+    return Position(x-1, y+1);
 }
 
-Position* Position::down_right() const {
-    return new Position(x+1, y+1);
+Position Position::down_right() const {
+    return Position(x+1, y+1);
 }
 
 bool Position::are_coords_valid(int x, int y) const {
     return x >= 0 && y >= 0;
 }
 
-bool Position::is_adjacent(Position* p) const {
-    int x_delta = abs(this->get_x() - p->get_x());
-    int y_delta = abs(this->get_y() - p->get_y());
+bool Position::is_adjacent(const Position& p) const {
+    int x_delta = abs(this->get_x() - p.get_x());
+    int y_delta = abs(this->get_y() - p.get_y());
 
     return x_delta <= 1 && y_delta <= 1;
 }
@@ -131,18 +131,18 @@ vector<Position> Position::positions_between(const Position& p) const {
     return positions;
 }
 
-bool Position::equals(Position* that) const {
-    return this->x == that->get_x() && this->y == that->get_y();
+bool Position::equals(const Position& that) const {
+    return this->x == that.get_x() && this->y == that.get_y();
 }
 
-int Position::distance_to(Position* p) const {
-    vector<Position> positions = positions_between(*p);
+int Position::distance_to(const Position& p) const {
+    vector<Position> positions = positions_between(p);
     return positions.size() - 1;
 }
 
-int Position::manhattan_distance_to(Position* p) const {
-    int x_delta = x - p->get_x();
-    int y_delta = y - p->get_y();
+int Position::manhattan_distance_to(const Position& p) const {
+    int x_delta = x - p.get_x();
+    int y_delta = y - p.get_y();
 
     return abs(x_delta) + abs(y_delta);
 }

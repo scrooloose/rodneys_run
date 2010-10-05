@@ -23,7 +23,7 @@ class Player : public Renderable, public Positionable, public ItemAffectee {
         int health;
         TurnTimer* turn_timer;
 
-        void move_to(Position* position);
+        void move_to(const Position& position);
 
         RangedWeapon* ranged_weapon;
         MeleeWeapon* melee_weapon;
@@ -47,7 +47,7 @@ class Player : public Renderable, public Positionable, public ItemAffectee {
         void move_down_right();
         bool move_downstairs();
 
-        void open(Position* p);
+        void open(const Position& p);
         bool attack_with_ranged(Position pos);
         bool attack_with_melee(Position pos);
         void attacked_by(Mobile* mobile);

@@ -13,8 +13,8 @@ using namespace std;
 class PathFinder {
     private:
         Map* map;
-        Position* from_pos;
-        Position* to_pos;
+        Position from_pos;
+        Position to_pos;
 
         vector<Node*> open_list;
         vector<Node*> closed_list;
@@ -25,7 +25,7 @@ class PathFinder {
         list<Position> reconstruct_path(Node* node);
 
     public:
-        PathFinder(Map* map, Position* from_pos, Position* to_pos);
+        PathFinder(Map* map, const Position& from_pos, const Position& to_pos);
         ~PathFinder();
         list<Position> get_path();
 };

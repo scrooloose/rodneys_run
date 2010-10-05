@@ -42,7 +42,6 @@ class MapParser {
 
         Map* parse();
         Tile* tile_for(char c, Position p);
-        Positionable* mobile_for(char c, Position* p, Map* m);
         int find_width();
         int find_height();
 

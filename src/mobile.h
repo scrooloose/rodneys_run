@@ -18,11 +18,11 @@ class Mobile : public Renderable, public Positionable {
         void killed();
 
     public:
-        Mobile(Position* p, Map* m, int turn_length);
+        Mobile(Position p, Map* m, int turn_length);
         ~Mobile();
 
-        void set_pos(Position* p);
-        bool is_visible_from(Position* p);
+        void set_pos(const Position& p);
+        bool is_visible_from(Position p);
 
         void tick();
 

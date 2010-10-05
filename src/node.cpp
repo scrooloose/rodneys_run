@@ -1,15 +1,14 @@
 #include "node.h"
 
-Node::Node(Map* map, Tile* tile, Node* parent, Position* destination) {
+Node::Node(Map* map, Tile* tile, Node* parent, Position destination) : destination(destination) {
     this->map = map;
     this->tile = tile;
     this->parent = parent;
-    this->destination = destination;
     calculate_h();
 }
 
 void Node::calculate_h() {
-    this->h = destination->manhattan_distance_to(&tile->get_pos());
+    this->h = destination.manhattan_distance_to(tile->get_pos());
 }
 
 int Node::get_f() {
@@ -54,5 +53,5 @@ vector<Node*> Node::get_adjacent_nodes() {
 }
 
 bool Node::equals(Node* other) {
-    return tile->get_pos().equals(&other->tile->get_pos());
+    return tile->get_pos().equals(other->tile->get_pos());
 }

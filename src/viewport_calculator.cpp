@@ -1,12 +1,11 @@
 #include "viewport_calculator.h"
 
-ViewportCalculator::ViewportCalculator(int vp_width, int vp_height, Position* position, Map* map) {
+ViewportCalculator::ViewportCalculator(int vp_width, int vp_height, const Position& p, Map* map) : position(p) {
     if (vp_width % 2 != 1) throw new runtime_error("Viewport width must be odd.");
     if (vp_height % 2 != 1) throw new runtime_error("Viewport height must be odd.");
 
     this->vp_width = vp_width;
     this->vp_height = vp_height;
-    this->position = position;
     this->map = map;
     calculate_bounds();
 }
@@ -25,8 +24,8 @@ void ViewportCalculator::calculate_bounds() {
         left_bound = map->get_width() - vp_width;
         right_bound = map->get_width();
     }else {
-        left_bound = position->get_x() - width_radius();
-        right_bound = position->get_x() + width_radius();
+        left_bound = position.get_x() - width_radius();
+        right_bound = position.get_x() + width_radius();
     }
 
     if(map_shorter_than_vp()){
@@ -39,8 +38,8 @@ void ViewportCalculator::calculate_bounds() {
         top_bound = map->get_height() - vp_height;
         bottom_bound = map->get_height();
     }else {
-        top_bound = position->get_y() - height_radius();
-        bottom_bound = position->get_y() + height_radius();
+        top_bound = position.get_y() - height_radius();
+        bottom_bound = position.get_y() + height_radius();
     }
 }
 
@@ -65,19 +64,19 @@ int ViewportCalculator::height_radius() {
 }
 
 bool ViewportCalculator::vp_against_left_map_edge() {
-    return position->get_x() - width_radius() <= 0;
+    return position.get_x() - width_radius() <= 0;
 }
 
 bool ViewportCalculator::vp_against_right_map_edge() {
-    return position->get_x() + width_radius() >= map->get_width();
+    return position.get_x() + width_radius() >= map->get_width();
 }
 
 bool ViewportCalculator::vp_against_top_map_edge() {
-    return position->get_y() - height_radius() <= 0;
+    return position.get_y() - height_radius() <= 0;
 }
 
 bool ViewportCalculator::vp_against_bottom_map_edge() {
-    return position->get_y() + height_radius() >= map->get_height();
+    return position.get_y() + height_radius() >= map->get_height();
 }
 
 bool ViewportCalculator::map_narrower_than_vp() {

@@ -49,7 +49,7 @@ void Engine::render() {
 void Engine::render_map() {
     werase(map_window);
 
-    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, &player->get_pos(), map);
+    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
     vector<Position> to_render = vpc.contained_positions();
 
     int x_offset = vpc.get_x_offset();
@@ -71,7 +71,7 @@ void Engine::render_map() {
         }
 
         Mobile* mob = (Mobile*) map->mobile_for(to_render.at(i));
-        if (mob && mob->is_visible_from(&player->get_pos())) {
+        if (mob && mob->is_visible_from(player->get_pos())) {
             mvwprintw(map_window, ypos, xpos , mob->to_char().c_str());
         }
 
@@ -209,32 +209,32 @@ Position* Engine::get_adjacent_position_from_user() {
     int key = getch();
     switch(key) {
         case KEY_LEFT:
-            return player_pos.left();
+            return new Position(player_pos.left());
             break;
         case KEY_RIGHT:
-            return player_pos.right();
+            return new Position(player_pos.right());
             break;
         case KEY_UP:
-            return player_pos.up();
+            return new Position(player_pos.up());
             break;
         case KEY_DOWN:
-            return player_pos.down();
+            return new Position(player_pos.down());
             break;
         case KEY_C1:
         case KEY_END:
-            return player_pos.down_left();
+            return new Position(player_pos.down_left());
             break;
         case KEY_C3:
         case KEY_NPAGE:
-            return player_pos.down_right();
+            return new Position(player_pos.down_right());
             break;
         case KEY_A1:
         case KEY_HOME:
-            return player_pos.up_left();
+            return new Position(player_pos.up_left());
             break;
         case KEY_A3:
         case KEY_PPAGE:
-            return player_pos.up_right();
+            return new Position(player_pos.up_right());
             break;
 
         default:
@@ -247,7 +247,7 @@ Position* Engine::get_position_from_user() {
     //TODO: fix the mem leak here - many Position*s are created
     Position* cursor_pos = &player->get_pos();
 
-    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, &player->get_pos(), map);
+    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
     int y = player->get_pos().get_y() - vpc.get_y_offset() + 1;
     int x = player->get_pos().get_x() - vpc.get_x_offset() + 1;
 
@@ -261,42 +261,42 @@ Position* Engine::get_position_from_user() {
         int key = getch();
         switch(key) {
             case KEY_LEFT:
-                cursor_pos = cursor_pos->left();
+                cursor_pos = new Position(cursor_pos->left());
                 x--;
                 break;
             case KEY_RIGHT:
-                cursor_pos = cursor_pos->right();
+                cursor_pos = new Position(cursor_pos->right());
                 x++;
                 break;
             case KEY_UP:
-                cursor_pos = cursor_pos->up();
+                cursor_pos = new Position(cursor_pos->up());
                 y--;
                 break;
             case KEY_DOWN:
-                cursor_pos = cursor_pos->down();
+                cursor_pos = new Position(cursor_pos->down());
                 y++;
                 break;
             case KEY_C1:
             case KEY_END:
-                cursor_pos = cursor_pos->down_left();
+                cursor_pos = new Position(cursor_pos->down_left());
                 y++;
                 x--;
                 break;
             case KEY_C3:
             case KEY_NPAGE:
-                cursor_pos = cursor_pos->down_right();
+                cursor_pos = new Position(cursor_pos->down_right());
                 y++;
                 x++;
                 break;
             case KEY_A1:
             case KEY_HOME:
-                cursor_pos = cursor_pos->up_left();
+                cursor_pos = new Position(cursor_pos->up_left());
                 y--;
                 x--;
                 break;
             case KEY_A3:
             case KEY_PPAGE:
-                cursor_pos = cursor_pos->up_right();
+                cursor_pos = new Position(cursor_pos->up_right());
                 y--;
                 x++;
                 break;
@@ -329,8 +329,10 @@ void Engine::do_open() {
     Position* target_pos = get_adjacent_position_from_user();
 
     if (target_pos) {
-        player->open(target_pos);
+        player->open(*target_pos);
     }
+
+    delete target_pos;
 }
 
 void Engine::start_next_level() {

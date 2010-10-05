@@ -29,8 +29,8 @@ class MeleeAI : public AI {
         void approach();
         void attack();
 
-        Position* get_pos();
-        void set_pos(Position* p);
+        Position& get_pos();
+        void set_pos(const Position& p);
         Player* get_player();
 
         bool can_see_player();

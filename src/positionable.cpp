@@ -10,6 +10,6 @@ Position& Positionable::get_pos() {
     return position;
 }
 
-void Positionable::set_pos(Position p) {
+void Positionable::set_pos(const Position& p) {
     this->position = p;
 }

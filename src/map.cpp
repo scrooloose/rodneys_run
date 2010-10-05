@@ -123,7 +123,7 @@ bool Map::is_walkable(Position position) {
 }
 
 bool Map::is_walkable(Position position, bool ignore_player, bool ignore_mobiles) {
-    if (!ignore_player && player->get_pos().equals(&position))
+    if (!ignore_player && player->get_pos().equals(position))
         return false;
 
     if (!ignore_mobiles && mobile_for(position))
@@ -136,7 +136,7 @@ void Map::update_mobile_position(Positionable* mob, Position old_pos, Position n
     if (mobile_for(new_pos))
         throw new PositionException("Can't move mobile on top of another.");
 
-    if (new_pos.equals(&player->get_pos()))
+    if (new_pos.equals(player->get_pos()))
         throw new PositionException("Can't move mobile on top of player.");
 
     mobiles.remove(old_pos);

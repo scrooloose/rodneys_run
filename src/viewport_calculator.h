@@ -9,7 +9,7 @@ class ViewportCalculator {
     private:
         int vp_width;
         int vp_height;
-        Position* position;
+        Position position;
         Map* map;
 
         int left_bound;
@@ -28,7 +28,7 @@ class ViewportCalculator {
         bool map_shorter_than_vp();
 
     public:
-        ViewportCalculator(int vp_width, int vp_height, Position* p, Map* map);
+        ViewportCalculator(int vp_width, int vp_height, const Position& p, Map* map);
         ~ViewportCalculator();
 
         vector<Position> contained_positions();

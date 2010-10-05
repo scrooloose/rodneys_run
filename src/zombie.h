@@ -15,7 +15,7 @@ class Zombie : public Mobile {
         AI* ai;
 
     public:
-        Zombie(Position* p, Map* m);
+        Zombie(Position p, Map* m);
         ~Zombie();
 
         string to_char();

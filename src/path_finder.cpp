@@ -1,11 +1,9 @@
 #include "path_finder.h"
 
-PathFinder::PathFinder(Map* map, Position* from_pos, Position* to_pos) {
+PathFinder::PathFinder(Map* map, const Position& from, const Position& to) : from_pos(from), to_pos(to) {
     this->map = map;
-    this->from_pos = from_pos;
-    this->to_pos = to_pos;
 
-    Node* initial = new Node(map, map->tile_for(*from_pos), NULL, to_pos);
+    Node* initial = new Node(map, map->tile_for(from_pos), NULL, to_pos);
     initial->set_g(0);
 
     open_list.push_back(initial);

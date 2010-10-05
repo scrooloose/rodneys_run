@@ -13,7 +13,7 @@ class Positionable {
         ~Positionable();
 
         virtual Position& get_pos();
-        virtual void set_pos(Position p);
+        virtual void set_pos(const Position& p);
 };
 
 #endif

@@ -12,7 +12,7 @@ class Node {
         Map* map;
         Node* parent;
         vector<Node*> adjacent_nodes;
-        Position* destination;
+        Position destination;
 
         int g;
         int h;
@@ -20,7 +20,7 @@ class Node {
         void calculate_h();
 
     public:
-        Node(Map* map, Tile* tile, Node* parent, Position* destination);
+        Node(Map* map, Tile* tile, Node* parent, Position destination);
 
         int get_f();
         int get_g();

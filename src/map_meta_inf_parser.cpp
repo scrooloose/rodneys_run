@@ -58,7 +58,7 @@ void MapMetaInfParser::parse_mobiles(Json::Value root) {
 
 Mobile* MapMetaInfParser::mob_for(string type, int xpos, int ypos) {
     if (type == "Zombie")
-        return new Zombie(new Position(xpos, ypos), map);
+        return new Zombie(Position(xpos, ypos), map);
     else
         throw MapParsingException("Unrecognised mobile type:" + type);
 }

@@ -12,13 +12,13 @@ Player::Player(Map* map) : Positionable(*map->get_starting_pos()) {
 Player::~Player() {
 }
 
-void Player::move_to(Position* position) {
-    if (map->mobile_for(*position)) {
-        attack_with_melee(*position);
+void Player::move_to(const Position& position) {
+    if (map->mobile_for(position)) {
+        attack_with_melee(position);
     } else {
-        Tile* t = map->tile_for(*position);
+        Tile* t = map->tile_for(position);
         if (t->is_walkable()) {
-            set_pos(*position);
+            set_pos(position);
         }
 
         pick_up_items();
@@ -90,12 +90,12 @@ void Player::set_map(Map* m) {
     this->turn_timer->set_remaining_time(1);
 }
 
-void Player::open(Position* target_pos){
+void Player::open(const Position& target_pos){
     if (!position.is_adjacent(target_pos)) {
         throw new runtime_error("Cannot open non-adjacent tile");
     }
 
-    Tile* target_tile = map->tile_for(*target_pos);
+    Tile* target_tile = map->tile_for(target_pos);
     if (target_tile->is_openable()) {
 
         //TODO: fix the design so this cast isnt needed

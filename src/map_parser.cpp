@@ -77,16 +77,6 @@ Tile* MapParser::tile_for(char c, Position p) {
 
 }
 
-Positionable* MapParser::mobile_for(char c, Position* p, Map* m) {
-    switch(c) {
-        case (int)'z':
-            return new Zombie(p, m);
-            break;
-    }
-
-    return NULL;
-}
-
 int MapParser::find_width() {
     ifstream* map_file = open_map_file();
     int longest_line = 0;

@@ -13,13 +13,13 @@
 
 class RangedWeapon : public Weapon {
     private:
-        int min_range;
-        int max_range;
         Inventory* player_inv;
-        string ammo_type;
+
+        virtual int get_min_range();
+        virtual int get_max_range() = 0;
 
     public:
-        RangedWeapon(int min_range, int max_range, Positionable* player, Inventory* player_inv, string ammo_type, Map* map, string name, int dmg_dice, int dmg_dice_sides, int dmg_modifier);
+        RangedWeapon(Positionable* player, Inventory* player_inv, Map* map);
         bool in_range(Position p);
         bool has_ammo();
         virtual bool attack(Position pos);

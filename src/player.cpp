@@ -5,8 +5,8 @@ Player::Player(Map* map) : Positionable(*map->get_starting_pos()) {
     this->health = 100;
     this->turn_timer = new TurnTimer(10);
     this->inventory = new Inventory();
-    this->ranged_weapon = new RangedWeapon(2, 7, this, inventory, "rifle_round", map, "Combat Rifle", 4, 7, 5);
-    this->melee_weapon = new MeleeWeapon(this, map, "Brass Knuckles", 2, 3, 3);
+    this->ranged_weapon = new Pistol(this, inventory, map);
+    this->melee_weapon = new LeadPipe(this, map);
 }
 
 Player::~Player() {

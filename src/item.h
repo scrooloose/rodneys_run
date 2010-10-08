@@ -21,6 +21,7 @@ class Item : public Positionable, public Renderable {
 
         string get_name();
         string get_type();
+
         int get_quantity();
         void set_quantity(int q);
         void add_to_quantity(int diff);

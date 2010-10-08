@@ -14,16 +14,22 @@ class Weapon {
         Positionable* player;
         Map* map;
 
-        int dmg_dice;
-        int dmg_dice_sides;
-        int dmg_modifier;
+        virtual int get_dmg_dice() = 0;
+        virtual int get_dmg_dice_sides() = 0;
+        virtual int get_dmg_modifier() = 0;
+
+        virtual string get_dmg_desc(int dmg);
 
     public:
-        Weapon(Positionable* player, Map* map, string name, int dmg_dice, int dmg_dice_sides, int dmg_modifier);
-        string get_name();
+        Weapon(Positionable* player, Map* map);
+
+        virtual string get_ammo_type() = 0;
+        virtual string get_name() = 0;
+
         virtual bool attack(Position pos) = 0;
         virtual int get_dmg();
-        virtual string get_damage_desc();
+        virtual string get_dmg_dice_desc();
+
 
 
 };

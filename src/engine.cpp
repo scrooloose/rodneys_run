@@ -110,13 +110,13 @@ void Engine::render_info() {
     mvwprintw(info_window, 7, 1, "-----------");
     mvwprintw(info_window, 8, 1, player->get_ranged_weapon()->get_name().c_str());
     mvwprintw(info_window, 9, 2, "Dmg:");
-    mvwprintw(info_window, 9, 7, player->get_ranged_weapon()->get_damage_desc().c_str());
+    mvwprintw(info_window, 9, 7, player->get_ranged_weapon()->get_dmg_dice_desc().c_str());
     mvwprintw(info_window, 10, 2, "Rng:");
     mvwprintw(info_window, 10, 7, player->get_ranged_weapon()->get_range_desc().c_str());
 
     mvwprintw(info_window, 12, 1, player->get_melee_weapon()->get_name().c_str());
     mvwprintw(info_window, 13, 2, "Dmg:");
-    mvwprintw(info_window, 13, 7, player->get_melee_weapon()->get_damage_desc().c_str());
+    mvwprintw(info_window, 13, 7, player->get_melee_weapon()->get_dmg_dice_desc().c_str());
 
     box(info_window, 0, 0);
     wnoutrefresh(info_window);

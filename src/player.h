@@ -8,8 +8,13 @@
 #include "mobile.h"
 #include "message_log.h"
 #include "turn_timer.h"
+
 #include "ranged_weapon.h"
+#include "pistol.h"
+
 #include "melee_weapon.h"
+#include "lead_pipe.h"
+
 #include "item.h"
 #include "item_affectee.h"
 #include "inventory.h"

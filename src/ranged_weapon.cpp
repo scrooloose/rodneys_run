@@ -1,12 +1,13 @@
 #include "ranged_weapon.h"
 
-RangedWeapon::RangedWeapon(Positionable* player, Inventory* player_inv, Map* map) :
-              Weapon(player, map) {
+RangedWeapon::RangedWeapon(Map* map, string name, string type, Position p) :
+              Weapon(map, name, type, p)
+{
     this->player_inv = player_inv;
 }
 
 bool RangedWeapon::in_range(Position p) {
-    int actual_range = player->get_pos().positions_between(p).size() - 1;
+    int actual_range = get_player()->get_pos().positions_between(p).size() - 1;
     return actual_range <= get_max_range() && actual_range >= get_min_range();
 }
 
@@ -50,4 +51,13 @@ string RangedWeapon::get_range_desc() {
 
 int RangedWeapon::get_min_range() {
     return 2;
+}
+
+void RangedWeapon::wielded_by(Positionable* player, Inventory* inv) {
+    this->player_inv = inv;
+    Weapon::wielded_by(player);
+}
+
+bool RangedWeapon::is_ranged() {
+    return true;
 }

@@ -19,11 +19,13 @@ class RangedWeapon : public Weapon {
         virtual int get_max_range() = 0;
 
     public:
-        RangedWeapon(Positionable* player, Inventory* player_inv, Map* map);
+        RangedWeapon(Map* map, string name, string type, Position p);
         bool in_range(Position p);
         bool has_ammo();
         virtual bool attack(Position pos);
         virtual string get_range_desc();
+        virtual void wielded_by(Positionable* player, Inventory* inv);
+        bool is_ranged();
 };
 
 #endif

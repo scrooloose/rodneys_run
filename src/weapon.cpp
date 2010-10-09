@@ -1,13 +1,8 @@
 #include "weapon.h"
 
-Weapon::Weapon(Positionable* player, Map* map) {
-    this->player = player;
+Weapon::Weapon(Map* map, string name, string type, Position p) : Item(name, type, 1, string("}"), p) {
     this->map = map;
-    this->name = name;
-}
-
-string Weapon::get_name() {
-    return this->name;
+    this->player = NULL;
 }
 
 int Weapon::get_dmg() {
@@ -34,4 +29,19 @@ string Weapon::get_dmg_desc(int dmg) {
     char str[100];
     sprintf(str, "Your %s inflicts %d damage!", get_name().c_str(), dmg);
     return string(str);
+}
+
+void Weapon::wielded_by(Positionable* player) {
+    this->player = player;
+}
+
+bool Weapon::is_wieldable() {
+    return true;
+}
+
+Positionable* Weapon::get_player() {
+    if (player == NULL) {
+        throw new runtime_error("Weapon::get_player() - weapon hasn't been wielded.");
+    }
+    return player;
 }

@@ -63,9 +63,10 @@ class Player : public Renderable, public Positionable, public ItemAffectee {
         void pick_up_items();
         Inventory* get_inventory();
 
-        void set_ranged_weapon(RangedWeapon* rw);
+        void wield(RangedWeapon* rw);
         RangedWeapon* get_ranged_weapon();
-        void set_melee_weapon(MeleeWeapon* mw);
+
+        void wield(MeleeWeapon* mw);
         MeleeWeapon* get_melee_weapon();
 
         //ItemAffectee methods

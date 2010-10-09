@@ -8,8 +8,9 @@
 
 class MeleeWeapon : public Weapon {
     public:
-        MeleeWeapon(Positionable* player, Map* map);
+        MeleeWeapon(Map* map, string name, string type, Position p);
         virtual bool attack(Position pos);
+        bool is_ranged();
 };
 
 #endif

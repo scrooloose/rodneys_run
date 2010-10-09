@@ -9,7 +9,7 @@
 #include <cstdio>
 
 class Item : public Positionable, public Renderable {
-    private:
+    protected:
         string name;
         string type;
         int quantity;
@@ -29,6 +29,8 @@ class Item : public Positionable, public Renderable {
 
         virtual void affect_recipient(ItemAffectee* ia);
         virtual bool is_instant_usage_item();
+
+        virtual bool is_wieldable();
 
 
         string get_pickup_msg();

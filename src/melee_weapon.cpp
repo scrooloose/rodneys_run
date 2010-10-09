@@ -1,11 +1,10 @@
 #include "melee_weapon.h"
 
-MeleeWeapon::MeleeWeapon(Positionable* player, Map* map) :
-             Weapon(player, map) {
- }
+MeleeWeapon::MeleeWeapon(Map* map, string name, string type, Position p) : Weapon(map, name, type, p) {
+}
 
 bool MeleeWeapon::attack(Position pos) {
-    if (!pos.is_adjacent(player->get_pos())) {
+    if (!pos.is_adjacent(get_player()->get_pos())) {
         MessageLog::add_message("Can only melee with adjacent targets!");
         return false;
     }
@@ -23,4 +22,8 @@ bool MeleeWeapon::attack(Position pos) {
 
 
     return true;
+}
+
+bool MeleeWeapon::is_ranged() {
+    return false;
 }

@@ -12,7 +12,7 @@ class LeadPipe : public MeleeWeapon {
         virtual int get_dmg_modifier();
 
     public:
-        LeadPipe(Positionable* player, Map* map);
+        LeadPipe(Map* map, Position p);
 
         virtual string get_ammo_type();
         virtual string get_name();

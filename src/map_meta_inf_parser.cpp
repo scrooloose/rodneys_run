@@ -125,10 +125,16 @@ void MapMetaInfParser::parse_locked_doors(Json::Value root) {
 }
 
 Item* MapMetaInfParser::item_for(string type, int quantity, int xpos, int ypos) {
+    Position pos(xpos, ypos);
+
     if (type == "9mm_round")
-        return new Item("9mm round", type, quantity, "=", Position(xpos, ypos));
+        return new Item("9mm round", type, quantity, "=", pos);
     else if (type == "med_kit")
-        return new MedKit(Position(xpos, ypos));
+        return new MedKit(pos);
+    else if (type == "pistol")
+        return new Pistol(map, pos);
+    else if (type == "lead_pipe")
+        return new LeadPipe(map, pos);
     else
         throw MapParsingException("Unrecognised item type:" + type);
 

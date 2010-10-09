@@ -8,7 +8,7 @@ using namespace std;
 
 class Pistol : public RangedWeapon {
     public:
-        Pistol(Positionable* player, Inventory* inv, Map* map);
+        Pistol(Map* map, Position p);
 
         int get_max_range();
         int get_dmg_dice();

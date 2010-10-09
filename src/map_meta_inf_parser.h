@@ -14,6 +14,9 @@
 #include "key.h"
 #include "med_kit.h"
 
+#include "pistol.h"
+#include "lead_pipe.h"
+
 #include "mobile.h"
 #include "zombie.h"
 

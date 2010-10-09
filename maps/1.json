@@ -49,7 +49,9 @@
         { "type": "9mm_round", "quantity": 5, "x": 1, "y": 46 },
         { "type": "9mm_round", "quantity": 5, "x": 2, "y": 46 },
         { "type": "9mm_round", "quantity": 5, "x": 87, "y": 47 },
-        { "type": "9mm_round", "quantity": 5, "x": 99, "y": 45 }
+        { "type": "9mm_round", "quantity": 5, "x": 99, "y": 45 },
+        { "type": "lead_pipe", "quantity": 1, "x": 7, "y": 52 },
+        { "type": "pistol", "quantity": 1, "x": 1, "y": 44 }
     ],
     "keys": [
         { "door_id": 1, "name": "Office floor key", "x": 88, "y": 47 },

@@ -1,10 +1,10 @@
 #include "pistol.h"
 
-Pistol::Pistol(Positionable* player, Inventory* inv, Map* map) : RangedWeapon(player, inv, map) {
+Pistol::Pistol(Map* map, Position p) : RangedWeapon( map, "Pistol", "pistol", p) {
 }
 
 int Pistol::get_max_range() {
-    return 7;
+    return 9;
 }
 
 int Pistol::get_dmg_dice() {

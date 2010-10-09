@@ -1,6 +1,6 @@
 #include "lead_pipe.h"
 
-LeadPipe::LeadPipe(Positionable* player, Map* map) : MeleeWeapon(player, map) {
+LeadPipe::LeadPipe(Map* map, Position p) : MeleeWeapon(map, "Lead Pipe", "lead_pipe", p) {
 }
 
 int LeadPipe::get_dmg_dice() {

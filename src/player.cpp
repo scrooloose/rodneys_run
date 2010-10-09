@@ -5,8 +5,6 @@ Player::Player(Map* map) : Positionable(*map->get_starting_pos()) {
     this->health = 100;
     this->turn_timer = new TurnTimer(10);
     this->inventory = new Inventory();
-    this->ranged_weapon = new Pistol(this, inventory, map);
-    this->melee_weapon = new LeadPipe(this, map);
 }
 
 Player::~Player() {
@@ -33,8 +31,14 @@ void Player::pick_up_items() {
 
         if (!item->is_instant_usage_item()) {
             inventory->add(item);
-        } else {
-            delete item;
+        }
+
+        if (item->is_wieldable()) {
+            if (((Weapon*)item)->is_ranged()) {
+                wield((RangedWeapon*)item);
+            } else {
+                wield((MeleeWeapon*)item);
+            }
         }
 
     }
@@ -147,17 +151,20 @@ bool Player::tick() {
     return turn_timer->tick();
 }
 
-void Player::set_ranged_weapon(RangedWeapon* rw) {
+void Player::wield(RangedWeapon* rw) {
     this->ranged_weapon = rw;
+    rw->wielded_by(this, inventory);
+}
+
+void Player::wield(MeleeWeapon* mw) {
+    this->melee_weapon = mw;
+    mw->wielded_by(this);
 }
 
 RangedWeapon* Player::get_ranged_weapon() {
     return this->ranged_weapon;
 }
 
-void Player::set_melee_weapon(MeleeWeapon* mw) {
-    this->melee_weapon = mw;
-}
 MeleeWeapon* Player::get_melee_weapon() {
     return this->melee_weapon;
 }

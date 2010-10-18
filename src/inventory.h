@@ -23,6 +23,7 @@ class Inventory {
         bool has_key(int door_id);
 
         vector<Item*> get_items();
+        vector<Item*> get_wieldable_items();
 
 };
 

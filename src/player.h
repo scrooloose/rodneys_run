@@ -63,6 +63,8 @@ class Player : public Renderable, public Positionable, public ItemAffectee {
         void pick_up_items();
         Inventory* get_inventory();
 
+        void wield(Weapon* weapon);
+
         void wield(RangedWeapon* rw);
         RangedWeapon* get_ranged_weapon();
 

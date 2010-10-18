@@ -34,11 +34,7 @@ void Player::pick_up_items() {
         }
 
         if (item->is_wieldable()) {
-            if (((Weapon*)item)->is_ranged()) {
-                wield((RangedWeapon*)item);
-            } else {
-                wield((MeleeWeapon*)item);
-            }
+            wield((Weapon*)item);
         }
 
     }
@@ -151,12 +147,29 @@ bool Player::tick() {
     return turn_timer->tick();
 }
 
+void Player::wield(Weapon* weapon) {
+    if (((Weapon*)weapon)->is_ranged()) {
+        wield((RangedWeapon*)weapon);
+    } else {
+        wield((MeleeWeapon*)weapon);
+    }
+    MessageLog::add_message("Wielded " + weapon->get_name());
+}
+
 void Player::wield(RangedWeapon* rw) {
+    if (ranged_weapon) {
+        inventory->add(ranged_weapon);
+    }
+
     this->ranged_weapon = rw;
     rw->wielded_by(this, inventory);
 }
 
 void Player::wield(MeleeWeapon* mw) {
+    if (melee_weapon) {
+        inventory->add(ranged_weapon);
+    }
+
     this->melee_weapon = mw;
     mw->wielded_by(this);
 }

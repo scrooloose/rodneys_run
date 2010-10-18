@@ -197,6 +197,9 @@ bool Engine::handle_keypress(int key) {
                 }
             }
             break;
+        case (int)'w':
+            do_wield();
+            break;
 
         case (int)'q':
             main_loop_done = true;
@@ -434,4 +437,42 @@ void Engine::calculate_window_sizes() {
 
     inv_window_width = 30;
     inv_window_height = 20;
+}
+
+void Engine::do_wield() {
+    vector<Item*> wieldables = player->get_inventory()->get_wieldable_items();
+
+    if (wieldables.empty()) {
+        MessageLog::add_message("You have nothing to wield!");
+        return;
+    }
+
+    render_inventory_selection_dialog(wieldables);
+    int key = getch() - 48;
+
+    if (key < 0 || key > 9 || key > wieldables.size()) {
+        MessageLog::add_message("Invalid selection");
+        return;
+    }
+
+    Item* to_wield = wieldables.at(key);
+    player->wield((Weapon*)to_wield);
+}
+
+void Engine::render_inventory_selection_dialog(vector<Item*> choices) {
+    werase(inv_window);
+    box(inv_window, 0, 0);
+    mvwprintw(inv_window, 1, 1, "Wield what?");
+
+
+    for (unsigned i=0; i < choices.size(); i++) {
+        stringstream out;
+        out << i;
+
+        Item* current = choices.at(i);
+        mvwprintw(inv_window, i + 3, 1, (out.str() + " " + current->get_inv_string()).c_str());
+    }
+
+    wnoutrefresh(inv_window);
+    doupdate();
 }

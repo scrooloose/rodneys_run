@@ -135,6 +135,8 @@ Item* MapMetaInfParser::item_for(string type, int quantity, int xpos, int ypos) 
         return new Pistol(map, pos);
     else if (type == "lead_pipe")
         return new LeadPipe(map, pos);
+    else if (type == "p90")
+        return new P90(map, pos);
     else
         throw MapParsingException("Unrecognised item type:" + type);
 

@@ -76,6 +76,18 @@ vector<Item*> Inventory::get_items() {
     return items;
 }
 
+vector<Item*> Inventory::get_wieldable_items() {
+    vector<Item*> to_return;
+
+    for (unsigned i = 0; i < items.size(); i++){
+        if (items.at(i)->is_wieldable()) {
+            to_return.push_back(items.at(i));
+        }
+    }
+
+    return to_return;
+}
+
 bool Inventory::has_key(int door_id) {
     vector<Key*> keys = find_keys();
 

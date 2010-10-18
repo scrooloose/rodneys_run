@@ -15,6 +15,7 @@
 #include "med_kit.h"
 
 #include "pistol.h"
+#include "p90.h"
 #include "lead_pipe.h"
 
 #include "mobile.h"

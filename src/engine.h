@@ -14,6 +14,7 @@
 #include "path_finder.h"
 #include <list>
 #include "item.h"
+#include <sstream>
 
 class Engine {
     private:
@@ -35,34 +36,35 @@ class Engine {
         WINDOW* inv_window;
         int inv_window_width;
         int inv_window_height;
-
-        void add_level_entry_msg();
-
-        Position get_position_from_user();
-        bool fire_weapon();
-
-        void calculate_window_sizes();
-
         bool show_inventory;
-    public:
-        Engine();
-        ~Engine();
-        void setup_curses();
-        void teardown_curses();
 
         void render();
         void render_map();
         void render_messages();
         void render_info();
         void render_inv();
+        void render_inventory_selection_dialog(vector<Item*> choices);
 
-        bool handle_keypress(int key);
-        void main_loop();
-        void start_next_level();
         Position get_adjacent_position_from_user();
+        Position get_position_from_user();
+
         void do_open();
         void do_ai();
         void game_over();
+        void do_wield();
+        bool fire_weapon();
+
+        bool handle_keypress(int key);
+        void add_level_entry_msg();
+        void calculate_window_sizes();
+        void start_next_level();
+
+    public:
+        Engine();
+        ~Engine();
+        void setup_curses();
+        void teardown_curses();
+        void main_loop();
 
 };
 

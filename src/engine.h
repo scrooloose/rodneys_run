@@ -50,7 +50,8 @@ class Engine {
 
         void do_open();
         void do_ai();
-        void game_over();
+        void game_over_lost();
+        void game_over_won();
         void do_wield();
         bool fire_weapon();
 

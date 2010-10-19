@@ -193,7 +193,7 @@ bool Engine::handle_keypress(int key) {
                 if (map_list->has_next_map()) {
                     start_next_level();
                 }else{
-                    action_taken = false;
+                    game_over_won();
                 }
             }
             break;
@@ -380,8 +380,7 @@ void Engine::main_loop() {
         do_ai();
 
         if (player->is_dead()) {
-            game_over();
-            main_loop_done = true;
+            game_over_lost();
         }
 
         if (player_had_turn) {
@@ -404,8 +403,14 @@ void Engine::add_level_entry_msg() {
     MessageLog::add_message("Entering " + *map->get_name());
 }
 
-void Engine::game_over() {
+void Engine::game_over_lost() {
+    main_loop_done = true;
     MessageLog::add_message("You died!");
+}
+
+void Engine::game_over_won() {
+    main_loop_done = true;
+    MessageLog::add_message("You won!");
 }
 
 void Engine::calculate_window_sizes() {

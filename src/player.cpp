@@ -32,11 +32,6 @@ void Player::pick_up_items() {
         if (!item->is_instant_usage_item()) {
             inventory->add(item);
         }
-
-        if (item->is_wieldable()) {
-            wield((Weapon*)item);
-        }
-
     }
 }
 
@@ -161,6 +156,7 @@ void Player::wield(RangedWeapon* rw) {
         inventory->add(ranged_weapon);
     }
 
+    inventory->remove(rw->get_type(), 1);
     this->ranged_weapon = rw;
     rw->wielded_by(this, inventory);
 }
@@ -170,6 +166,7 @@ void Player::wield(MeleeWeapon* mw) {
         inventory->add(ranged_weapon);
     }
 
+    inventory->remove(mw->get_type(), 1);
     this->melee_weapon = mw;
     mw->wielded_by(this);
 }

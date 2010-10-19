@@ -455,7 +455,7 @@ void Engine::do_wield() {
     render_inventory_selection_dialog(wieldables);
     int key = getch() - 48;
 
-    if (key < 0 || key > 9 || key > wieldables.size()) {
+    if (key < 0 || key > 9 || key > (int)wieldables.size()) {
         MessageLog::add_message("Invalid selection");
         return;
     }

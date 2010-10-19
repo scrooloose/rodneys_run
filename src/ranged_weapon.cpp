@@ -12,7 +12,7 @@ bool RangedWeapon::in_range(Position p) {
 }
 
 bool RangedWeapon::has_ammo() {
-    return this->player_inv->has_item(this->ammo_type);
+    return this->player_inv->has_item(this->ammo_type, ammo_per_turn);
 }
 
 bool RangedWeapon::attack(Position pos) {
@@ -32,7 +32,7 @@ bool RangedWeapon::attack(Position pos) {
         return false;
     }
 
-    player_inv->use_item(ammo_type);
+    player_inv->remove(ammo_type, ammo_per_turn);
 
 
     int dmg = get_dmg();
@@ -64,6 +64,10 @@ void RangedWeapon::set_min_range(int min_range) {
 
 void RangedWeapon::set_max_range(int max_range) {
     this->max_range = max_range;
+}
+
+void RangedWeapon::set_ammo_per_turn(int ammo_per_turn) {
+    this->ammo_per_turn = ammo_per_turn;
 }
 
 void RangedWeapon::set_ammo_type(string ammo_type) {

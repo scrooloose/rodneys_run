@@ -470,7 +470,7 @@ void Engine::render_inventory_selection_dialog(vector<Item*> choices) {
         out << i;
 
         Item* current = choices.at(i);
-        mvwprintw(inv_window, i + 3, 1, (out.str() + " " + current->get_inv_string()).c_str());
+        mvwprintw(inv_window, i + 3, 1, (out.str() + " - " + current->get_inv_string()).c_str());
     }
 
     wnoutrefresh(inv_window);

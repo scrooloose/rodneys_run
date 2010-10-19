@@ -44,6 +44,11 @@ bool Inventory::has_item(string item_type) {
     return find(item_type) != NULL;
 }
 
+bool Inventory::has_item(string item_type, int quantity) {
+    Item* i = find(item_type);
+    return i != NULL && i->get_quantity() >= quantity;
+}
+
 void Inventory::remove(string item_type, int quantity) {
     Item* item = find(item_type);
 

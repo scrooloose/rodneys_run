@@ -111,10 +111,20 @@ void Player::open(const Position& target_pos){
 }
 
 bool Player::attack_with_melee(Position pos) {
+    if (!melee_weapon) {
+        MessageLog::add_message("No melee weapon equipped!");
+        return false;
+    }
+
     return melee_weapon->attack(pos);
 }
 
 bool Player::attack_with_ranged(Position pos) {
+    if (!ranged_weapon) {
+        MessageLog::add_message("No ranged weapon equipped!");
+        return false;
+    }
+
     return ranged_weapon->attack(pos);
 }
 

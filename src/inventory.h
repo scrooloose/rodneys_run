@@ -18,6 +18,7 @@ class Inventory {
         void add(Item *item);
         void remove(string item_type, int quantity);
         bool has_item(string item_type);
+        bool has_item(string item_type, int quantity);
         void use_item(string item_type);
 
         bool has_key(int door_id);

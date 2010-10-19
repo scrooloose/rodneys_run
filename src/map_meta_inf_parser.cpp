@@ -132,11 +132,11 @@ Item* MapMetaInfParser::item_for(string type, int quantity, int xpos, int ypos) 
     else if (type == "med_kit")
         return new MedKit(pos);
     else if (type == "pistol")
-        return new Pistol(map, pos);
-    else if (type == "lead_pipe")
-        return new LeadPipe(map, pos);
+        return WeaponFactory::build_pistol(map, pos);
     else if (type == "p90")
-        return new P90(map, pos);
+        return WeaponFactory::build_p90(map, pos);
+    else if (type == "lead_pipe")
+        return WeaponFactory::build_lead_pipe(map, pos);
     else
         throw MapParsingException("Unrecognised item type:" + type);
 

@@ -8,11 +8,11 @@ RangedWeapon::RangedWeapon(Map* map, string name, string type, Position p) :
 
 bool RangedWeapon::in_range(Position p) {
     int actual_range = get_player()->get_pos().positions_between(p).size() - 1;
-    return actual_range <= get_max_range() && actual_range >= get_min_range();
+    return actual_range <= max_range && actual_range >= min_range;
 }
 
 bool RangedWeapon::has_ammo() {
-    return this->player_inv->has_item(this->get_ammo_type());
+    return this->player_inv->has_item(this->ammo_type);
 }
 
 bool RangedWeapon::attack(Position pos) {
@@ -32,7 +32,7 @@ bool RangedWeapon::attack(Position pos) {
         return false;
     }
 
-    player_inv->use_item(get_ammo_type());
+    player_inv->use_item(ammo_type);
 
 
     int dmg = get_dmg();
@@ -45,12 +45,8 @@ bool RangedWeapon::attack(Position pos) {
 
 string RangedWeapon::get_range_desc() {
     char str[50];
-    sprintf(str, "%d-%d", get_min_range(), get_max_range());
+    sprintf(str, "%d-%d", min_range, max_range);
     return str;
-}
-
-int RangedWeapon::get_min_range() {
-    return 2;
 }
 
 void RangedWeapon::wielded_by(Positionable* player, Inventory* inv) {
@@ -60,4 +56,16 @@ void RangedWeapon::wielded_by(Positionable* player, Inventory* inv) {
 
 bool RangedWeapon::is_ranged() {
     return true;
+}
+
+void RangedWeapon::set_min_range(int min_range) {
+    this->min_range = min_range;
+}
+
+void RangedWeapon::set_max_range(int max_range) {
+    this->max_range = max_range;
+}
+
+void RangedWeapon::set_ammo_type(string ammo_type) {
+    this->ammo_type = ammo_type;
 }

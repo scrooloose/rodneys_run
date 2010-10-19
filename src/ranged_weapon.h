@@ -15,11 +15,17 @@ class RangedWeapon : public Weapon {
     private:
         Inventory* player_inv;
 
-        virtual int get_min_range();
-        virtual int get_max_range() = 0;
+        int min_range;
+        int max_range;
+        int ammo_per_turn;
 
     public:
         RangedWeapon(Map* map, string name, string type, Position p);
+
+        void set_ammo_type(string ammo_type);
+        void set_min_range(int min_range);
+        void set_max_range(int max_range);
+
         bool in_range(Position p);
         bool has_ammo();
         virtual bool attack(Position pos);

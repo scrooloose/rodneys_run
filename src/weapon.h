@@ -18,9 +18,9 @@ class Weapon : public Item {
     protected:
         Map* map;
 
-        virtual int get_dmg_dice() = 0;
-        virtual int get_dmg_dice_sides() = 0;
-        virtual int get_dmg_modifier() = 0;
+        int dmg_dice;
+        int dmg_dice_sides;
+        int dmg_modifier;
 
         virtual string get_dmg_desc(int dmg);
 
@@ -29,7 +29,7 @@ class Weapon : public Item {
     public:
         Weapon(Map* map, string name, string type, Position p);
 
-        virtual string get_ammo_type() = 0;
+        void set_dmg_dice(int dice, int sides, int modifier);
 
         virtual bool attack(Position pos) = 0;
         virtual int get_dmg();

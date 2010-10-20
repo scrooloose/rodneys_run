@@ -15,9 +15,7 @@ bool MeleeWeapon::attack(Position pos) {
         return false;
     }
 
-    int dmg = get_dmg();
-    target->take_damage(dmg);
-
+    int dmg = dmg_strategy->attack(pos);
     MessageLog::add_message(get_dmg_desc(dmg));
 
 

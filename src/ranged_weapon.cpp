@@ -21,23 +21,13 @@ bool RangedWeapon::attack(Position pos) {
         return false;
     }
 
-    Mobile* mob = (Mobile*)map->mobile_for(pos);
-    if (!mob) {
-        MessageLog::add_message("Select a target!");
-        return false;
-    }
-
     if (!in_range(pos)) {
         MessageLog::add_message("Out of range!");
         return false;
     }
 
     player_inv->remove(ammo_type, ammo_per_turn);
-
-
-    int dmg = get_dmg();
-    mob->take_damage(dmg);
-
+    int dmg = dmg_strategy->attack(pos);
     MessageLog::add_message(get_dmg_desc(dmg));
 
     return true;

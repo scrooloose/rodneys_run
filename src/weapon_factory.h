@@ -7,6 +7,7 @@
 #include "map.h"
 #include "position.h"
 #include <string>
+#include "simple_damage_strategy.h"
 
 using namespace std;
 

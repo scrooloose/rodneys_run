@@ -51,17 +51,15 @@
         { "type": "9mm_round", "quantity": 5, "x": 87, "y": 47 },
         { "type": "9mm_round", "quantity": 5, "x": 99, "y": 45 },
         { "type": "lead_pipe", "quantity": 1, "x": 7, "y": 52 },
-        { "type": "pistol", "quantity": 1, "x": 1, "y": 44 },
-        { "type": "p90", "quantity": 1, "x": 8, "y": 52 },
-        { "type": "pistol", "quantity": 1, "x": 9, "y": 52 }
+        { "type": "pistol", "quantity": 1, "x": 1, "y": 44 }
     ],
     "keys": [
         { "door_id": 1, "name": "Office floor key", "x": 88, "y": 47 },
-        { "door_id": 2, "name": "Backstage Pass", "x": 68, "y": 35 }
+        { "door_id": 2, "name": "Lift access key", "x": 68, "y": 35 }
     ],
     "locked-doors": [
         { "door_id": 1, "name": "Office floor", "x": 39, "y": 29 },
         { "door_id": 1, "name": "Office floor", "x": 65, "y": 52 },
-        { "door_id": 2, "name": "Backstage entrance", "x": 88, "y": 9 }
+        { "door_id": 2, "name": "Lift area", "x": 88, "y": 9 }
     ]
 }

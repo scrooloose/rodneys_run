@@ -83,6 +83,15 @@ void Player::set_map(Map* m) {
     this->map = m;
     this->position = *map->get_starting_pos();
     this->turn_timer->set_remaining_time(1);
+    update_weapon_maps();
+}
+
+void Player::update_weapon_maps() {
+    if (ranged_weapon)
+        wield(ranged_weapon);
+
+    if (melee_weapon)
+        wield(melee_weapon);
 }
 
 void Player::open(const Position& target_pos){
@@ -168,7 +177,7 @@ void Player::wield(RangedWeapon* rw) {
 
     inventory->remove(rw->get_type(), 1);
     this->ranged_weapon = rw;
-    rw->wielded_by(this, inventory);
+    rw->wielded_by(this, map, inventory);
 }
 
 void Player::wield(MeleeWeapon* mw) {
@@ -178,7 +187,7 @@ void Player::wield(MeleeWeapon* mw) {
 
     inventory->remove(mw->get_type(), 1);
     this->melee_weapon = mw;
-    mw->wielded_by(this);
+    mw->wielded_by(this, map);
 }
 
 RangedWeapon* Player::get_ranged_weapon() {

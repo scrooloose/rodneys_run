@@ -11,8 +11,9 @@ string Weapon::get_dmg_desc(int dmg) {
     return string(str);
 }
 
-void Weapon::wielded_by(Positionable* player) {
+void Weapon::wielded_by(Positionable* player, Map* m) {
     this->player = player;
+    set_map(m);
 }
 
 bool Weapon::is_wieldable() {
@@ -32,4 +33,9 @@ void Weapon::set_dmg_strategy(DamageStrategy* dmg_strategy) {
 
 string Weapon::get_dmg_dice_desc() {
     return this->dmg_strategy->get_dmg_dice_desc();
+}
+
+void Weapon::set_map(Map* m) {
+    this->map = m;
+    this->dmg_strategy->set_map(m);
 }

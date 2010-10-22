@@ -32,7 +32,7 @@ class RangedWeapon : public Weapon {
         bool has_ammo();
         virtual bool attack(Position pos);
         virtual string get_range_desc();
-        virtual void wielded_by(Positionable* player, Inventory* inv);
+        virtual void wielded_by(Positionable* player, Map* m, Inventory* inv);
         bool is_ranged();
 };
 

@@ -39,9 +39,9 @@ string RangedWeapon::get_range_desc() {
     return str;
 }
 
-void RangedWeapon::wielded_by(Positionable* player, Inventory* inv) {
+void RangedWeapon::wielded_by(Positionable* player, Map* m, Inventory* inv) {
     this->player_inv = inv;
-    Weapon::wielded_by(player);
+    Weapon::wielded_by(player, m);
 }
 
 bool RangedWeapon::is_ranged() {

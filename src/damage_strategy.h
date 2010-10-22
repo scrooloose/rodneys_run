@@ -17,6 +17,7 @@ class DamageStrategy {
         virtual int attack(const Position& p) = 0;
         void set_dmg_dice(int dice, int sides, int modifier);
         virtual string get_dmg_dice_desc();
+        void set_map(Map* m);
 };
 
 #endif

@@ -28,11 +28,12 @@ class Weapon : public Item {
         Weapon(Map* map, string name, string type, Position p);
 
         virtual bool attack(Position pos) = 0;
-        virtual void wielded_by(Positionable* player);
+        virtual void wielded_by(Positionable* player, Map* m);
         virtual bool is_wieldable();
         virtual bool is_ranged() = 0;
         void set_dmg_strategy(DamageStrategy* dmg_strategy);
         virtual string get_dmg_dice_desc();
+        void set_map(Map* m);
 };
 
 #endif

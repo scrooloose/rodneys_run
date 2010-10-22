@@ -30,3 +30,6 @@ string DamageStrategy::get_dmg_dice_desc() {
     return string(str);
 }
 
+void DamageStrategy::set_map(Map* m) {
+    this->map = m;
+}

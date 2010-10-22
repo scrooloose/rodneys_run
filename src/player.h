@@ -26,6 +26,7 @@ class Player : public Renderable, public Positionable, public ItemAffectee {
         TurnTimer* turn_timer;
 
         void move_to(const Position& position);
+        void update_weapon_maps();
 
         RangedWeapon* ranged_weapon;
         MeleeWeapon* melee_weapon;

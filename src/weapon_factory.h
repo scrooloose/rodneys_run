@@ -8,6 +8,7 @@
 #include "position.h"
 #include <string>
 #include "simple_damage_strategy.h"
+#include "radial_damage_strategy.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ class WeaponFactory {
 
         static RangedWeapon* build_pistol(Map* m, const Position& p);
         static RangedWeapon* build_p90(Map* m, const Position& p);
+        static RangedWeapon* build_shotgun(Map* m, const Position& p);
 };
 
 #endif

@@ -1,4 +1,4 @@
-OBJS = player.o main.o engine.o position.o tile.o map.o floor.o wall.o map_parser.o empty_tile.o map_list.o stairs.o door.o viewport_calculator.o message_log.o mobile.o positionable.o zombie.o melee_ai.o turn_timer.o node.o path_finder.o proximity_sorter.o weapon.o ranged_weapon.o melee_weapon.o item.o inventory.o map_meta_inf_parser.o key.o med_kit.o weapon_factory.o damage_strategy.o simple_damage_strategy.o
+OBJS = player.o main.o engine.o position.o tile.o map.o floor.o wall.o map_parser.o empty_tile.o map_list.o stairs.o door.o viewport_calculator.o message_log.o mobile.o positionable.o zombie.o melee_ai.o turn_timer.o node.o path_finder.o proximity_sorter.o weapon.o ranged_weapon.o melee_weapon.o item.o inventory.o map_meta_inf_parser.o key.o med_kit.o weapon_factory.o damage_strategy.o simple_damage_strategy.o radial_damage_strategy.o
 CFLAGS = -Wall -c -g
 LFLAGS = -Wall -g -lncurses -ljsoncpp
 CC = g++

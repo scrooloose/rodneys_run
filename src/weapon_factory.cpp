@@ -34,3 +34,16 @@ RangedWeapon* WeaponFactory::build_p90(Map* m, const Position& p) {
     p90->set_dmg_strategy(dmg_strategy);
     return p90;
 }
+
+RangedWeapon* WeaponFactory::build_shotgun(Map* m, const Position& p) {
+    RadialDamageStrategy* dmg_strategy = new RadialDamageStrategy(m, 2);
+    dmg_strategy->set_dmg_dice(7, 4, 2);
+
+    RangedWeapon* shotgun = new RangedWeapon(m, "Shotgun", "shotgun", p);
+    shotgun->set_min_range(2);
+    shotgun->set_max_range(5);
+    shotgun->set_ammo_type("shotgun_shell");
+    shotgun->set_ammo_per_turn(1);
+    shotgun->set_dmg_strategy(dmg_strategy);
+    return shotgun;
+}

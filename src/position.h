@@ -37,7 +37,9 @@ class Position {
         bool equals(const Position& that) const;
         int distance_to(const Position& p) const;
         int manhattan_distance_to(const Position& p) const;
+
         vector<Position> adjacent_positions() const;
+        vector<Position> positions_in_radius(int radius) const;
 
 };
 

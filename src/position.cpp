@@ -159,31 +159,22 @@ int Position::manhattan_distance_to(const Position& p) const {
 }
 
 vector<Position> Position::adjacent_positions() const {
+    return positions_in_radius(1);
+}
+
+vector<Position> Position::positions_in_radius(int radius) const {
     vector<Position> positions;
 
-    if (are_coords_valid(x, y-1)) //up
-        positions.push_back(Position(x, y-1));
-
-    if (are_coords_valid(x+1, y-1)) //up right
-        positions.push_back(Position(x+1, y-1));
-
-    if (are_coords_valid(x+1, y)) //right
-        positions.push_back(Position(x+1, y));
-
-    if (are_coords_valid(x+1, y+1)) //down right
-        positions.push_back(Position(x+1, y+1));
-
-    if (are_coords_valid(x, y+1)) //down
-        positions.push_back(Position(x, y+1));
-
-    if (are_coords_valid(x-1, y+1)) //down left
-        positions.push_back(Position(x-1, y+1));
-
-    if (are_coords_valid(x-1, y)) //left
-        positions.push_back(Position(x-1, y));
-
-    if (are_coords_valid(x-1, y-1)) //up left
-        positions.push_back(Position(x-1, y-1));
+    for (int cur_x = this->x - radius; cur_x <= this->x + radius; cur_x++) {
+        for (int cur_y = this->y - radius; cur_y <= this->y + radius; cur_y++) {
+            if (are_coords_valid(cur_x, cur_y)) {
+                Position new_pos(cur_x, cur_y);
+                if (!new_pos.equals(*this)) {
+                    positions.push_back(Position(cur_x, cur_y));
+                }
+            }
+        }
+    }
 
     return positions;
 }

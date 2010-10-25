@@ -29,12 +29,10 @@ int RadialDamageStrategy::attack(const Position& pos) {
 vector<Mobile*> RadialDamageStrategy::get_secondary_targets(const Position& origin) {
     vector<Mobile*> secondary_targets;
 
+    vector<Position> target_positions = origin.positions_in_radius(radius);
 
-    //for now just assume the dmg radius is 1
-    vector<Position> adjacent_positions = origin.adjacent_positions();
-
-    for (unsigned i=0; i < adjacent_positions.size(); i++) {
-        Mobile* mob = (Mobile*)map->mobile_for(adjacent_positions.at(i));
+    for (unsigned i=0; i < target_positions.size(); i++) {
+        Mobile* mob = (Mobile*)map->mobile_for(target_positions.at(i));
         if (mob) {
             secondary_targets.push_back(mob);
         }

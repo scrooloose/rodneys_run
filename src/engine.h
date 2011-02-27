@@ -49,7 +49,7 @@ class Engine {
         Position get_position_from_user();
 
         void do_open();
-        void do_ai();
+        bool do_ai();
         void game_over_lost();
         void game_over_won();
         void do_wield();

@@ -30,8 +30,10 @@ void Mobile::killed() {
     delete this;
 }
 
-void Mobile::tick() {
+bool Mobile::tick() {
     if (turn_timer->tick()) {
         take_turn();
+        return true;
     }
+    return false;
 }

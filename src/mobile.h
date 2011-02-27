@@ -24,7 +24,7 @@ class Mobile : public Renderable, public Positionable {
         void set_pos(const Position& p);
         bool is_visible_from(Position p);
 
-        void tick();
+        bool tick();
 
         void take_damage(int damage);
         virtual int get_attack_damage() = 0;

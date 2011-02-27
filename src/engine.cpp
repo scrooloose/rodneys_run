@@ -360,6 +360,7 @@ void Engine::main_loop() {
     main_loop_done = false;
     while(!main_loop_done) {
         bool player_had_turn = false;
+        bool ai_had_turn = false;
 
         if (player->tick()) {
 
@@ -377,13 +378,13 @@ void Engine::main_loop() {
             player_had_turn = true;
         }
 
-        do_ai();
+        ai_had_turn = do_ai();
 
         if (player->is_dead()) {
             game_over_lost();
         }
 
-        if (player_had_turn) {
+        if (player_had_turn || ai_had_turn) {
             render();
         }
     }
@@ -391,12 +392,18 @@ void Engine::main_loop() {
     teardown_curses();
 }
 
-void Engine::do_ai() {
+bool Engine::do_ai() {
+    bool ai_moved = false;
+
     vector<Positionable*> mobs = map->get_all_mobiles_by_dist_to_player();
     for (unsigned i = 0; i < mobs.size(); i++) {
         Mobile* current = (Mobile*) mobs.at(i);
-        current->tick();
+        if (current->tick()) {
+            ai_moved = true;
+        }
     }
+
+    return ai_moved;
 }
 
 void Engine::add_level_entry_msg() {

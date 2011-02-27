@@ -7,6 +7,9 @@ EXECUTABLE = rogue
 run: all
 	./$(EXECUTABLE)
 
+debug: all
+	nemiver $(EXECUTABLE)
+
 all: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(EXECUTABLE)
 

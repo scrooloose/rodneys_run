@@ -182,7 +182,7 @@ void Player::wield(RangedWeapon* rw) {
 
 void Player::wield(MeleeWeapon* mw) {
     if (melee_weapon) {
-        inventory->add(ranged_weapon);
+        inventory->add(melee_weapon);
     }
 
     inventory->remove(mw->get_type(), 1);

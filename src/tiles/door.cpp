@@ -1,51 +1,51 @@
 #include "door.h"
 
-Door::Door(Position p) : Tile(p) {
+Tiles::Door::Door(Position p) : Tile(p) {
     this->is_open = false;
     this->locked = false;
     this->door_id = -1;
 }
 
-Door::Door(Position p, int door_id, string name) : Tile(p) {
+Tiles::Door::Door(Position p, int door_id, string name) : Tile(p) {
     this->door_id = door_id;
     this->name = name;
     this->locked = true;
     this->is_open = false;
 }
 
-bool Door::is_walkable() {
+bool Tiles::Door::is_walkable() {
     return is_open;
 }
 
-string Door::to_char() {
+string Tiles::Door::to_char() {
     return string(is_open ? "'" : "+");
 }
 
-bool Door::is_transparent() {
+bool Tiles::Door::is_transparent() {
     return is_open;
 }
 
-bool Door::is_openable() {
+bool Tiles::Door::is_openable() {
     return true;
 }
 
-void Door::open() {
+void Tiles::Door::open() {
     is_open = !is_open;
 }
 
-bool Door::is_locked() {
+bool Tiles::Door::is_locked() {
     return locked;
 }
 
-void Door::set_locked(bool locked) {
+void Tiles::Door::set_locked(bool locked) {
     this->locked = locked;
 }
 
-int Door::get_door_id() {
+int Tiles::Door::get_door_id() {
     return door_id;
 }
 
-string Door::get_name() {
+string Tiles::Door::get_name() {
     return name;
 }
 

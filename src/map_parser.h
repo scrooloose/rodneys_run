@@ -5,19 +5,18 @@
 #include <iostream>
 #include <fstream>
 #include "map.h"
-#include "tile.h"
-#include "floor.h"
-#include "wall.h"
-#include "stairs.h"
-#include "door.h"
-#include "empty_tile.h"
+#include "tiles/tile.h"
+#include "tiles/floor.h"
+#include "tiles/wall.h"
+#include "tiles/stairs.h"
+#include "tiles/door.h"
+#include "tiles/empty_tile.h"
 #include "map_parsing_exception.h"
 
 #include "mobile.h"
 #include "zombie.h"
 
 #include "item.h"
-#include "door.h"
 
 #include "map_meta_inf_parser.h"
 

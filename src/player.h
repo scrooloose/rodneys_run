@@ -15,7 +15,7 @@
 #include "item.h"
 #include "item_affectee.h"
 #include "inventory.h"
-#include "door.h"
+#include "tiles/door.h"
 
 #include "med_kit.h"
 

@@ -1,10 +1,12 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "tile.h"
+#include "tiles/tile.h"
 #include "map.h"
 #include "position.h"
 #include <stdlib.h>
+
+using namespace Tiles;
 
 class Node {
     private:

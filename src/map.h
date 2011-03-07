@@ -2,7 +2,7 @@
 #define MAP_H
 
 #include "position.h"
-#include "tile.h"
+#include "tiles/tile.h"
 #include "positionable.h"
 #include <vector>
 #include <string>
@@ -13,6 +13,7 @@
 #include "map_grid.h"
 
 using namespace std;
+using namespace Tiles;
 
 class Map {
     private:

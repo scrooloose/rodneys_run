@@ -10,7 +10,7 @@
 using namespace std;
 
 //finds a path between the 2 given positions using the A-star algorithm
-class PathFinder {
+class AStarPathFinder {
     private:
         Map* map;
         Position from_pos;
@@ -25,8 +25,8 @@ class PathFinder {
         list<Position> reconstruct_path(Node* node);
 
     public:
-        PathFinder(Map* map, const Position& from_pos, const Position& to_pos);
-        ~PathFinder();
+        AStarPathFinder(Map* map, const Position& from_pos, const Position& to_pos);
+        ~AStarPathFinder();
         list<Position> get_path();
 };
 

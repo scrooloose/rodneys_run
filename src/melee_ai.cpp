@@ -71,7 +71,7 @@ void MeleeAI::attack() {
 }
 
 void MeleeAI::approach() {
-    PathFinder pf(map, get_pos(), get_player()->get_pos());
+    AStarPathFinder pf(map, get_pos(), get_player()->get_pos());
     list<Position> path = pf.get_path();
     if (path.size() == 0) {
 
@@ -85,7 +85,7 @@ void MeleeAI::approach() {
 
     Position new_pos(*i);
 
-    //check here since PathFinder doesnt take into account other mobs when
+    //check here since AStarPathFinder doesnt take into account other mobs when
     //calculating the path
     if (map->is_walkable(new_pos)) {
         set_pos(new_pos);

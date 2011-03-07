@@ -11,7 +11,7 @@
 #include <ncurses.h>
 #include <string.h>
 #include <stdio.h>
-#include "path_finder.h"
+#include "a_star_path_finder.h"
 #include <list>
 #include "item.h"
 #include <sstream>

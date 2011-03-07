@@ -7,7 +7,7 @@
 #include "mobile.h"
 #include "message_log.h"
 #include "player.h"
-#include "path_finder.h"
+#include "a_star_path_finder.h"
 #include <list>
 
 class MeleeAI : public AI {

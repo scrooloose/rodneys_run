@@ -1,6 +1,6 @@
-#include "path_finder.h"
+#include "a_star_path_finder.h"
 
-PathFinder::PathFinder(Map* map, const Position& from, const Position& to) : from_pos(from), to_pos(to) {
+AStarPathFinder::AStarPathFinder(Map* map, const Position& from, const Position& to) : from_pos(from), to_pos(to) {
     this->map = map;
 
     Node* initial = new Node(map, map->tile_for(from_pos), NULL, to_pos);
@@ -10,7 +10,7 @@ PathFinder::PathFinder(Map* map, const Position& from, const Position& to) : fro
 
 }
 
-PathFinder::~PathFinder() {
+AStarPathFinder::~AStarPathFinder() {
     vector<Node*>::iterator it;
     for (it = open_list.begin(); it < open_list.end(); it++) {
         delete * it;
@@ -23,7 +23,7 @@ PathFinder::~PathFinder() {
     closed_list.clear();
 }
 
-list<Position> PathFinder::get_path() {
+list<Position> AStarPathFinder::get_path() {
     while (!open_list.empty()) {
 
         //get node in open_list with lowest f
@@ -80,7 +80,7 @@ list<Position> PathFinder::get_path() {
     return empty_path;
 }
 
-bool PathFinder::in_closed_list(Node* n) {
+bool AStarPathFinder::in_closed_list(Node* n) {
     for (unsigned i = 0; i < closed_list.size(); i++) {
         if (closed_list.at(i)->equals(n)) {
             return true;
@@ -90,7 +90,7 @@ bool PathFinder::in_closed_list(Node* n) {
     return false;
 }
 
-bool PathFinder::in_open_list(Node* n) {
+bool AStarPathFinder::in_open_list(Node* n) {
     for (unsigned i = 0; i < open_list.size(); i++) {
         if (open_list.at(i)->equals(n)) {
             return true;
@@ -100,7 +100,7 @@ bool PathFinder::in_open_list(Node* n) {
     return false;
 }
 
-list<Position> PathFinder::reconstruct_path(Node* node) {
+list<Position> AStarPathFinder::reconstruct_path(Node* node) {
     list<Position> path;
 
     Node* current = node;

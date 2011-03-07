@@ -2,6 +2,7 @@
 
 Map::Map(int width, int height) {
     resize_map(width, height);
+    current_tick = 0;
 }
 
 Map::~Map() {
@@ -145,4 +146,13 @@ void Map::update_mobile_position(Positionable* mob, const Position& old_pos, con
 
 void Map::mobile_killed(Positionable* mob) {
     mobiles.remove(mob->get_pos());
+}
+
+void Map::tick() {
+    current_tick++;
+}
+
+void Map::update_player_scent() {
+    Tile* t = tile_for(player->get_pos());
+    t->update_scent(current_tick);
 }

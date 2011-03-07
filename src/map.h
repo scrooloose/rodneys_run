@@ -25,8 +25,10 @@ class Map {
         Position* starting_pos;
         string* name;
         Positionable* player;
+        int current_tick;
 
         void resize_map(int width, int height);
+        void update_player_scent();
 
     public:
         Map(int width, int height);
@@ -63,6 +65,8 @@ class Map {
 
         void update_mobile_position(Positionable* mob, const Position& old_pos, const Position& new_pos);
         void mobile_killed(Positionable* mob);
+
+        void tick();
 };
 
 #endif

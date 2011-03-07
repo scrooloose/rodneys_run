@@ -34,3 +34,7 @@ void Tile::set_visiblity(bool visible) {
 bool Tile::is_transparent() {
     return true;
 }
+
+void Tile::update_scent(int new_scent) {
+    scent = new_scent;
+}

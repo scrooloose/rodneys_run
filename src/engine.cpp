@@ -387,6 +387,8 @@ void Engine::main_loop() {
         if (player_had_turn || ai_had_turn) {
             render();
         }
+
+        map->tick();
     }
 
     teardown_curses();

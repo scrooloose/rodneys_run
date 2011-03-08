@@ -1,7 +1,7 @@
 #include "zombie.h"
 
 Zombie::Zombie(Position p, Map* m) : Mobile(p,m,15) {
-    this->ai = new MeleeAI(this, m);
+    this->ai = new MeleeAI(this, m, new ScentMovementStrategy(m, this));
 }
 
 Zombie::~Zombie() {

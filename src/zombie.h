@@ -7,8 +7,10 @@
 #include "message_log.h"
 #include <string>
 #include "ai.h"
-#include "melee_ai.h"
 #include <cstdlib>
+
+#include "melee_ai.h"
+#include "scent_movement_strategy.h"
 
 class Zombie : public Mobile {
     private:

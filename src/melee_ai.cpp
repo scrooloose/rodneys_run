@@ -1,9 +1,10 @@
 #include "melee_ai.h"
 
-MeleeAI::MeleeAI(Mobile* mobile, Map* map) : last_known_pos(Position::null_position()) {
+MeleeAI::MeleeAI(Mobile* mobile, Map* map, MovementStrategy* ms) : last_known_pos(Position::null_position()) {
     this->mobile = mobile;
     this->map = map;
     this->state = s_waiting;
+    this->movement_strategy = ms;
 }
 
 MeleeAI::~MeleeAI() {
@@ -71,25 +72,7 @@ void MeleeAI::attack() {
 }
 
 void MeleeAI::approach() {
-    AStarPathFinder pf(map, get_pos(), get_player()->get_pos());
-    list<Position> path = pf.get_path();
-    if (path.size() == 0) {
-
-        //mob cant get to player, so give up
-        last_known_pos = Position::null_position();
-        return;
-    }
-
-    list<Position>::iterator i = path.begin();
-    i++;
-
-    Position new_pos(*i);
-
-    //check here since AStarPathFinder doesnt take into account other mobs when
-    //calculating the path
-    if (map->is_walkable(new_pos)) {
-        set_pos(new_pos);
-    }
+    this->movement_strategy->move();
 }
 
 const Position& MeleeAI::get_pos() {

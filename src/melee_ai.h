@@ -7,8 +7,10 @@
 #include "mobile.h"
 #include "message_log.h"
 #include "player.h"
-#include "a_star_path_finder.h"
 #include <list>
+#include "a_star_path_finder.h"
+
+#include "movement_strategy.h"
 
 class MeleeAI : public AI {
     private:
@@ -36,8 +38,11 @@ class MeleeAI : public AI {
         bool can_see_player();
         void detect_last_known_pos();
 
+        MovementStrategy* movement_strategy;
+
+
     public:
-        MeleeAI(Mobile* mobile, Map* map);
+        MeleeAI(Mobile* mobile, Map* map, MovementStrategy* ms);
         ~MeleeAI();
 
 

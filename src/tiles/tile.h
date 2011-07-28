@@ -38,6 +38,7 @@ using namespace std;
             virtual bool is_transparent();
 
             void update_scent(int new_scent);
+            int get_scent();
     };
 
 }

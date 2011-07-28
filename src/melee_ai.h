@@ -24,8 +24,6 @@ class MeleeAI : public AI {
         Mobile* mobile;
         Map* map;
 
-        Position last_known_pos;
-
         void detect_state();
         bool in_attack_range();
         void approach();
@@ -35,11 +33,7 @@ class MeleeAI : public AI {
         void set_pos(const Position& p);
         Player* get_player();
 
-        bool can_see_player();
-        void detect_last_known_pos();
-
         MovementStrategy* movement_strategy;
-
 
     public:
         MeleeAI(Mobile* mobile, Map* map, MovementStrategy* ms);

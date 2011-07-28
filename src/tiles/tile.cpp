@@ -2,6 +2,7 @@
 
 Tiles::Tile::Tile(Position p) : position(p) {
     visible = false;
+    scent = -1;
 }
 
 Tiles::Tile::~Tile() {
@@ -37,4 +38,8 @@ bool Tiles::Tile::is_transparent() {
 
 void Tiles::Tile::update_scent(int new_scent) {
     scent = new_scent;
+}
+
+int Tiles::Tile::get_scent() {
+    return this->scent;
 }

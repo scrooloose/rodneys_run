@@ -13,6 +13,7 @@ class MovementStrategy {
     public:
         MovementStrategy(Map* m, Positionable* mobile);
         virtual void move() = 0;
+        virtual bool can_move() = 0;
 
 };
 

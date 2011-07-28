@@ -150,6 +150,7 @@ void Map::mobile_killed(Positionable* mob) {
 
 void Map::tick() {
     current_tick++;
+    update_player_scent();
 }
 
 void Map::update_player_scent() {

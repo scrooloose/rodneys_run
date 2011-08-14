@@ -57,7 +57,7 @@ void MapMetaInfParser::parse_mobiles(Json::Value root) {
 }
 
 Mobile* MapMetaInfParser::mob_for(string type, int xpos, int ypos) {
-    if (type == "Zombie")
+    if (type == "zombie")
         return MobileFactory::build_zombie(map, Position(xpos, ypos));
     else
         throw MapParsingException("Unrecognised mobile type:" + type);

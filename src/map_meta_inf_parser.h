@@ -12,12 +12,13 @@
 
 #include "item.h"
 #include "key.h"
+#include "tiles/door.h"
 #include "med_kit.h"
 
 #include "weapon_factory.h"
 
 #include "mobile.h"
-#include "zombie.h"
+#include "mobile_factory.h"
 
 using namespace std;
 

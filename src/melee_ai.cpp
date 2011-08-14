@@ -27,7 +27,6 @@ void MeleeAI::do_ai() {
 
 void MeleeAI::detect_state() {
     if (!movement_strategy->can_move()) {
-        MessageLog::add_message("Cant move - waiting");
         state = s_waiting;
         return;
     }

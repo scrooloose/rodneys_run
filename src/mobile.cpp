@@ -9,6 +9,20 @@ Mobile::Mobile(Position p, Map* m, int turn_delay) : Positionable(p) {
 Mobile::~Mobile() {
 }
 
+void Mobile::set_ai(AI* ai) {
+    this->ai = ai;
+}
+
+void Mobile::set_renderable_char(string c) {
+    this->renderable_char = c;
+}
+
+void Mobile::set_attack_dice(int num_dice, int num_sides, int modifier) {
+    this->attack_dice = num_dice;
+    this->attack_dice_sides = num_sides;
+    this->attack_modifier = modifier;
+}
+
 bool Mobile::is_visible_from(Position p) {
     return map->positions_have_los(get_pos(), p);
 }
@@ -36,4 +50,25 @@ bool Mobile::tick() {
         return true;
     }
     return false;
+}
+
+
+int Mobile::get_attack_damage() {
+    int dmg = 0;
+    for (int i=0; i < attack_dice; i++) {
+        dmg += (rand() % attack_dice_sides)+1;
+    }
+
+    dmg += attack_modifier;
+
+    return dmg;
+}
+
+void Mobile::take_turn() {
+    this->ai->do_ai();
+}
+
+
+string Mobile::to_char() {
+    return renderable_char;
 }

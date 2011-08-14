@@ -14,8 +14,6 @@
 #include "map_parsing_exception.h"
 
 #include "mobile.h"
-#include "zombie.h"
-
 #include "item.h"
 
 #include "map_meta_inf_parser.h"

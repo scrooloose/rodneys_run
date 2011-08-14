@@ -34,6 +34,7 @@ class Mobile : public Renderable, public Positionable {
         void set_ai(AI* ai);
         void set_attack_dice(int num_dice, int num_sides, int modifier);
         void set_renderable_char(string c);
+        void set_health(int h);
 
         void set_pos(const Position& p);
         bool is_visible_from(Position p);

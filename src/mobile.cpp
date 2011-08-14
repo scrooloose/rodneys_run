@@ -2,7 +2,6 @@
 
 Mobile::Mobile(Position p, Map* m, int turn_delay) : Positionable(p) {
     this->map = m;
-    this->health = 20;
     this->turn_timer = new TurnTimer(turn_delay);
 }
 
@@ -21,6 +20,10 @@ void Mobile::set_attack_dice(int num_dice, int num_sides, int modifier) {
     this->attack_dice = num_dice;
     this->attack_dice_sides = num_sides;
     this->attack_modifier = modifier;
+}
+
+void Mobile::set_health(int h) {
+    this->health = h;
 }
 
 bool Mobile::is_visible_from(Position p) {

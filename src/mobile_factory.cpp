@@ -7,5 +7,6 @@ Mobile* MobileFactory::build_zombie(Map* m, const Position& p) {
     mob->set_ai(ai);
     mob->set_attack_dice(3, 6, 0);
     mob->set_renderable_char("z");
+    mob->set_health(20);
     return mob;
 }

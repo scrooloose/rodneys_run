@@ -136,4 +136,9 @@ void MapParser::parse_meta_inf() {
     for (unsigned i = 0; i < locked_doors.size(); i++) {
         map->add_tile(locked_doors.at(i));
     }
+
+    vector<Event*> events = mmip.get_events();
+    for (unsigned i = 0; i < events.size(); i++) {
+        map->add_event(events.at(i));
+    }
 }

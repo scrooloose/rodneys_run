@@ -21,6 +21,8 @@
 #include "mobile.h"
 #include "mobile_factory.h"
 
+#include "event.h"
+
 using namespace std;
 
 class MapMetaInfParser {
@@ -34,6 +36,7 @@ class MapMetaInfParser {
         Position* start_position;
         vector<Item*> items;
         vector<Door*> locked_doors;
+        vector<Event*> events;
 
         void parse_mobiles(Json::Value root);
         void parse_map_name(Json::Value root);
@@ -41,6 +44,7 @@ class MapMetaInfParser {
         void parse_items(Json::Value root);
         void parse_keys(Json::Value root);
         void parse_locked_doors(Json::Value root);
+        void parse_events(Json::Value root);
 
         Mobile* mob_for(string type, int x, int y);
         Item* item_for(string type, int quantity, int xpos, int ypos);
@@ -55,6 +59,8 @@ class MapMetaInfParser {
         vector<Door*> get_locked_doors();
         string get_map_name();
         const Position& get_start_position();
+
+        vector<Event*> get_events();
 };
 
 #endif

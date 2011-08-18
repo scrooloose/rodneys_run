@@ -55,6 +55,21 @@ Item* Map::remove_item(const Position& p) {
     return items.remove(p);
 }
 
+void Map::add_event(Event* e) {
+    events.push_back(e);
+}
+
+vector<Event*> Map::get_triggered_events() {
+    vector<Event*> rv;
+    for(int i = 0; i < events.size(); i++) {
+        if (events[i]->check()) {
+            rv.push_back(events[i]);
+        }
+    }
+
+    return rv;
+}
+
 void Map::set_starting_pos(const Position& p) {
     this->starting_pos = new Position(p);
 }
@@ -113,6 +128,12 @@ string* Map::get_name() {
 
 void Map::set_player(Positionable* p) {
     this->player = p;
+
+    //events need a player, so do this here for now
+    for (int i = 0; i < events.size(); i++) {
+        events[i]->set_player(player);
+    }
+
 }
 
 Positionable* Map::get_player() {

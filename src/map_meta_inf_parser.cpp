@@ -40,6 +40,7 @@ void MapMetaInfParser::parse() {
     parse_items(root);
     parse_keys(root);
     parse_locked_doors(root);
+    parse_events(root);
 }
 
 void MapMetaInfParser::parse_mobiles(Json::Value root) {
@@ -126,6 +127,20 @@ void MapMetaInfParser::parse_locked_doors(Json::Value root) {
     }
 }
 
+void MapMetaInfParser::parse_events(Json::Value root) {
+    Json::Value events = root["events"];
+
+    for (unsigned i = 0; i < events.size(); i++) {
+        Json::Value current = events[i];
+
+        int xpos  = current["x"].asInt();
+        int ypos  = current["y"].asInt();
+        string message = current["message"].asString();
+
+        this->events.push_back(new Event(Position(xpos, ypos), message));
+    }
+}
+
 Item* MapMetaInfParser::item_for(string type, int quantity, int xpos, int ypos) {
     Position pos(xpos, ypos);
 
@@ -166,4 +181,8 @@ vector<Door*> MapMetaInfParser::get_locked_doors() {
 
 const Position& MapMetaInfParser::get_start_position() {
     return *start_position;
+}
+
+vector<Event*> MapMetaInfParser::get_events() {
+    return events;
 }

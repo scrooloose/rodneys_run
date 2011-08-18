@@ -15,6 +15,7 @@
 #include <list>
 #include "item.h"
 #include <sstream>
+#include "event.h"
 
 class Engine {
     private:
@@ -59,6 +60,8 @@ class Engine {
         void add_level_entry_msg();
         void calculate_window_sizes();
         void start_next_level();
+
+        void check_events();
 
     public:
         Engine();

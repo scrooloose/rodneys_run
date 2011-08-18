@@ -62,5 +62,8 @@
         { "door_id": 1, "name": "Office floor", "x": 39, "y": 29 },
         { "door_id": 1, "name": "Office floor", "x": 65, "y": 52 },
         { "door_id": 2, "name": "Lift area", "x": 88, "y": 9 }
+    ],
+    "events": [
+        { "x": 7, "y": 52, "message": "This is a test event" }
     ]
 }

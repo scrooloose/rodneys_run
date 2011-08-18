@@ -11,6 +11,7 @@
 #include "proximity_sorter.h"
 #include "item.h"
 #include "map_grid.h"
+#include "event.h"
 
 using namespace std;
 using namespace Tiles;
@@ -31,6 +32,8 @@ class Map {
         void resize_map(int width, int height);
         void update_player_scent();
 
+        vector<Event*> events;
+
     public:
         Map(int width, int height);
         ~Map();
@@ -50,6 +53,11 @@ class Map {
         void add_mobile(Positionable* m);
         void add_item(Item* i);
         Item* remove_item(const Position& p);
+
+        void add_event(Event* e);
+
+        //get all events triggered this tick
+        vector<Event*> get_triggered_events();
 
         vector<Tile*> get_all_tiles();
         vector<Positionable*> get_all_mobiles();

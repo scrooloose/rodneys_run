@@ -389,6 +389,7 @@ void Engine::main_loop() {
         }
 
         map->tick();
+        check_events();
     }
 
     teardown_curses();
@@ -489,4 +490,12 @@ void Engine::render_inventory_selection_dialog(vector<Item*> choices) {
 
     wnoutrefresh(inv_window);
     doupdate();
+}
+
+void Engine::check_events() {
+    vector<Event*> fired_events = map->get_triggered_events();
+
+    for(int i = 0; i < fired_events.size(); i++) {
+        MessageLog::add_message(fired_events[i]->get_msg());
+    }
 }

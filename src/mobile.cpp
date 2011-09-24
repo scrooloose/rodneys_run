@@ -47,14 +47,14 @@ void Mobile::killed() {
     delete this;
 }
 
+
 bool Mobile::tick() {
-    if (turn_timer->tick()) {
-        take_turn();
-        return true;
-    }
-    return false;
+    return turn_timer->tick();
 }
 
+bool Mobile::is_turn() {
+    return turn_timer->is_turn();
+}
 
 int Mobile::get_attack_damage() {
     int dmg = 0;
@@ -69,6 +69,7 @@ int Mobile::get_attack_damage() {
 
 void Mobile::take_turn() {
     this->ai->do_ai();
+    turn_timer->reset();
 }
 
 

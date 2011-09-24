@@ -75,11 +75,11 @@ Position ScentMovementStrategy::adj_pos_with_strongest_scent(){
     Position highest_scent_pos = Position::null_position();
     int highest_scent = -1;
 
-    for (int i = 0; i < adj_positions.size(); i++) {
+    for (unsigned i = 0; i < adj_positions.size(); i++) {
         Position current = adj_positions.at(i);
 
         Tile* t;
-        if (t = map->tile_for(current)) {
+        if ((t = map->tile_for(current))) {
             if (t->get_scent() > highest_scent) {
                 highest_scent = t->get_scent();
                 highest_scent_pos = current;

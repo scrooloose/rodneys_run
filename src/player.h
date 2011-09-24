@@ -57,9 +57,13 @@ class Player : public Renderable, public Positionable, public ItemAffectee {
         void killed();
         bool is_dead();
         int get_health();
-        bool tick();
         void pick_up_items();
         Inventory* get_inventory();
+
+        bool tick();
+        bool is_turn();
+        void turn_taken();
+
 
         void wield(Weapon* weapon);
 

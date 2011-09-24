@@ -61,7 +61,7 @@ void Map::add_event(Event* e) {
 
 vector<Event*> Map::get_triggered_events() {
     vector<Event*> rv;
-    for(int i = 0; i < events.size(); i++) {
+    for(unsigned i = 0; i < events.size(); i++) {
         if (events[i]->check()) {
             rv.push_back(events[i]);
         }
@@ -130,7 +130,7 @@ void Map::set_player(Positionable* p) {
     this->player = p;
 
     //events need a player, so do this here for now
-    for (int i = 0; i < events.size(); i++) {
+    for (unsigned i = 0; i < events.size(); i++) {
         events[i]->set_player(player);
     }
 

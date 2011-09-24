@@ -161,6 +161,14 @@ bool Player::tick() {
     return turn_timer->tick();
 }
 
+bool Player::is_turn() {
+    return turn_timer->is_turn();
+}
+
+void Player::turn_taken() {
+    turn_timer->reset();
+}
+
 void Player::wield(Weapon* weapon) {
     if (((Weapon*)weapon)->is_ranged()) {
         wield((RangedWeapon*)weapon);

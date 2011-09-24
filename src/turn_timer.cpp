@@ -6,18 +6,18 @@ TurnTimer::TurnTimer(int delay) {
 }
 
 bool TurnTimer::tick() {
-    timer--;
-    if (timer == 0) {
-        reset();
-        return true;
-    }
-    return false;
+    time_left--;
+    return time_left <= 0;
 }
 
 void TurnTimer::reset() {
-    timer = delay;
+    time_left = delay;
 }
 
 void TurnTimer::set_remaining_time(int t) {
-    timer = t;
+    time_left = t;
+}
+
+bool TurnTimer::is_turn() {
+    return time_left <= 0;
 }

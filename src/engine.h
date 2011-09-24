@@ -19,6 +19,18 @@
 
 class Engine {
     private:
+        enum UIState {
+            NEUTRAL,
+            PLAYER_TURN,
+            MOB_TURN,
+            MODAL_MSG,
+            VIEW_INVENTORY,
+            WIELD,
+            FIRE
+        };
+
+        UIState state;
+
         bool main_loop_done;
         Player* player;
         Map* map;
@@ -37,11 +49,15 @@ class Engine {
         WINDOW* inv_window;
         int inv_window_width;
         int inv_window_height;
-        bool show_inventory;
+
+        WINDOW* modal_msg_window;
+
+        vector<Event*> fired_events;
 
         void render();
         void render_map();
         void render_messages();
+        void render_modal_messages();
         void render_info();
         void render_inv();
         void render_inventory_selection_dialog(vector<Item*> choices);
@@ -50,7 +66,7 @@ class Engine {
         Position get_position_from_user();
 
         void do_open();
-        bool do_ai();
+        void do_ai();
         void game_over_lost();
         void game_over_won();
         void do_wield();
@@ -61,7 +77,10 @@ class Engine {
         void calculate_window_sizes();
         void start_next_level();
 
-        void check_events();
+        bool detect_player_and_mob_turns();
+        bool detect_modal_messages();
+
+        void tick();
 
     public:
         Engine();

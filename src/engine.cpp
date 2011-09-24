@@ -6,8 +6,7 @@ Engine::Engine() {
     this->player = new Player(map);
     this->map->set_player(player);
     add_level_entry_msg();
-
-    this->show_inventory = false;
+    this->state = NEUTRAL;
 }
 
 Engine::~Engine() {
@@ -24,6 +23,7 @@ void Engine::setup_curses() {
 
     calculate_window_sizes();
     map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
+    modal_msg_window = newwin(map_win_height, map_win_width, 0, info_win_width);
     msg_window = newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0);
     info_window = newwin(map_win_height, info_win_width, 0, 0);
     inv_window = newwin(inv_window_height, inv_window_width, 0, 0);
@@ -39,10 +39,6 @@ void Engine::render() {
     render_map();
     render_messages();
     render_info();
-    if (show_inventory) {
-        render_inv();
-        show_inventory = false;
-    }
     doupdate();
 }
 
@@ -95,6 +91,19 @@ void Engine::render_messages() {
     wnoutrefresh(msg_window);
 }
 
+void Engine::render_modal_messages() {
+    werase(modal_msg_window);
+    box(modal_msg_window, 0, 0);
+
+
+    for(unsigned i = 0; i < fired_events.size(); i++) {
+        mvwprintw(modal_msg_window, i+1, 1, fired_events[i]->get_msg().c_str());
+    }
+
+
+    wnoutrefresh(modal_msg_window);
+}
+
 void Engine::render_info() {
     werase(info_window);
 
@@ -145,7 +154,7 @@ void Engine::render_inv() {
 }
 
 bool Engine::handle_keypress(int key) {
-    bool action_taken = true;
+    bool turn_taken = true;
     switch(key) {
         case KEY_LEFT:
             player->move_left();
@@ -176,13 +185,12 @@ bool Engine::handle_keypress(int key) {
             player->move_up_right();
             break;
         case (int)'f':
-            if (!fire_weapon()) {
-                action_taken = false;
-            }
+            state = FIRE;
+            turn_taken = false;
             break;
         case (int)'i':
-            show_inventory = true;
-            action_taken = false;
+            state = VIEW_INVENTORY;
+            turn_taken = false;
             break;
         case (int)'o':
             do_open();
@@ -198,18 +206,19 @@ bool Engine::handle_keypress(int key) {
             }
             break;
         case (int)'w':
-            do_wield();
+            state = WIELD;
+            turn_taken = false;
             break;
 
         case (int)'q':
             main_loop_done = true;
-            action_taken = true;
+            turn_taken = true;
             break;
 
         default:
-            action_taken = false;
+            turn_taken = false;
     }
-    return action_taken;
+    return turn_taken;
 }
 
 Position Engine::get_adjacent_position_from_user() {
@@ -350,8 +359,6 @@ void Engine::start_next_level() {
 }
 
 void Engine::main_loop() {
-    int key;
-
     setup_curses();
 
     map->update_visibility_from(player->get_pos());
@@ -359,54 +366,121 @@ void Engine::main_loop() {
 
     main_loop_done = false;
     while(!main_loop_done) {
-        bool player_had_turn = false;
-        bool ai_had_turn = false;
 
-        if (player->tick()) {
+        switch (state) {
+            case NEUTRAL:
+                if (detect_player_and_mob_turns())
+                    break;
 
-            bool action_taken = false;
-            while (!action_taken) {
-                key = getch();
-                action_taken = handle_keypress(key);
+                if (detect_modal_messages())
+                    break;
 
-                if (!action_taken) {
-                    render();
+                tick();
+
+                break;
+            case PLAYER_TURN:
+                render();
+                if(handle_keypress(getch())) {
+                    state = NEUTRAL;
+                    player->turn_taken();
                 }
-            }
+                map->update_visibility_from(player->get_pos());
+                break;
 
-            map->update_visibility_from(player->get_pos());
-            player_had_turn = true;
+            case MOB_TURN:
+                do_ai();
+                state = NEUTRAL;
+                break;
+
+            case VIEW_INVENTORY:
+                render();
+                render_inv();
+                doupdate();
+                getch();
+                state = NEUTRAL;
+                break;
+            case WIELD:
+                do_wield();
+                state = NEUTRAL;
+                player->turn_taken();
+                break;
+            case FIRE:
+                if (fire_weapon()) {
+                    player->turn_taken();
+                }
+                state = NEUTRAL;
+                break;
+            case MODAL_MSG:
+                render();
+                render_modal_messages();
+                doupdate();
+                getch();
+                state = NEUTRAL;
+                break;
+
         }
-
-        ai_had_turn = do_ai();
 
         if (player->is_dead()) {
             game_over_lost();
         }
 
-        if (player_had_turn || ai_had_turn) {
-            render();
-        }
 
-        map->tick();
-        check_events();
     }
 
     teardown_curses();
 }
 
-bool Engine::do_ai() {
-    bool ai_moved = false;
+bool Engine::detect_player_and_mob_turns() {
+    //check players turn, set state and break
+    if (player->is_turn()) {
+        state = PLAYER_TURN;
+        return true;
+    }
 
+    //check ai turn, set state and break
     vector<Positionable*> mobs = map->get_all_mobiles_by_dist_to_player();
     for (unsigned i = 0; i < mobs.size(); i++) {
         Mobile* current = (Mobile*) mobs.at(i);
-        if (current->tick()) {
-            ai_moved = true;
+        if (current->is_turn()) {
+            state = MOB_TURN;
+            return true;
         }
     }
 
-    return ai_moved;
+    return false;
+}
+
+bool Engine::detect_modal_messages() {
+    fired_events = map->get_triggered_events();
+    if (fired_events.size() > 0) {
+        state = MODAL_MSG;
+        return true;
+    }
+
+    return false;
+}
+
+void Engine::tick() {
+    map->tick();
+    player->tick();
+
+    vector<Positionable*> mobs = map->get_all_mobiles();
+    for (unsigned i = 0; i < mobs.size(); i++) {
+        Mobile* current = (Mobile*) mobs.at(i);
+        current->tick();
+    }
+    fired_events = map->get_triggered_events();
+}
+
+void Engine::do_ai() {
+    vector<Positionable*> mobs = map->get_all_mobiles_by_dist_to_player();
+    for (unsigned i = 0; i < mobs.size(); i++) {
+        Mobile* current = (Mobile*) mobs.at(i);
+        if (current->is_turn()) {
+            current->take_turn();
+        }
+
+    }
 }
 
 void Engine::add_level_entry_msg() {
@@ -490,12 +564,4 @@ void Engine::render_inventory_selection_dialog(vector<Item*> choices) {
 
     wnoutrefresh(inv_window);
     doupdate();
-}
-
-void Engine::check_events() {
-    vector<Event*> fired_events = map->get_triggered_events();
-
-    for(int i = 0; i < fired_events.size(); i++) {
-        MessageLog::add_message(fired_events[i]->get_msg());
-    }
 }

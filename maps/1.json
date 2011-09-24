@@ -64,6 +64,6 @@
         { "door_id": 2, "name": "Lift area", "x": 88, "y": 9 }
     ],
     "events": [
-        { "x": 7, "y": 52, "message": "This is a test event" }
+        { "x": 7, "y": 52, "message": "You pick up the lead pipe and prepare to kick some ass etc." }
     ]
 }

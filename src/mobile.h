@@ -16,7 +16,6 @@ class Mobile : public Renderable, public Positionable {
         TurnTimer* turn_timer;
 
         void reset_turn_timer();
-        void take_turn();
         void killed();
 
         AI* ai;
@@ -40,6 +39,8 @@ class Mobile : public Renderable, public Positionable {
         bool is_visible_from(Position p);
 
         bool tick();
+        bool is_turn();
+        void take_turn();
 
         void take_damage(int damage);
 

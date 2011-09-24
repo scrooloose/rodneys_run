@@ -4,8 +4,7 @@
 class TurnTimer {
     private:
         int delay;
-        int timer;
-
+        int time_left;
 
     public:
         TurnTimer(int delay);
@@ -13,6 +12,8 @@ class TurnTimer {
         void reset();
         void set_remaining_time(int timer);
 
+        bool is_turn();
+        void turn_taken();
 };
 
 #endif

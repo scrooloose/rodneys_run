@@ -1,7 +1,7 @@
 #include "engine.h"
 
-Engine::Engine() {
-    this->map_list = new MapList(new string("../maps/"));
+Engine::Engine(string map_list_path) {
+    this->map_list = new MapList(new string(map_list_path));
     this->map = map_list->get_current_map();
     this->player = new Player(map);
     this->map->set_player(player);

@@ -83,7 +83,7 @@ class Engine {
         void tick();
 
     public:
-        Engine();
+        Engine(string map_list_path);
         ~Engine();
         void setup_curses();
         void teardown_curses();

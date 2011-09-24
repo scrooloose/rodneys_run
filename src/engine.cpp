@@ -23,7 +23,7 @@ void Engine::setup_curses() {
 
     calculate_window_sizes();
     map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
-    modal_msg_window = newwin(map_win_height, map_win_width, 0, info_win_width);
+    modal_msg_window = newwin(map_win_height-2, map_win_width-2, 1, info_win_width+1);
     msg_window = newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0);
     info_window = newwin(map_win_height, info_win_width, 0, 0);
     inv_window = newwin(inv_window_height, inv_window_width, 0, 0);
@@ -93,11 +93,9 @@ void Engine::render_messages() {
 
 void Engine::render_modal_messages() {
     werase(modal_msg_window);
-    box(modal_msg_window, 0, 0);
-
 
     for(unsigned i = 0; i < fired_events.size(); i++) {
-        mvwprintw(modal_msg_window, i+1, 1, fired_events[i]->get_msg().c_str());
+        mvwprintw(modal_msg_window, i+1, 0, fired_events[i]->get_msg().c_str());
     }
 
 

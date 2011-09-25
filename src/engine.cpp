@@ -98,6 +98,7 @@ void Engine::render_modal_messages() {
         mvwprintw(modal_msg_window, i+1, 0, fired_events[i]->get_msg().c_str());
     }
 
+    mvwprintw(modal_msg_window, map_win_height-3, 0, "Hit <space> to continue");
 
     wnoutrefresh(modal_msg_window);
 }
@@ -412,7 +413,7 @@ void Engine::main_loop() {
                 render();
                 render_modal_messages();
                 doupdate();
-                getch();
+                while(getch() != ' ') {}
                 state = NEUTRAL;
                 break;
 

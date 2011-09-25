@@ -5,6 +5,8 @@ Player::Player(Map* map) : Positionable(*map->get_starting_pos()) {
     this->health = 100;
     this->turn_timer = new TurnTimer(10);
     this->inventory = new Inventory();
+    this->ranged_weapon = NULL;
+    this->melee_weapon = NULL;
 }
 
 Player::~Player() {

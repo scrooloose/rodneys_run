@@ -5,7 +5,7 @@ CC = g++
 EXECUTABLE = rogue
 
 run: all
-	./$(EXECUTABLE)
+	./$(EXECUTABLE) ../maps
 
 debug: all
 	nemiver $(EXECUTABLE)

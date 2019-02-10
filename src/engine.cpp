@@ -21,6 +21,11 @@ void Engine::setup_curses() {
     keypad(stdscr, true);
     curs_set(0);
 
+    start_color();
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);
+    init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(3, COLOR_RED, COLOR_BLACK);
+
     calculate_window_sizes();
     map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
     modal_msg_window = newwin(map_win_height-2, map_win_width-2, 1, info_win_width+1);
@@ -58,16 +63,19 @@ void Engine::render_map() {
 
         Tile* t = map->tile_for(to_render.at(i));
         if (t->is_visible()) {
+            wattron(map_window, COLOR_PAIR(1));
             mvwprintw(map_window, ypos, xpos , t->to_char().c_str());
         }
 
         Item* item = map->item_for(to_render.at(i));
         if (item && map->positions_have_los(item->get_pos(), player->get_pos())) {
+            wattron(map_window, COLOR_PAIR(2));
             mvwprintw(map_window, ypos, xpos , item->to_char().c_str());
         }
 
         Mobile* mob = (Mobile*) map->mobile_for(to_render.at(i));
         if (mob && mob->is_visible_from(player->get_pos())) {
+            wattron(map_window, COLOR_PAIR(3));
             mvwprintw(map_window, ypos, xpos , mob->to_char().c_str());
         }
 

@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      # This is needed since I usually run in tmux. TERM defaults to xterm in
+      # the container and then ncurses doesnt interpret all the keypad keys for
+      # some reason
+      - TERM=screen-256color

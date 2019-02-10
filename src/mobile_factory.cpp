@@ -1,7 +1,7 @@
 #include "mobile_factory.h"
 
 Mobile* MobileFactory::build_zombie(Map* m, const Position& p) {
-    Mobile* mob = new Mobile(p, m, 15);
+    Mobile* mob = new Mobile(p, m, 20);
     MovementStrategy* sms = new ScentMovementStrategy(m, mob);
     AI* ai = new MeleeAI(mob, m, sms);
     mob->set_ai(ai);

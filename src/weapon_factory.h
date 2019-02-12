@@ -14,7 +14,7 @@ using namespace std;
 
 class WeaponFactory {
     public:
-        static MeleeWeapon* build_lead_pipe(Map* m, const Position& p);
+        static MeleeWeapon* build_drawing_pin(Map* m, const Position& p);
 
         static RangedWeapon* build_pistol(Map* m, const Position& p);
         static RangedWeapon* build_p90(Map* m, const Position& p);

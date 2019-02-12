@@ -1,12 +1,12 @@
 #include "weapon_factory.h"
 
-MeleeWeapon* WeaponFactory::build_lead_pipe(Map* m, const Position& p) {
+MeleeWeapon* WeaponFactory::build_drawing_pin(Map* m, const Position& p) {
     SimpleDamageStrategy* dmg_strategy = new SimpleDamageStrategy(m);
     dmg_strategy->set_dmg_dice(3, 3, 1);
 
-    MeleeWeapon* lead_pipe = new MeleeWeapon(m, "Lead pipe", "lead_pipe", p);
-    lead_pipe->set_dmg_strategy(dmg_strategy);
-    return lead_pipe;
+    MeleeWeapon* drawing_pin = new MeleeWeapon(m, "Drawing pin", "drawing_pin", p);
+    drawing_pin->set_dmg_strategy(dmg_strategy);
+    return drawing_pin;
 }
 
 RangedWeapon* WeaponFactory::build_pistol(Map* m, const Position& p) {

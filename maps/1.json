@@ -64,6 +64,39 @@
         { "door_id": 2, "name": "Lift area", "x": 88, "y": 9 }
     ],
     "events": [
-        { "x": 7, "y": 52, "message": "You pick up the lead pipe and prepare to kick some ass etc." }
+        { "x": 7, "y": 52,
+            "message": [
+                "Chapter One: The Sewer of Ultimate Toxicity                           ",
+                "-------------------------------------------                           ",
+                "                                                                      ",
+                "What the fuck is going on? One minute you were sleeping next to your  ",
+                "sweetheart Delores, the next minute you are in what is possibly the   ",
+                "worlds most toxic sewer.                                              ",
+                "                                                                      ",
+                "etc etc                                                               ",
+                "                                                                      ",
+                "Before you, you see a drawing pin ....                                ",
+                "                                                                      ",
+                "         _____________/|                                              ",
+                "        |              |                                              ",
+                "        |              |=============-----                            ",
+                "        |_____________ |                                              ",
+                "                      \\|                                             ",
+                "                                                                      ",
+                "                                                                      ",
+                "You snatch it off the floor and brandish in front of you. You must get",
+                "back to your sweet delores!                                           ",
+                "                                                                      ",
+                "                                                                      ",
+                "                     _                                                ",
+                "                   (( )_,                                             ",
+                "            .--.    \\ '/                                             ",
+                "                )   / \\==]---                                        ",
+                "               (   / _/                                               ",
+                "                `-|   )_                                              ",
+                "                  `\"\"\"\"`                                          ",
+                "                  jgs                                                 "
+            ]
+        }
     ]
 }

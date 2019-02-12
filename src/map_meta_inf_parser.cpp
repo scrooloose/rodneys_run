@@ -135,10 +135,25 @@ void MapMetaInfParser::parse_events(Json::Value root) {
 
         int xpos  = current["x"].asInt();
         int ypos  = current["y"].asInt();
-        string message = current["message"].asString();
 
-        this->events.push_back(new Event(Position(xpos, ypos), message));
+        this->events.push_back(
+            new Event(
+                Position(xpos, ypos),
+                parse_event_message(current)
+            )
+        );
     }
+}
+
+string MapMetaInfParser::parse_event_message(Json::Value event_root) {
+    string result;
+    Json::Value message_lines = event_root["message"];
+    for (unsigned j = 0; j < message_lines.size(); j++) {
+        result.append(message_lines[j].asString());
+        result.append("\n");
+    }
+
+    return result;
 }
 
 Item* MapMetaInfParser::item_for(string type, int quantity, int xpos, int ypos) {

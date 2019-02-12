@@ -103,7 +103,7 @@ void Engine::render_modal_messages() {
     werase(modal_msg_window);
 
     for(unsigned i = 0; i < fired_events.size(); i++) {
-        mvwprintw(modal_msg_window, i+1, 0, fired_events[i]->get_msg().c_str());
+        mvwprintw(modal_msg_window, i, 0, fired_events[i]->get_msg().c_str());
     }
 
     mvwprintw(modal_msg_window, map_win_height-3, 0, "Hit <space> to continue");

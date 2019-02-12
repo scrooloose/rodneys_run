@@ -1,3 +1,5 @@
 #define WHITE_ON_BLACK 1
 #define YELLOW_ON_BLACK 2
 #define RED_ON_BLACK 3
+#define GREEN_ON_BLACK 4
+#define CYAN_ON_BLACK 5

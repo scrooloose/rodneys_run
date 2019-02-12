@@ -19,6 +19,7 @@ namespace Tiles {
 
             bool is_walkable();
             string to_char();
+            int color_pair();
             bool is_transparent();
 
             bool is_openable();

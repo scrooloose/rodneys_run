@@ -35,7 +35,7 @@ string Item::to_char() {
 }
 
 int Item::color_pair() {
-    return YELLOW_ON_BLACK;
+    return CYAN_ON_BLACK;
 }
 
 string Item::get_name() {

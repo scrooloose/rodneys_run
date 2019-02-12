@@ -25,6 +25,8 @@ void Engine::setup_curses() {
     init_pair(WHITE_ON_BLACK, COLOR_WHITE, COLOR_BLACK);
     init_pair(YELLOW_ON_BLACK, COLOR_YELLOW, COLOR_BLACK);
     init_pair(RED_ON_BLACK, COLOR_RED, COLOR_BLACK);
+    init_pair(GREEN_ON_BLACK, COLOR_GREEN, COLOR_BLACK);
+    init_pair(CYAN_ON_BLACK, COLOR_CYAN, COLOR_BLACK);
 
     calculate_window_sizes();
     map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
@@ -83,6 +85,7 @@ void Engine::render_map() {
 
     int ypos = player->get_pos().get_y() - y_offset + 1;
     int xpos = player->get_pos().get_x() - x_offset + 1;
+    wattron(map_window, COLOR_PAIR(WHITE_ON_BLACK));
     mvwprintw(map_window, ypos, xpos, player->to_char().c_str());
     box(map_window, 0, 0);
     wnoutrefresh(map_window);

@@ -21,6 +21,10 @@ string Tiles::Door::to_char() {
     return string(is_open ? "'" : "+");
 }
 
+int Tiles::Door::color_pair() {
+    return YELLOW_ON_BLACK;
+}
+
 bool Tiles::Door::is_transparent() {
     return is_open;
 }

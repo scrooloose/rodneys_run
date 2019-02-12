@@ -17,7 +17,7 @@
 #include "inventory.h"
 #include "tiles/door.h"
 
-#include "med_kit.h"
+#include "cheese.h"
 
 class Player : public Renderable, public Positionable, public ItemAffectee {
     private:

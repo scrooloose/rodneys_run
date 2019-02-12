@@ -9,7 +9,7 @@
         { "x": 26, "y": 1, "type": "9mm_round", "quantity": 100 },
         { "x": 35, "y": 21, "type": "shotgun", "quantity": 1 },
         { "x": 36, "y": 21, "type": "shotgun_shell", "quantity": 10 },
-        { "x": 29, "y": 16, "type": "med_kit", "quantity": 1 }
+        { "x": 29, "y": 16, "type": "cheese", "quantity": 1 }
     ],
     "mobiles": [
         { "x": 15, "y": 8, "type": "zombie" },

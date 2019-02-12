@@ -163,8 +163,8 @@ Item* MapMetaInfParser::item_for(string type, int quantity, int xpos, int ypos) 
         return new Item("9mm round", type, quantity, "=", pos);
     else if (type == "shotgun_shell")
         return new Item("Shotgun Shell", type, quantity, "=", pos);
-    else if (type == "med_kit")
-        return new MedKit(pos);
+    else if (type == "cheese")
+        return new Cheese(pos);
     else if (type == "pistol")
         return WeaponFactory::build_pistol(map, pos);
     else if (type == "shotgun")

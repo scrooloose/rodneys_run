@@ -6,9 +6,9 @@
 #include "position.h"
 #include "message_log.h"
 
-class MedKit : public Item {
+class Cheese : public Item {
     public:
-        MedKit(Position p);
+        Cheese(Position p);
         virtual void affect_recipient(ItemAffectee* ia);
         virtual bool is_instant_usage_item();
 };

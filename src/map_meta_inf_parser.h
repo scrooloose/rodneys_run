@@ -14,7 +14,7 @@
 #include "item.h"
 #include "key.h"
 #include "tiles/door.h"
-#include "med_kit.h"
+#include "cheese.h"
 
 #include "weapon_factory.h"
 

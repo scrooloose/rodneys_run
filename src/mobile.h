@@ -43,10 +43,9 @@ class Mobile : public Renderable, public Positionable {
         void take_turn();
 
         void take_damage(int damage);
-
         int get_attack_damage();
-        string to_char();
 
+        string to_char();
 };
 
 

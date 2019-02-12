@@ -32,10 +32,10 @@ class Item : public Positionable, public Renderable {
 
         virtual bool is_wieldable();
 
-
         string get_pickup_msg();
         string get_inv_string();
-        string to_char();
-};
 
+        string to_char();
+        int color_pair();
+};
 #endif

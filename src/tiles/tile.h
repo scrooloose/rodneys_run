@@ -40,7 +40,5 @@ using namespace std;
             void update_scent(int new_scent);
             int get_scent();
     };
-
 }
-
 #endif

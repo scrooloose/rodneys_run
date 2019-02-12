@@ -77,7 +77,5 @@ class Player : public Renderable, public Positionable, public ItemAffectee {
         void heal(int amount);
 
         string to_char();
-
 };
-
 #endif

@@ -16,6 +16,7 @@
 #include "item.h"
 #include <sstream>
 #include "event.h"
+#include "colors.h"
 
 class Engine {
     private:

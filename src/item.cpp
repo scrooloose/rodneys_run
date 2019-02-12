@@ -34,6 +34,10 @@ string Item::to_char() {
     return this->renderable_char;
 }
 
+int Item::color_pair() {
+    return YELLOW_ON_BLACK;
+}
+
 string Item::get_name() {
     return this->name;
 }

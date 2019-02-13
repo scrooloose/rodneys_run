@@ -22,6 +22,7 @@ class Inventory {
         void use_item(string item_type);
 
         bool has_key(int door_id);
+        bool is_empty();
 
         vector<Item*> get_items();
         vector<Item*> get_wieldable_items();

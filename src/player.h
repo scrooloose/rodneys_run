@@ -73,6 +73,8 @@ class Player : public Renderable, public Positionable, public ItemAffectee {
         void wield(MeleeWeapon* mw);
         MeleeWeapon* get_melee_weapon();
 
+        bool is_holding_weapon();
+
         //ItemAffectee methods
         void heal(int amount);
 

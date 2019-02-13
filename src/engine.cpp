@@ -124,23 +124,37 @@ void Engine::render_info() {
     sprintf(health_str, "Health: %d", player->get_health());
     mvwprintw(info_window, 3, 1, health_str);
 
+    int y = 6;
+    if (player->is_holding_weapon()) {
+        mvwprintw(info_window, y++, 1, "Weapons");
+        mvwprintw(info_window, y++, 1, "-----------");
 
-    mvwprintw(info_window, 6, 1, "Weapons");
-    mvwprintw(info_window, 7, 1, "-----------");
+        if (player->get_ranged_weapon()) {
+            mvwprintw(info_window, y++, 1, player->get_ranged_weapon()->get_name().c_str());
+            mvwprintw(info_window, y, 2, "Dmg:");
+            mvwprintw(info_window, y++, 7, player->get_ranged_weapon()->get_dmg_dice_desc().c_str());
+            mvwprintw(info_window, y, 2, "Rng:");
+            mvwprintw(info_window, y++, 7, player->get_ranged_weapon()->get_range_desc().c_str());
+        }
 
-    int y = 8;
-    if (player->get_ranged_weapon()) {
-        mvwprintw(info_window, y++, 1, player->get_ranged_weapon()->get_name().c_str());
-        mvwprintw(info_window, y, 2, "Dmg:");
-        mvwprintw(info_window, y++, 7, player->get_ranged_weapon()->get_dmg_dice_desc().c_str());
-        mvwprintw(info_window, y, 2, "Rng:");
-        mvwprintw(info_window, y++, 7, player->get_ranged_weapon()->get_range_desc().c_str());
+        if (player->get_melee_weapon()) {
+            mvwprintw(info_window, y++, 1, player->get_melee_weapon()->get_name().c_str());
+            mvwprintw(info_window, y, 2, "Dmg:");
+            mvwprintw(info_window, y++, 7, player->get_melee_weapon()->get_dmg_dice_desc().c_str());
+        }
+
+        y += 2;
     }
 
-    if (player->get_melee_weapon()) {
-        mvwprintw(info_window, y++, 1, player->get_melee_weapon()->get_name().c_str());
-        mvwprintw(info_window, y, 2, "Dmg:");
-        mvwprintw(info_window, y++, 7, player->get_melee_weapon()->get_dmg_dice_desc().c_str());
+    if (!player->get_inventory()->is_empty()) {
+        mvwprintw(info_window, y++, 1, "Inventory");
+        mvwprintw(info_window, y++, 1, "-----------");
+
+        vector<Item*> items = player->get_inventory()->get_items();
+        for (unsigned i=0; i < items.size(); i++) {
+            Item* current = items.at(i);
+            mvwprintw(info_window, y++, 1, current->get_inv_string().c_str());
+        }
     }
 
     box(info_window, 0, 0);

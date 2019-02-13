@@ -104,3 +104,7 @@ bool Inventory::has_key(int door_id) {
 
     return false;
 }
+
+bool Inventory::is_empty() {
+    return this->items.empty();
+}

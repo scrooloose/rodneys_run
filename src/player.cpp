@@ -208,6 +208,10 @@ MeleeWeapon* Player::get_melee_weapon() {
     return this->melee_weapon;
 }
 
+bool Player::is_holding_weapon() {
+    return this->melee_weapon || this->ranged_weapon;
+}
+
 void Player::heal(int amount) {
     health += amount;
     if (health > 100)

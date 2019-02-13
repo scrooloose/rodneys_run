@@ -32,7 +32,11 @@ void Engine::setup_curses() {
     map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
     modal_msg_window = newwin(map_win_height-2, map_win_width-2, 1, info_win_width+1);
     msg_window = newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0);
-    info_window = newwin(map_win_height, info_win_width, 0, 0);
+
+    this->info_panel = new InfoPanel(
+        newwin(map_win_height, info_win_width, 0, 0)
+    );
+
     inv_window = newwin(inv_window_height, inv_window_width, 0, 0);
 
     refresh();
@@ -45,7 +49,7 @@ void Engine::teardown_curses() {
 void Engine::render() {
     render_map();
     render_messages();
-    render_info();
+    this->info_panel->render(*this->player);
     doupdate();
 }
 
@@ -112,54 +116,6 @@ void Engine::render_modal_messages() {
     mvwprintw(modal_msg_window, map_win_height-3, 0, "Hit <space> to continue");
 
     wnoutrefresh(modal_msg_window);
-}
-
-void Engine::render_info() {
-    werase(info_window);
-
-    mvwprintw(info_window, 1, 1, "Player Info");
-    mvwprintw(info_window, 2, 1, "-----------");
-
-    char health_str[20];
-    sprintf(health_str, "Health: %d", player->get_health());
-    mvwprintw(info_window, 3, 1, health_str);
-
-    int y = 6;
-    if (player->is_holding_weapon()) {
-        mvwprintw(info_window, y++, 1, "Weapons");
-        mvwprintw(info_window, y++, 1, "-----------");
-
-        if (player->get_ranged_weapon()) {
-            mvwprintw(info_window, y++, 1, player->get_ranged_weapon()->get_name().c_str());
-            mvwprintw(info_window, y, 2, "Dmg:");
-            mvwprintw(info_window, y++, 7, player->get_ranged_weapon()->get_dmg_dice_desc().c_str());
-            mvwprintw(info_window, y, 2, "Rng:");
-            mvwprintw(info_window, y++, 7, player->get_ranged_weapon()->get_range_desc().c_str());
-        }
-
-        if (player->get_melee_weapon()) {
-            mvwprintw(info_window, y++, 1, player->get_melee_weapon()->get_name().c_str());
-            mvwprintw(info_window, y, 2, "Dmg:");
-            mvwprintw(info_window, y++, 7, player->get_melee_weapon()->get_dmg_dice_desc().c_str());
-        }
-
-        y += 2;
-    }
-
-    if (!player->get_inventory()->is_empty()) {
-        mvwprintw(info_window, y++, 1, "Inventory");
-        mvwprintw(info_window, y++, 1, "-----------");
-
-        vector<Item*> items = player->get_inventory()->get_items();
-        for (unsigned i=0; i < items.size(); i++) {
-            Item* current = items.at(i);
-            mvwprintw(info_window, y++, 1, current->get_inv_string().c_str());
-        }
-    }
-
-    box(info_window, 0, 0);
-    wnoutrefresh(info_window);
-
 }
 
 void Engine::render_inv() {

@@ -17,6 +17,7 @@
 #include <sstream>
 #include "event.h"
 #include "colors.h"
+#include "info_panel.h"
 
 class Engine {
     private:
@@ -44,7 +45,7 @@ class Engine {
         WINDOW* msg_window;
         int msg_win_height;
 
-        WINDOW* info_window;
+        InfoPanel* info_panel;
         int info_win_width;
 
         WINDOW* inv_window;
@@ -59,7 +60,6 @@ class Engine {
         void render_map();
         void render_messages();
         void render_modal_messages();
-        void render_info();
         void render_inv();
         void render_inventory_selection_dialog(vector<Item*> choices);
 

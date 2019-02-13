@@ -29,10 +29,16 @@ void Engine::setup_curses() {
     init_pair(CYAN_ON_BLACK, COLOR_CYAN, COLOR_BLACK);
 
     calculate_window_sizes();
-    map_window = newwin(map_win_height, map_win_width, 0, info_win_width);
     modal_msg_window = newwin(map_win_height-2, map_win_width-2, 1, info_win_width+1);
     msg_window = newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0);
 
+    this->map_panel = new MapPanel(
+        newwin(map_win_height, map_win_width, 0, info_win_width),
+        map_win_width,
+        map_win_height,
+        this->player,
+        this->map
+    );
     this->info_panel = new InfoPanel(
         newwin(map_win_height, info_win_width, 0, 0)
     );
@@ -47,52 +53,10 @@ void Engine::teardown_curses() {
 }
 
 void Engine::render() {
-    render_map();
+    this->map_panel->render();
     render_messages();
     this->info_panel->render(*this->player);
     doupdate();
-}
-
-void Engine::render_map() {
-    werase(map_window);
-
-    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
-    vector<Position> to_render = vpc.contained_positions();
-
-    int x_offset = vpc.get_x_offset();
-    int y_offset = vpc.get_y_offset();
-
-    for (unsigned i = 0; i < to_render.size(); i++) {
-        Position p = to_render.at(i);
-        int xpos = p.get_x() - x_offset + 1;
-        int ypos = p.get_y() - y_offset + 1;
-
-        Tile* t = map->tile_for(to_render.at(i));
-        if (t->is_visible()) {
-            wattron(map_window, COLOR_PAIR(t->color_pair()));
-            mvwprintw(map_window, ypos, xpos , t->to_char().c_str());
-        }
-
-        Item* item = map->item_for(to_render.at(i));
-        if (item && map->positions_have_los(item->get_pos(), player->get_pos())) {
-            wattron(map_window, COLOR_PAIR(item->color_pair()));
-            mvwprintw(map_window, ypos, xpos , item->to_char().c_str());
-        }
-
-        Mobile* mob = (Mobile*) map->mobile_for(to_render.at(i));
-        if (mob && mob->is_visible_from(player->get_pos())) {
-            wattron(map_window, COLOR_PAIR(RED_ON_BLACK));
-            mvwprintw(map_window, ypos, xpos , mob->to_char().c_str());
-        }
-
-    }
-
-    int ypos = player->get_pos().get_y() - y_offset + 1;
-    int xpos = player->get_pos().get_x() - x_offset + 1;
-    wattron(map_window, COLOR_PAIR(WHITE_ON_BLACK));
-    mvwprintw(map_window, ypos, xpos, player->to_char().c_str());
-    box(map_window, 0, 0);
-    wnoutrefresh(map_window);
 }
 
 void Engine::render_messages() {
@@ -335,6 +299,7 @@ void Engine::start_next_level() {
     map = map_list->goto_next_map();
     player->set_map(map);
     map->set_player(player);
+    map_panel->set_map(map);
     add_level_entry_msg();
 }
 

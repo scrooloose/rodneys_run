@@ -18,6 +18,7 @@
 #include "event.h"
 #include "colors.h"
 #include "info_panel.h"
+#include "map_panel.h"
 
 class Engine {
     private:
@@ -48,6 +49,8 @@ class Engine {
         InfoPanel* info_panel;
         int info_win_width;
 
+        MapPanel* map_panel;
+
         WINDOW* inv_window;
         int inv_window_width;
         int inv_window_height;
@@ -57,7 +60,6 @@ class Engine {
         vector<Event*> fired_events;
 
         void render();
-        void render_map();
         void render_messages();
         void render_modal_messages();
         void render_inv();

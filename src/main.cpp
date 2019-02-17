@@ -13,14 +13,5 @@ int main(int argc, char* argv[]) {
         map_path.append("/");
 
     Engine engine(map_path);
-    try {
-        engine.main_loop();
-    } catch(exception* e) {
-        engine.teardown_curses();
-        cout << "Exception caught: " << e->what() << endl;
-    } catch(exception e) {
-        engine.teardown_curses();
-        cout << "Exception caught: " << e.what() << endl;
-    }
-    return 0;
+    engine.main_loop();
 }

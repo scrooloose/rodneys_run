@@ -19,6 +19,7 @@
 #include "colors.h"
 #include "info_panel.h"
 #include "map_panel.h"
+#include "message_panel.h"
 
 class Engine {
     private:
@@ -43,7 +44,7 @@ class Engine {
         int map_win_width;
         int map_win_height;
 
-        WINDOW* msg_window;
+        MessagePanel* message_panel;
         int msg_win_height;
 
         InfoPanel* info_panel;

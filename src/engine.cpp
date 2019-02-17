@@ -30,8 +30,12 @@ void Engine::setup_curses() {
 
     calculate_window_sizes();
     modal_msg_window = newwin(map_win_height-2, map_win_width-2, 1, info_win_width+1);
-    msg_window = newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0);
 
+    this->message_panel = new MessagePanel(
+        newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0),
+        map_win_width + info_win_width,
+        msg_win_height
+    );
     this->map_panel = new MapPanel(
         newwin(map_win_height, map_win_width, 0, info_win_width),
         map_win_width,
@@ -52,22 +56,42 @@ void Engine::teardown_curses() {
     endwin();
 }
 
-void Engine::render() {
-    this->map_panel->render();
-    render_messages();
-    this->info_panel->render(*this->player);
-    doupdate();
+void Engine::calculate_window_sizes() {
+    int height, width;
+    getmaxyx(stdscr, height, width);
+
+    msg_win_height = 10;
+    info_win_width = 20;
+
+    if (height < 30) {
+        msg_win_height = 5;
+    }
+
+    map_win_width = width - info_win_width;
+    if (map_win_width % 2 == 0) {
+        map_win_width--;
+    }
+    if (map_win_width > 79) {
+        map_win_width = 79;
+    }
+
+    map_win_height = height - msg_win_height;
+    if (map_win_height % 2 == 0) {
+        map_win_height--;
+    }
+    if (map_win_height > 37) {
+        map_win_height = 37;
+    }
+
+    inv_window_width = 30;
+    inv_window_height = 20;
 }
 
-void Engine::render_messages() {
-    werase(msg_window);
-
-    vector<string*> messages = MessageLog::latest_messages(msg_win_height - 2);
-    for (int i = messages.size()-1; i >= 0; i--) {
-        mvwprintw(msg_window, i + 1, 1, messages.at(i)->c_str());
-    }
-    box(msg_window, 0, 0);
-    wnoutrefresh(msg_window);
+void Engine::render() {
+    this->map_panel->render();
+    this->message_panel->render();
+    this->info_panel->render(*this->player);
+    doupdate();
 }
 
 void Engine::render_modal_messages() {
@@ -442,37 +466,6 @@ void Engine::game_over_won() {
     MessageLog::add_message("You won!");
 }
 
-void Engine::calculate_window_sizes() {
-    int height, width;
-    getmaxyx(stdscr, height, width);
-
-    msg_win_height = 10;
-    info_win_width = 20;
-
-    if (height < 30) {
-        msg_win_height = 5;
-    }
-
-    map_win_width = width - info_win_width;
-    if (map_win_width % 2 == 0) {
-        map_win_width--;
-    }
-    if (map_win_width > 79) {
-        map_win_width = 79;
-    }
-
-    map_win_height = height - msg_win_height;
-    if (map_win_height % 2 == 0) {
-        map_win_height--;
-    }
-    if (map_win_height > 37) {
-        map_win_height = 37;
-    }
-
-    inv_window_width = 30;
-    inv_window_height = 20;
-}
-
 void Engine::do_wield() {
     vector<Item*> wieldables = player->get_inventory()->get_wieldable_items();
 
@@ -497,7 +490,6 @@ void Engine::render_inventory_selection_dialog(vector<Item*> choices) {
     werase(inv_window);
     box(inv_window, 0, 0);
     mvwprintw(inv_window, 1, 1, "Wield what?");
-
 
     for (unsigned i=0; i < choices.size(); i++) {
         stringstream out;

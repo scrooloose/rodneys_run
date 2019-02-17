@@ -146,6 +146,14 @@ bool Engine::handle_keypress(int key) {
     return turn_taken;
 }
 
+void Engine::do_open() {
+    Position target_pos = get_adjacent_position_from_user();
+
+    if (!target_pos.is_null()) {
+        player->open(target_pos);
+    }
+}
+
 Position Engine::get_adjacent_position_from_user() {
     Position player_pos = player->get_pos();
 
@@ -270,14 +278,6 @@ bool Engine::fire_weapon() {
         return false;
 
     return player->attack_with_ranged(target_pos);
-}
-
-void Engine::do_open() {
-    Position target_pos = get_adjacent_position_from_user();
-
-    if (!target_pos.is_null()) {
-        player->open(target_pos);
-    }
 }
 
 void Engine::start_next_level() {

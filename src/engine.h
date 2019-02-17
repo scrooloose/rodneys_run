@@ -57,15 +57,16 @@ class Engine {
 
         void render();
 
-        Position get_adjacent_position_from_user();
-        Position get_position_from_user();
-
         void do_open();
+        Position get_adjacent_position_from_user();
+
         void do_ai();
         void game_over_lost();
         void game_over_won();
         void do_wield();
+
         bool fire_weapon();
+        Position get_position_from_user();
 
         bool handle_keypress(int key);
         void add_level_entry_msg();

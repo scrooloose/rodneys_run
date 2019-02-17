@@ -17,9 +17,10 @@
 #include <sstream>
 #include "event.h"
 #include "colors.h"
-#include "info_panel.h"
-#include "map_panel.h"
-#include "message_panel.h"
+
+#include "./ui/info_panel.h"
+#include "./ui/map_panel.h"
+#include "./ui/message_panel.h"
 
 class Engine {
     private:
@@ -44,13 +45,13 @@ class Engine {
         int map_win_width;
         int map_win_height;
 
-        MessagePanel* message_panel;
+        UI::MessagePanel* message_panel;
         int msg_win_height;
 
-        InfoPanel* info_panel;
+        UI::InfoPanel* info_panel;
         int info_win_width;
 
-        MapPanel* map_panel;
+        UI::MapPanel* map_panel;
 
         WINDOW* inv_window;
         int inv_window_width;

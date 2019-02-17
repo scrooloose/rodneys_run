@@ -1,10 +1,10 @@
 #include "info_panel.h"
 
-InfoPanel::InfoPanel(WINDOW* window) {
+UI::InfoPanel::InfoPanel(WINDOW* window) {
     this->window = window;
 }
 
-void InfoPanel::render(Player& player) {
+void UI::InfoPanel::render(Player& player) {
     werase(this->window);
 
     mvwprintw(this->window, 1, 1, "Player Info");

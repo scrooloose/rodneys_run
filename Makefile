@@ -17,7 +17,7 @@ link: build
 build: create_dirs $(OBJ_FILES)
 
 create_dirs:
-	mkdir -p $(OBJ_DIR)/tiles $(OBJ_DIR)/json
+	mkdir -p $(OBJ_DIR)/tiles $(OBJ_DIR)/ui $(OBJ_DIR)/json
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	g++ $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<

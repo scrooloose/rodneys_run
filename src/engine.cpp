@@ -31,19 +31,19 @@ void Engine::setup_curses() {
     calculate_window_sizes();
     modal_msg_window = newwin(map_win_height-2, map_win_width-2, 1, info_win_width+1);
 
-    this->message_panel = new MessagePanel(
+    this->message_panel = new UI::MessagePanel(
         newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0),
         map_win_width + info_win_width,
         msg_win_height
     );
-    this->map_panel = new MapPanel(
+    this->map_panel = new UI::MapPanel(
         newwin(map_win_height, map_win_width, 0, info_win_width),
         map_win_width,
         map_win_height,
         this->player,
         this->map
     );
-    this->info_panel = new InfoPanel(
+    this->info_panel = new UI::InfoPanel(
         newwin(map_win_height, info_win_width, 0, 0)
     );
 

@@ -1,6 +1,6 @@
 #include "map_panel.h"
 
-MapPanel::MapPanel(WINDOW* window, int width, int height, Player* player, Map* map) {
+UI::MapPanel::MapPanel(WINDOW* window, int width, int height, Player* player, Map* map) {
     this->window = window;
     this->height = height;
     this->width = width;
@@ -8,7 +8,7 @@ MapPanel::MapPanel(WINDOW* window, int width, int height, Player* player, Map* m
     this->map = map;
 }
 
-void MapPanel::render() {
+void UI::MapPanel::render() {
     werase(this->window);
 
     ViewportCalculator vpc(this->width - 2, this->height - 2, this->player->get_pos(), this->map);
@@ -50,6 +50,6 @@ void MapPanel::render() {
     wnoutrefresh(this->window);
 }
 
-void MapPanel::set_map(Map* map) {
+void UI::MapPanel::set_map(Map* map) {
     this->map = map;
 }

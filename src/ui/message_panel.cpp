@@ -1,12 +1,12 @@
 #include "message_panel.h"
 
-MessagePanel::MessagePanel(WINDOW* window, int width, int height) {
+UI::MessagePanel::MessagePanel(WINDOW* window, int width, int height) {
     this->window = window;
     this->width = width;
     this->height = height;
 }
 
-void MessagePanel::render() {
+void UI::MessagePanel::render() {
     werase(this->window);
 
     vector<string*> messages = MessageLog::latest_messages(this->height - 2);

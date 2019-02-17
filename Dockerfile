@@ -1,11 +1,15 @@
-FROM gcc
+FROM ubuntu:rolling
 
-RUN apt-cache update && apt-get install -y gdb
+RUN apt-get update && \
+    apt-get install -y \
+        g++ \
+        gdb \
+        build-essential \
+        libboost-dev \
+        libncurses-dev
+
 
 RUN mkdir /app
 COPY . /app
 
 WORKDIR /app
-
-RUN make -j4
-CMD ["./rogue ./maps"]

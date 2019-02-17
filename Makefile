@@ -1,5 +1,5 @@
-CFLAGS = -Wall -c -g
-LFLAGS = -Wall -g -lncurses
+CPPFLAGS = -Wall -c -ggdb
+LFLAGS = -Wall -ggdb -lncurses -ldl
 CC = g++
 
 SRC_DIR := src
@@ -12,7 +12,7 @@ run: link
 	./$(EXECUTABLE) ./maps
 
 link: build
-	$(CC) $(LFLAGS) $(OBJ_FILES) -o $(EXECUTABLE)
+	$(CC) $(OBJ_FILES) -o $(EXECUTABLE) $(LFLAGS)
 
 build: create_dirs $(OBJ_FILES)
 

@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "a_star_path_finder.h"
 #include <list>
+#include <map>
 #include "item.h"
 #include <sstream>
 #include "event.h"
@@ -21,6 +22,9 @@
 #include "./ui/info_panel.h"
 #include "./ui/map_panel.h"
 #include "./ui/message_panel.h"
+#include "./ui/panel_size_calculator.h"
+
+using namespace std;
 
 class Engine {
     private:
@@ -46,11 +50,7 @@ class Engine {
         int map_win_height;
 
         UI::MessagePanel* message_panel;
-        int msg_win_height;
-
         UI::InfoPanel* info_panel;
-        int info_win_width;
-
         UI::MapPanel* map_panel;
 
         WINDOW* inv_window;
@@ -79,7 +79,6 @@ class Engine {
 
         bool handle_keypress(int key);
         void add_level_entry_msg();
-        void calculate_window_sizes();
         void start_next_level();
 
         bool detect_player_and_mob_turns();

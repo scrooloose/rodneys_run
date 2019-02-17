@@ -28,63 +28,37 @@ void Engine::setup_curses() {
     init_pair(GREEN_ON_BLACK, COLOR_GREEN, COLOR_BLACK);
     init_pair(CYAN_ON_BLACK, COLOR_CYAN, COLOR_BLACK);
 
-    calculate_window_sizes();
-    modal_msg_window = newwin(map_win_height-2, map_win_width-2, 1, info_win_width+1);
+    int height, width;
+    getmaxyx(stdscr, height, width);
+    std::map<string, int> sizes = UI::PanelSizeCalculator(width, height).get_sizes();
+
+    modal_msg_window = newwin(sizes["map_height"] - 2, sizes["map_width"] - 2, 1, sizes["info_width"] + 1);
 
     this->message_panel = new UI::MessagePanel(
-        newwin(msg_win_height, map_win_width + info_win_width, map_win_height, 0),
-        map_win_width + info_win_width,
-        msg_win_height
+        newwin(sizes["msg_height"], sizes["map_width"] + sizes["info_width"], sizes["map_height"], 0),
+        sizes["map_width"] + sizes["info_width"],
+        sizes["msg_height"]
     );
+
     this->map_panel = new UI::MapPanel(
-        newwin(map_win_height, map_win_width, 0, info_win_width),
-        map_win_width,
-        map_win_height,
+        newwin(sizes["map_height"], sizes["map_width"], 0, sizes["info_width"]),
+        sizes["map_width"],
+        sizes["map_height"],
         this->player,
         this->map
     );
+
     this->info_panel = new UI::InfoPanel(
-        newwin(map_win_height, info_win_width, 0, 0)
+        newwin(sizes["map_height"], sizes["info_width"], 0, 0)
     );
 
-    inv_window = newwin(inv_window_height, inv_window_width, 0, 0);
+    inv_window = newwin(sizes["inv_height"], sizes["inv_width"], 0, 0);
 
     refresh();
 }
 
 void Engine::teardown_curses() {
     endwin();
-}
-
-void Engine::calculate_window_sizes() {
-    int height, width;
-    getmaxyx(stdscr, height, width);
-
-    msg_win_height = 10;
-    info_win_width = 20;
-
-    if (height < 30) {
-        msg_win_height = 5;
-    }
-
-    map_win_width = width - info_win_width;
-    if (map_win_width % 2 == 0) {
-        map_win_width--;
-    }
-    if (map_win_width > 79) {
-        map_win_width = 79;
-    }
-
-    map_win_height = height - msg_win_height;
-    if (map_win_height % 2 == 0) {
-        map_win_height--;
-    }
-    if (map_win_height > 37) {
-        map_win_height = 37;
-    }
-
-    inv_window_width = 30;
-    inv_window_height = 20;
 }
 
 void Engine::render() {

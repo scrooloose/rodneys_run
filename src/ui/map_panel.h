@@ -23,6 +23,10 @@ namespace UI {
 
             void render();
             void set_map(Map* map);
+            void move_cursor(int x, int y);
+
+            int get_width();
+            int get_height();
     };
 }
 

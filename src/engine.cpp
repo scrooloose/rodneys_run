@@ -190,7 +190,12 @@ Position Engine::get_position_from_user() {
     //TODO: fix the mem leak here - many Position*s are created
     Position cursor_pos = player->get_pos();
 
-    ViewportCalculator vpc(map_win_width - 2, map_win_height - 2, player->get_pos(), map);
+    ViewportCalculator vpc(
+        map_panel->get_width() - 2,
+        map_panel->get_height() - 2,
+        player->get_pos(),
+        map
+    );
     int y = player->get_pos().get_y() - vpc.get_y_offset() + 1;
     int x = player->get_pos().get_x() - vpc.get_x_offset() + 1;
 
@@ -199,8 +204,7 @@ Position Engine::get_position_from_user() {
 
     bool done = false;
     while (!done) {
-        wmove(map_window, y, x);
-        wrefresh(map_window);
+        map_panel->move_cursor(x, y);
         int key = getch();
         switch(key) {
             case KEY_LEFT:

@@ -53,3 +53,16 @@ void UI::MapPanel::render() {
 void UI::MapPanel::set_map(Map* map) {
     this->map = map;
 }
+
+void UI::MapPanel::move_cursor(int x, int y) {
+    wmove(window, y, x);
+    wrefresh(window);
+}
+
+int UI::MapPanel::get_width() {
+    return width;
+}
+
+int UI::MapPanel::get_height() {
+    return height;
+}

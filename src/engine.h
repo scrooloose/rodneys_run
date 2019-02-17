@@ -47,10 +47,6 @@ class Engine {
         Map* map;
         MapList* map_list;
 
-        WINDOW* map_window;
-        int map_win_width;
-        int map_win_height;
-
         UI::MessagePanel* message_panel;
         UI::InfoPanel* info_panel;
         UI::MapPanel* map_panel;

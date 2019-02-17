@@ -58,7 +58,7 @@ void Engine::setup_curses() {
     );
 
     inventory_panel = new UI::InventoryPanel(
-        newwin(sizes["inv_height"], sizes["inv_width"], 0, 0),
+        newwin(sizes["inv_height"], sizes["inv_width"], sizes["inv_y"], sizes["inv_x"]),
         sizes["inv_height"],
         sizes["inv_width"]
     );

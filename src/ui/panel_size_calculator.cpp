@@ -11,8 +11,11 @@ UI::PanelSizeCalculator::~PanelSizeCalculator() {
 map<string, int> UI::PanelSizeCalculator::get_sizes() {
     map<string, int> result;
 
-    result["inv_width"] = 30;
-    result["inv_height"] = 20;
+    result["inv_width"] = 40;
+    result["inv_height"] = 25;
+    result["inv_x"] = 39;
+    result["inv_y"] = 3;
+
     result["msg_height"] = 10;
     result["info_width"] = 20;
 

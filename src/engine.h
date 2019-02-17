@@ -22,6 +22,7 @@
 #include "./ui/info_panel.h"
 #include "./ui/map_panel.h"
 #include "./ui/message_panel.h"
+#include "./ui/modal_message_panel.h"
 #include "./ui/panel_size_calculator.h"
 
 using namespace std;
@@ -52,18 +53,16 @@ class Engine {
         UI::MessagePanel* message_panel;
         UI::InfoPanel* info_panel;
         UI::MapPanel* map_panel;
+        UI::ModalMessagePanel* modal_message_panel;
 
         WINDOW* inv_window;
         int inv_window_width;
         int inv_window_height;
 
-        WINDOW* modal_msg_window;
-
         vector<Event*> fired_events;
 
         void render();
         void render_messages();
-        void render_modal_messages();
         void render_inv();
         void render_inventory_selection_dialog(vector<Item*> choices);
 

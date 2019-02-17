@@ -32,7 +32,12 @@ void Engine::setup_curses() {
     getmaxyx(stdscr, height, width);
     std::map<string, int> sizes = UI::PanelSizeCalculator(width, height).get_sizes();
 
-    modal_msg_window = newwin(sizes["map_height"] - 2, sizes["map_width"] - 2, 1, sizes["info_width"] + 1);
+    WINDOW* modal_msg_window = newwin(sizes["map_height"] - 2, sizes["map_width"] - 2, 1, sizes["info_width"] + 1);
+    this->modal_message_panel = new UI::ModalMessagePanel(
+        modal_msg_window,
+        sizes["map_width"] - 2,
+        sizes["map_height"] - 2
+    );
 
     this->message_panel = new UI::MessagePanel(
         newwin(sizes["msg_height"], sizes["map_width"] + sizes["info_width"], sizes["map_height"], 0),
@@ -66,18 +71,6 @@ void Engine::render() {
     this->message_panel->render();
     this->info_panel->render(*this->player);
     doupdate();
-}
-
-void Engine::render_modal_messages() {
-    werase(modal_msg_window);
-
-    for(unsigned i = 0; i < fired_events.size(); i++) {
-        mvwprintw(modal_msg_window, i, 0, fired_events[i]->get_msg().c_str());
-    }
-
-    mvwprintw(modal_msg_window, map_win_height-3, 0, "Hit <space> to continue");
-
-    wnoutrefresh(modal_msg_window);
 }
 
 void Engine::render_inv() {
@@ -355,7 +348,7 @@ void Engine::main_loop() {
                 break;
             case MODAL_MSG:
                 render();
-                render_modal_messages();
+                this->modal_message_panel->render(fired_events);
                 doupdate();
                 while(getch() != ' ') {}
                 state = NEUTRAL;

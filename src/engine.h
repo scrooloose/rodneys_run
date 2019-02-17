@@ -24,6 +24,7 @@
 #include "./ui/message_panel.h"
 #include "./ui/modal_message_panel.h"
 #include "./ui/panel_size_calculator.h"
+#include "./ui/inventory_panel.h"
 
 using namespace std;
 
@@ -54,17 +55,11 @@ class Engine {
         UI::InfoPanel* info_panel;
         UI::MapPanel* map_panel;
         UI::ModalMessagePanel* modal_message_panel;
-
-        WINDOW* inv_window;
-        int inv_window_width;
-        int inv_window_height;
+        UI::InventoryPanel* inventory_panel;
 
         vector<Event*> fired_events;
 
         void render();
-        void render_messages();
-        void render_inv();
-        void render_inventory_selection_dialog(vector<Item*> choices);
 
         Position get_adjacent_position_from_user();
         Position get_position_from_user();

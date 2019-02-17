@@ -33,19 +33,19 @@ void Engine::setup_curses() {
     std::map<string, int> sizes = UI::PanelSizeCalculator(width, height).get_sizes();
 
     WINDOW* modal_msg_window = newwin(sizes["map_height"] - 2, sizes["map_width"] - 2, 1, sizes["info_width"] + 1);
-    this->modal_message_panel = new UI::ModalMessagePanel(
+    modal_message_panel = new UI::ModalMessagePanel(
         modal_msg_window,
         sizes["map_width"] - 2,
         sizes["map_height"] - 2
     );
 
-    this->message_panel = new UI::MessagePanel(
+    message_panel = new UI::MessagePanel(
         newwin(sizes["msg_height"], sizes["map_width"] + sizes["info_width"], sizes["map_height"], 0),
         sizes["map_width"] + sizes["info_width"],
         sizes["msg_height"]
     );
 
-    this->map_panel = new UI::MapPanel(
+    map_panel = new UI::MapPanel(
         newwin(sizes["map_height"], sizes["map_width"], 0, sizes["info_width"]),
         sizes["map_width"],
         sizes["map_height"],
@@ -53,11 +53,16 @@ void Engine::setup_curses() {
         this->map
     );
 
-    this->info_panel = new UI::InfoPanel(
+    info_panel = new UI::InfoPanel(
         newwin(sizes["map_height"], sizes["info_width"], 0, 0)
     );
 
-    inv_window = newwin(sizes["inv_height"], sizes["inv_width"], 0, 0);
+    inventory_panel = new UI::InventoryPanel(
+        newwin(sizes["inv_height"], sizes["inv_width"], 0, 0),
+        sizes["inv_height"],
+        sizes["inv_width"]
+    );
+
 
     refresh();
 }
@@ -71,21 +76,6 @@ void Engine::render() {
     this->message_panel->render();
     this->info_panel->render(*this->player);
     doupdate();
-}
-
-void Engine::render_inv() {
-    werase(inv_window);
-    box(inv_window, 0, 0);
-    mvwprintw(inv_window, 1, 1, "Inventory:");
-
-    vector<Item*> items = player->get_inventory()->get_items();
-    for (unsigned i=0; i < items.size(); i++) {
-        Item* current = items.at(i);
-
-        mvwprintw(inv_window, i + 3, 1, current->get_inv_string().c_str());
-    }
-
-    wnoutrefresh(inv_window);
 }
 
 bool Engine::handle_keypress(int key) {
@@ -330,7 +320,7 @@ void Engine::main_loop() {
 
             case VIEW_INVENTORY:
                 render();
-                render_inv();
+                inventory_panel->render(player->get_inventory()->get_items());
                 doupdate();
                 getch();
                 state = NEUTRAL;
@@ -441,8 +431,9 @@ void Engine::do_wield() {
         return;
     }
 
-    render_inventory_selection_dialog(wieldables);
+    inventory_panel->render_selection_dialog(wieldables);
     int key = getch() - 48;
+    key--; // we render the items starting from 1, not 0
 
     if (key < 0 || key > 9 || key > (int)wieldables.size()) {
         MessageLog::add_message("Invalid selection");
@@ -451,21 +442,4 @@ void Engine::do_wield() {
 
     Item* to_wield = wieldables.at(key);
     player->wield((Weapon*)to_wield);
-}
-
-void Engine::render_inventory_selection_dialog(vector<Item*> choices) {
-    werase(inv_window);
-    box(inv_window, 0, 0);
-    mvwprintw(inv_window, 1, 1, "Wield what?");
-
-    for (unsigned i=0; i < choices.size(); i++) {
-        stringstream out;
-        out << i;
-
-        Item* current = choices.at(i);
-        mvwprintw(inv_window, i + 3, 1, (out.str() + " - " + current->get_inv_string()).c_str());
-    }
-
-    wnoutrefresh(inv_window);
-    doupdate();
 }

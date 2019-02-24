@@ -12,16 +12,12 @@ class Cutscene : public Positionable, public Renderable {
     protected:
         Position target_pos;
         string msg;
-        Positionable* player;
         bool has_fired;
 
     public:
         Cutscene(Position target_pos, string msg);
         ~Cutscene();
 
-        void set_player(Positionable* p);
-
-        bool check();
         string get_msg();
         void fired();
         bool get_fired();

@@ -132,12 +132,6 @@ string* Map::get_name() {
 
 void Map::set_player(Positionable* p) {
     this->player = p;
-
-    //cutscenes need a player, so do this here for now
-    for (auto *cutscene : cutscenes.get_all()) {
-        cutscene->set_player(player);
-    }
-
 }
 
 Positionable* Map::get_player() {

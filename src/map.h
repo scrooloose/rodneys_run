@@ -21,6 +21,7 @@ class Map {
         MapGrid<Tile> tiles;
         MapGrid<Positionable> mobiles;
         MapGrid<Item> items;
+        MapGrid<Event> events;
 
         int width;
         int height;
@@ -32,8 +33,6 @@ class Map {
         void resize_map(int width, int height);
         void update_player_scent();
 
-        vector<Event*> events;
-
     public:
         Map(int width, int height);
         ~Map();
@@ -41,6 +40,7 @@ class Map {
         Tile* tile_for(const Position& p);
         Positionable* mobile_for(const Position& p);
         Item* item_for(const Position& p);
+        Event* event_for(const Position& p);
 
         int get_width();
         int get_height();
@@ -52,9 +52,8 @@ class Map {
         void add_tile(Tile* t);
         void add_mobile(Positionable* m);
         void add_item(Item* i);
-        Item* remove_item(const Position& p);
-
         void add_event(Event* e);
+        Item* remove_item(const Position& p);
 
         //get all events triggered this tick
         vector<Event*> get_triggered_events();

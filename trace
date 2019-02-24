@@ -1,7 +1,2 @@
 #!/usr/bin/env bash
-
-stty sane
-setterm -cursor on
-clear
-
 gdb -ex bt -ex quit rogue core

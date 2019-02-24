@@ -10,3 +10,7 @@ services:
       # the container and then ncurses doesnt interpret all the keypad keys for
       # some reason
       - TERM=screen-256color
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined

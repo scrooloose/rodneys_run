@@ -9,7 +9,10 @@ OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 EXECUTABLE = rogue
 
 run: link
-	./$(EXECUTABLE) ./maps
+	./$(EXECUTABLE) ./maps; stty sane; setterm -cursor on
+
+debug: build
+	gdb --args rogue ./maps
 
 link: build
 	$(CC) $(OBJ_FILES) -o $(EXECUTABLE) $(LFLAGS)
@@ -21,9 +24,6 @@ create_dirs:
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	g++ $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
-
-debug: build
-	nemiver $(EXECUTABLE)
 
 clean:
 	rm -rf $(OBJ_DIR)

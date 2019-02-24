@@ -40,6 +40,12 @@ void UI::MapPanel::render() {
             mvwprintw(this->window, ypos, xpos , mob->to_char().c_str());
         }
 
+        Event* event = (Event*) map->event_for(to_render.at(i));
+        if (mob && mob->is_visible_from(player->get_pos())) {
+            wattron(this->window, COLOR_PAIR(RED_ON_BLACK));
+            mvwprintw(this->window, ypos, xpos , mob->to_char().c_str());
+        }
+
     }
 
     int ypos = player->get_pos().get_y() - y_offset + 1;

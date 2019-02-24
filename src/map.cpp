@@ -17,6 +17,7 @@ void Map::resize_map(int width, int height) {
     tiles.resize(width, height);
     mobiles.resize(width, height);
     items.resize(width, height);
+    events.resize(width, height);
 }
 
 int Map::get_width() {
@@ -39,6 +40,10 @@ Item* Map::item_for(const Position& p) {
     return items.get(p);
 }
 
+Event* Map::event_for(const Position& p) {
+    return events.get(p);
+}
+
 void Map::add_tile(Tile* t) {
     tiles.add(t, t->get_pos());
 }
@@ -51,23 +56,22 @@ void Map::add_item(Item* i) {
     items.add(i, i->get_pos());
 }
 
+void Map::add_event(Event* e) {
+    events.add(e, e->get_pos());
+}
+
 Item* Map::remove_item(const Position& p) {
     return items.remove(p);
 }
 
-void Map::add_event(Event* e) {
-    events.push_back(e);
-}
-
 vector<Event*> Map::get_triggered_events() {
-    vector<Event*> rv;
-    for(unsigned i = 0; i < events.size(); i++) {
-        if (events[i]->check()) {
-            rv.push_back(events[i]);
-        }
-    }
+    vector<Event*> result;
 
-    return rv;
+    Event* event = event_for(player->get_pos());
+    if (event && !event->get_fired())
+        result.push_back(event);
+
+    return result;
 }
 
 void Map::set_starting_pos(const Position& p) {
@@ -130,8 +134,8 @@ void Map::set_player(Positionable* p) {
     this->player = p;
 
     //events need a player, so do this here for now
-    for (unsigned i = 0; i < events.size(); i++) {
-        events[i]->set_player(player);
+    for (auto *event : events.get_all()) {
+        event->set_player(player);
     }
 
 }

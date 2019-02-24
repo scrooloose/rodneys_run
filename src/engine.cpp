@@ -345,6 +345,9 @@ void Engine::main_loop() {
                 this->modal_message_panel->render(fired_events);
                 doupdate();
                 while(getch() != ' ') {}
+                for (auto event : fired_events) {
+                    event->fired();
+                }
                 state = NEUTRAL;
                 break;
 
@@ -399,7 +402,6 @@ void Engine::tick() {
         Mobile* current = (Mobile*) mobs.at(i);
         current->tick();
     }
-    fired_events = map->get_triggered_events();
 }
 
 void Engine::do_ai() {

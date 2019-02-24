@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <cstdio>
+
 #include "message_log.h"
 #include "map_parsing_exception.h"
 #include "map.h"

@@ -1,7 +1,6 @@
 {
     "name": "The office building",
-    "start_position": {"x": 6, "y": 52},
-    "mobiles": [
+    "start_position": {"x": 6, "y": 52}, "mobiles": [
         { "type": "giant_spider", "x": 29, "y": 51 },
         { "type": "zombie", "x": 23, "y": 43 },
         { "type": "zombie", "x": 25, "y": 45 },

@@ -1,12 +1,20 @@
 #include "event.h"
 
-Event::Event(Position target_pos, string msg) : target_pos(target_pos) {
+Event::Event(Position target_pos, string msg) : Positionable(target_pos), target_pos(target_pos) {
     this->msg = msg;
     this->has_fired = false;
 }
 
 void Event::set_player(Positionable* p) {
     this->player = p;
+}
+
+void Event::fired() {
+    has_fired = true;
+}
+
+bool Event::get_fired() {
+    return has_fired;
 }
 
 bool Event::check() {

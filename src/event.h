@@ -5,7 +5,7 @@
 #include <string.h>
 #include "positionable.h"
 
-class Event {
+class Event : public Positionable {
 
     protected:
         Position target_pos;
@@ -21,7 +21,8 @@ class Event {
 
         bool check();
         string get_msg();
-
+        void fired();
+        bool get_fired();
 
 };
 

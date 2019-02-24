@@ -5,6 +5,7 @@
 #include "position.h"
 #include "positionable.h"
 #include "renderable.h"
+#include "colors.h"
 
 class Cutscene : public Positionable, public Renderable {
 

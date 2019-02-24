@@ -37,6 +37,7 @@ string Cutscene::get_msg() {
 string Cutscene::to_char() {
     return "i";
 }
+
 int Cutscene::color_pair() {
-    return 1;
+    return CYAN_ON_BLACK;
 }

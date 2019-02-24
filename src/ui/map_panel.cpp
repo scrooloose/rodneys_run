@@ -40,10 +40,10 @@ void UI::MapPanel::render() {
             mvwprintw(this->window, ypos, xpos , mob->to_char().c_str());
         }
 
-        Event* event = (Event*) map->event_for(to_render.at(i));
-        if (mob && mob->is_visible_from(player->get_pos())) {
-            wattron(this->window, COLOR_PAIR(RED_ON_BLACK));
-            mvwprintw(this->window, ypos, xpos , mob->to_char().c_str());
+        Cutscene* cutscene = (Cutscene*) map->cutscene_for(to_render.at(i));
+        if (cutscene && map->positions_have_los(cutscene->get_pos(), player->get_pos())) {
+            wattron(this->window, COLOR_PAIR(cutscene->color_pair()));
+            mvwprintw(this->window, ypos, xpos , cutscene->to_char().c_str());
         }
 
     }

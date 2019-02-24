@@ -9,11 +9,11 @@ UI::ModalMessagePanel::ModalMessagePanel(WINDOW* window, int width, int height) 
 UI::ModalMessagePanel::~ModalMessagePanel() {
 }
 
-void UI::ModalMessagePanel::render(vector<Event*> fired_events) {
+void UI::ModalMessagePanel::render(vector<Cutscene*> fired_cutscenes) {
     werase(window);
 
-    for(unsigned i = 0; i < fired_events.size(); i++) {
-        mvwprintw(window, i, 0, fired_events[i]->get_msg().c_str());
+    for(unsigned i = 0; i < fired_cutscenes.size(); i++) {
+        mvwprintw(window, i, 0, fired_cutscenes[i]->get_msg().c_str());
     }
 
     mvwprintw(window, height-1, 0, "Hit <space> to continue");

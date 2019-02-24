@@ -17,7 +17,7 @@ void Map::resize_map(int width, int height) {
     tiles.resize(width, height);
     mobiles.resize(width, height);
     items.resize(width, height);
-    events.resize(width, height);
+    cutscenes.resize(width, height);
 }
 
 int Map::get_width() {
@@ -40,8 +40,8 @@ Item* Map::item_for(const Position& p) {
     return items.get(p);
 }
 
-Event* Map::event_for(const Position& p) {
-    return events.get(p);
+Cutscene* Map::cutscene_for(const Position& p) {
+    return cutscenes.get(p);
 }
 
 void Map::add_tile(Tile* t) {
@@ -56,20 +56,20 @@ void Map::add_item(Item* i) {
     items.add(i, i->get_pos());
 }
 
-void Map::add_event(Event* e) {
-    events.add(e, e->get_pos());
+void Map::add_cutscene(Cutscene* e) {
+    cutscenes.add(e, e->get_pos());
 }
 
 Item* Map::remove_item(const Position& p) {
     return items.remove(p);
 }
 
-vector<Event*> Map::get_triggered_events() {
-    vector<Event*> result;
+vector<Cutscene*> Map::get_triggered_cutscenes() {
+    vector<Cutscene*> result;
 
-    Event* event = event_for(player->get_pos());
-    if (event && !event->get_fired())
-        result.push_back(event);
+    Cutscene* cutscene = cutscene_for(player->get_pos());
+    if (cutscene && !cutscene->get_fired())
+        result.push_back(cutscene);
 
     return result;
 }
@@ -133,9 +133,9 @@ string* Map::get_name() {
 void Map::set_player(Positionable* p) {
     this->player = p;
 
-    //events need a player, so do this here for now
-    for (auto *event : events.get_all()) {
-        event->set_player(player);
+    //cutscenes need a player, so do this here for now
+    for (auto *cutscene : cutscenes.get_all()) {
+        cutscene->set_player(player);
     }
 
 }

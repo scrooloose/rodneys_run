@@ -4,7 +4,7 @@
 #include <ncurses.h>
 #include <vector>
 
-#include "../event.h"
+#include "../cutscene.h"
 
 namespace UI {
     class ModalMessagePanel {
@@ -17,7 +17,7 @@ namespace UI {
         ModalMessagePanel(WINDOW* window, int width, int height);
         virtual ~ModalMessagePanel();
 
-        void render(vector<Event*> fired_events);
+        void render(vector<Cutscene*> fired_cutscenes);
     };
 }
 #endif /* MODAL_MESSAGE_PANEL_H */

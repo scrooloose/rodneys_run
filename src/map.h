@@ -11,7 +11,7 @@
 #include "proximity_sorter.h"
 #include "item.h"
 #include "map_grid.h"
-#include "event.h"
+#include "cutscene.h"
 
 using namespace std;
 using namespace Tiles;
@@ -21,7 +21,7 @@ class Map {
         MapGrid<Tile> tiles;
         MapGrid<Positionable> mobiles;
         MapGrid<Item> items;
-        MapGrid<Event> events;
+        MapGrid<Cutscene> cutscenes;
 
         int width;
         int height;
@@ -40,7 +40,7 @@ class Map {
         Tile* tile_for(const Position& p);
         Positionable* mobile_for(const Position& p);
         Item* item_for(const Position& p);
-        Event* event_for(const Position& p);
+        Cutscene* cutscene_for(const Position& p);
 
         int get_width();
         int get_height();
@@ -52,11 +52,11 @@ class Map {
         void add_tile(Tile* t);
         void add_mobile(Positionable* m);
         void add_item(Item* i);
-        void add_event(Event* e);
+        void add_cutscene(Cutscene* e);
         Item* remove_item(const Position& p);
 
-        //get all events triggered this tick
-        vector<Event*> get_triggered_events();
+        //get all cutscenes triggered this tick
+        vector<Cutscene*> get_triggered_cutscenes();
 
         vector<Tile*> get_all_tiles();
         vector<Positionable*> get_all_mobiles();

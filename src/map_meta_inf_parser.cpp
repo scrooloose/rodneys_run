@@ -40,7 +40,7 @@ void MapMetaInfParser::parse() {
     parse_items(root);
     parse_keys(root);
     parse_locked_doors(root);
-    parse_events(root);
+    parse_cutscenes(root);
 }
 
 void MapMetaInfParser::parse_mobiles(Json::Value root) {
@@ -127,26 +127,26 @@ void MapMetaInfParser::parse_locked_doors(Json::Value root) {
     }
 }
 
-void MapMetaInfParser::parse_events(Json::Value root) {
-    Json::Value events = root["events"];
+void MapMetaInfParser::parse_cutscenes(Json::Value root) {
+    Json::Value cutscenes = root["cutscenes"];
 
-    for (unsigned i = 0; i < events.size(); i++) {
-        Json::Value current = events[i];
+    for (unsigned i = 0; i < cutscenes.size(); i++) {
+        Json::Value current = cutscenes[i];
 
         int xpos  = current["x"].asInt();
         int ypos  = current["y"].asInt();
 
-        this->events.push_back(
-            new Event(
+        this->cutscenes.push_back(
+            new Cutscene(
                 Position(xpos, ypos),
-                parse_event_message(current)
+                parse_cutscene_message(current)
             )
         );
     }
 }
 
-string MapMetaInfParser::parse_event_message(Json::Value event_root) {
-    string fname = event_root["message"].asString();
+string MapMetaInfParser::parse_cutscene_message(Json::Value cutscene_root) {
+    string fname = cutscene_root["message"].asString();
     ifstream message_file("maps/" + fname);
 
     if (!message_file.is_open()) {
@@ -205,6 +205,6 @@ const Position& MapMetaInfParser::get_start_position() {
     return *start_position;
 }
 
-vector<Event*> MapMetaInfParser::get_events() {
-    return events;
+vector<Cutscene*> MapMetaInfParser::get_cutscenes() {
+    return cutscenes;
 }

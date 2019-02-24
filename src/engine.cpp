@@ -342,11 +342,11 @@ void Engine::main_loop() {
                 break;
             case MODAL_MSG:
                 render();
-                this->modal_message_panel->render(fired_events);
+                this->modal_message_panel->render(fired_cutscenes);
                 doupdate();
                 while(getch() != ' ') {}
-                for (auto event : fired_events) {
-                    event->fired();
+                for (auto cutscene : fired_cutscenes) {
+                    cutscene->fired();
                 }
                 state = NEUTRAL;
                 break;
@@ -384,8 +384,8 @@ bool Engine::detect_player_and_mob_turns() {
 }
 
 bool Engine::detect_modal_messages() {
-    fired_events = map->get_triggered_events();
-    if (fired_events.size() > 0) {
+    fired_cutscenes = map->get_triggered_cutscenes();
+    if (fired_cutscenes.size() > 0) {
         state = MODAL_MSG;
         return true;
     }

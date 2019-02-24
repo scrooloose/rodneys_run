@@ -1,11 +1,12 @@
-#ifndef EVENT_H
-#define EVENT_H
+#ifndef CUTSCENE_H
+#define CUTSCENE_H
 
-#include "position.h"
 #include <string.h>
+#include "position.h"
 #include "positionable.h"
+#include "renderable.h"
 
-class Event : public Positionable {
+class Cutscene : public Positionable, public Renderable {
 
     protected:
         Position target_pos;
@@ -14,8 +15,8 @@ class Event : public Positionable {
         bool has_fired;
 
     public:
-        Event(Position target_pos, string msg);
-        ~Event();
+        Cutscene(Position target_pos, string msg);
+        ~Cutscene();
 
         void set_player(Positionable* p);
 
@@ -24,6 +25,9 @@ class Event : public Positionable {
         void fired();
         bool get_fired();
 
+        // Renderable functions
+        string to_char();
+        int color_pair();
 };
 
 #endif

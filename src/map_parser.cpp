@@ -137,8 +137,8 @@ void MapParser::parse_meta_inf() {
         map->add_tile(locked_doors.at(i));
     }
 
-    vector<Event*> events = mmip.get_events();
-    for (unsigned i = 0; i < events.size(); i++) {
-        map->add_event(events.at(i));
+    vector<Cutscene*> cutscenes = mmip.get_cutscenes();
+    for (unsigned i = 0; i < cutscenes.size(); i++) {
+        map->add_cutscene(cutscenes.at(i));
     }
 }

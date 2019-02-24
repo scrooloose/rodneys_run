@@ -16,7 +16,7 @@
 #include <map>
 #include "item.h"
 #include <sstream>
-#include "event.h"
+#include "cutscene.h"
 #include "colors.h"
 
 #include "./ui/info_panel.h"
@@ -53,7 +53,7 @@ class Engine {
         UI::ModalMessagePanel* modal_message_panel;
         UI::InventoryPanel* inventory_panel;
 
-        vector<Event*> fired_events;
+        vector<Cutscene*> fired_cutscenes;
 
         void render();
 

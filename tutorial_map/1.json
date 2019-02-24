@@ -55,7 +55,7 @@
         { "x": 58, "y": 18, "type": "giant_spider" },
         { "x": 56, "y": 17, "type": "giant_spider" }
     ],
-    "events": [
+    "cutscenes": [
         { "x": 1, "y": 19, "message": ["Welcome n00b!\n\nUse the numpad to move around!\n\nYou can move diagonally too."] },
         { "x": 11, "y": 19, "message": ["Hit 'o' and a direction to open and close doors."] },
         { "x": 13, "y": 15, "message": ["Infront of you is your first weapon - a drawing pin. Move over it to pick it up, then hit 'w' and '0' to wield it. Notice how the weapon and its damage stats appear in the left sidebar.\n\nTo attack with a melee weapon, simply run into enemies. Kill the zombie in the next room."] },

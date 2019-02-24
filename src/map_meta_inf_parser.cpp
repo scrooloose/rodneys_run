@@ -146,11 +146,18 @@ void MapMetaInfParser::parse_events(Json::Value root) {
 }
 
 string MapMetaInfParser::parse_event_message(Json::Value event_root) {
-    string result;
-    Json::Value message_lines = event_root["message"];
-    for (unsigned j = 0; j < message_lines.size(); j++) {
-        result.append(message_lines[j].asString());
-        result.append("\n");
+    string fname = event_root["message"].asString();
+    ifstream message_file("maps/" + fname);
+
+    if (!message_file.is_open()) {
+        throw MapParsingException("Couldnt open story file:" + fname);
+    }
+
+    string result, tmp;
+    while (!message_file.eof()) {
+        getline(message_file, tmp);
+        result += tmp;
+        result += "\n";
     }
 
     return result;

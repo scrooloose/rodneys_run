@@ -16,7 +16,7 @@ void UI::ModalMessagePanel::render(vector<Event*> fired_events) {
         mvwprintw(window, i, 0, fired_events[i]->get_msg().c_str());
     }
 
-    mvwprintw(window, height-3, 0, "Hit <space> to continue");
+    mvwprintw(window, height-1, 0, "Hit <space> to continue");
 
     wnoutrefresh(window);
 }

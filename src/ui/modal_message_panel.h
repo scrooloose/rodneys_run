@@ -17,7 +17,7 @@ namespace UI {
         ModalMessagePanel(WINDOW* window, int width, int height);
         virtual ~ModalMessagePanel();
 
-        void render(vector<Cutscene*> fired_cutscenes);
+        void render(Cutscene* fired_cutscenes);
     };
 }
 #endif /* MODAL_MESSAGE_PANEL_H */

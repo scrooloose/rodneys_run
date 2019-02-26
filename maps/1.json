@@ -64,7 +64,10 @@
     ],
     "cutscenes": [
         { "x": 7, "y": 52,
-            "message": "story1.txt"
+            "pages": [
+                "story1.txt",
+                "story2.txt"
+            ]
         }
     ]
 }

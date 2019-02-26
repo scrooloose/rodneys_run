@@ -2,6 +2,7 @@
 #define CUTSCENE_H
 
 #include <string.h>
+#include <vector>
 #include "position.h"
 #include "positionable.h"
 #include "renderable.h"
@@ -11,14 +12,14 @@ class Cutscene : public Positionable, public Renderable {
 
     protected:
         Position target_pos;
-        string msg;
+        vector<string*> story_pages;
         bool has_fired;
 
     public:
-        Cutscene(Position target_pos, string msg);
+        Cutscene(Position target_pos, vector<string*> story_pages);
         ~Cutscene();
 
-        string get_msg();
+        vector<string*> get_story_pages();
         void fired();
         bool get_fired();
 

@@ -46,7 +46,7 @@ class MapMetaInfParser {
         void parse_keys(Json::Value root);
         void parse_locked_doors(Json::Value root);
         void parse_cutscenes(Json::Value root);
-        string parse_cutscene_message(Json::Value cutscene_root);
+        vector<string*> parse_cutscene_pages(Json::Value cutscene_root);
 
         Mobile* mob_for(string type, int x, int y);
         Item* item_for(string type, int quantity, int xpos, int ypos);

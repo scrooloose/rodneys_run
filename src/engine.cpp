@@ -342,12 +342,8 @@ void Engine::main_loop() {
                 break;
             case MODAL_MSG:
                 render();
-                this->modal_message_panel->render(fired_cutscenes);
-                doupdate();
-                while(getch() != ' ') {}
-                for (auto cutscene : fired_cutscenes) {
-                    cutscene->fired();
-                }
+                this->modal_message_panel->render(fired_cutscenes[0]);
+                fired_cutscenes[0]->fired();
                 state = NEUTRAL;
                 break;
 

@@ -19,15 +19,3 @@ Blink Blink
 Wait a minue... you've never woke up in a clear plastic box before. What is
 this?  The lights are dim, but you can make out the entrance to a tunnel in
 front of you.
-
-     .--,       .--,           ____________________________
-    ( (  \.---./  ) )         /                             \
-     '.__/o   o\__.'     ----|    Well shit, I wonder where |
-        {=  ^  =}            |    the fuck that goes?       |
-         >  -  <              \____________________________/
-        /       \
-       //       \\
-      //|   .   |\\
-      \"'\       /'\"_.-~^`'-.
-         \  _  /--'         `
-   jgs ___)( )(___

@@ -136,28 +136,37 @@ void MapMetaInfParser::parse_cutscenes(Json::Value root) {
         int xpos  = current["x"].asInt();
         int ypos  = current["y"].asInt();
 
-        this->cutscenes.push_back(
-            new Cutscene(
-                Position(xpos, ypos),
-                parse_cutscene_message(current)
-            )
+        Cutscene* next_cutscene = new Cutscene(
+            Position(xpos, ypos),
+            parse_cutscene_pages(current)
         );
+
+        this->cutscenes.push_back(next_cutscene);
     }
 }
 
-string MapMetaInfParser::parse_cutscene_message(Json::Value cutscene_root) {
-    string fname = cutscene_root["message"].asString();
-    ifstream message_file("maps/" + fname);
+vector<string*> MapMetaInfParser::parse_cutscene_pages(Json::Value cutscene_root) {
+    vector<string*> result;
 
-    if (!message_file.is_open()) {
-        throw MapParsingException("Couldnt open story file:" + fname);
-    }
+    Json::Value pages = cutscene_root["pages"];
 
-    string result, tmp;
-    while (!message_file.eof()) {
-        getline(message_file, tmp);
-        result += tmp;
-        result += "\n";
+    for (unsigned i = 0; i < pages.size(); i++) {
+        string fname = pages[i].asString();
+        ifstream message_file("maps/" + fname);
+
+        if (!message_file.is_open()) {
+            throw MapParsingException("Couldnt open story file:" + fname);
+        }
+
+        string line;
+        string page;
+        while (!message_file.eof()) {
+            getline(message_file, line);
+            page += line;
+            page += "\n";
+        }
+
+        result.push_back(new string(page));
     }
 
     return result;

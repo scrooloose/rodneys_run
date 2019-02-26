@@ -59,6 +59,7 @@ class Map {
         vector<Cutscene*> get_triggered_cutscenes();
 
         vector<Tile*> get_all_tiles();
+        vector<Tile*> get_all_tiles_in_range(const Position& p, int range);
         vector<Positionable*> get_all_mobiles();
         vector<Positionable*> get_all_mobiles_by_dist_to_player();
 

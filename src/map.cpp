@@ -86,6 +86,30 @@ vector<Tile*> Map::get_all_tiles() {
     return tiles.get_all();
 }
 
+vector<Tile*> Map::get_all_tiles_in_range(const Position& p, int range) {
+    vector<Tile*> result;
+
+    int start_x = p.get_x() - range;
+    if (start_x < 0) start_x = 0;
+
+    int end_x = p.get_x() + range;
+    if (end_x >= width) end_x = width - 1;
+
+    int start_y = p.get_y() - range;
+    if (start_y < 0) start_y = 0;
+
+    int end_y = p.get_y() + range;
+    if (end_y >= height) end_y = height - 1;
+
+    for (int x = start_x; x <= end_x; x++) {
+        for (int y = start_y; y <= end_y; y++) {
+            result.push_back(tiles.get(Position(x, y)));
+        }
+    }
+
+    return result;
+}
+
 vector<Positionable*> Map::get_all_mobiles() {
     return mobiles.get_all();
 }
@@ -110,7 +134,7 @@ bool Map::positions_have_los(const Position& p1, const Position& p2) {
 }
 
 void Map::update_visibility_from(const Position& p) {
-    vector<Tile*> all_tiles = get_all_tiles();
+    vector<Tile*> all_tiles = get_all_tiles_in_range(p, 20);
 
     for (unsigned i=0; i < all_tiles.size(); i++) {
         Tile* current = all_tiles.at(i);

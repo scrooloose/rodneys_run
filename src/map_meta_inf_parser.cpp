@@ -3,6 +3,8 @@
 MapMetaInfParser::MapMetaInfParser(string fname, Map* map) {
     this->fname = fname;
     this->map = map;
+    boost::filesystem::path p1(fname);
+    this->map_dir = p1.parent_path().native();
 }
 
 MapMetaInfParser::~MapMetaInfParser() {
@@ -152,7 +154,7 @@ vector<string*> MapMetaInfParser::parse_cutscene_pages(Json::Value cutscene_root
 
     for (unsigned i = 0; i < pages.size(); i++) {
         string fname = pages[i].asString();
-        ifstream message_file("maps/" + fname);
+        ifstream message_file(this->map_dir + "/" + fname);
 
         if (!message_file.is_open()) {
             throw MapParsingException("Couldnt open story file:" + fname);

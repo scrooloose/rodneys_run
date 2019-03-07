@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <cstdio>
+#include <boost/filesystem.hpp>
 
 #include "message_log.h"
 #include "map_parsing_exception.h"
@@ -29,6 +30,7 @@ using namespace std;
 class MapMetaInfParser {
     private:
         string fname;
+        string map_dir;
         Map* map;
         string get_file_contents();
 

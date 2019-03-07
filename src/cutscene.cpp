@@ -18,9 +18,17 @@ vector<string*> Cutscene::get_story_pages() {
 }
 
 string Cutscene::to_char() {
-    return "i";
+    if (has_fired) {
+        return ".";
+    } else {
+        return "i";
+    }
 }
 
 int Cutscene::color_pair() {
-    return CYAN_ON_BLACK;
+    if (has_fired) {
+        return WHITE_ON_BLACK;
+    } else {
+        return CYAN_ON_BLACK;
+    }
 }

@@ -1,5 +1,5 @@
 CPPFLAGS = -Wall -c -ggdb
-LFLAGS = -Wall -ggdb -lncurses -ldl
+LFLAGS = -Wall -ggdb -lncurses -ldl -lboost_filesystem -lboost_system
 CC = g++
 
 SRC_DIR := src

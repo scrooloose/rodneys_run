@@ -5,7 +5,7 @@ RUN apt-get update && \
         g++ \
         gdb \
         build-essential \
-        libboost-dev \
+        libboost-filesystem-dev \
         libncurses-dev
 
 

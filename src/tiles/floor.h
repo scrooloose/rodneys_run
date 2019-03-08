@@ -13,6 +13,7 @@ namespace Tiles {
             Floor(Position p);
             string to_char();
             bool is_walkable();
+            int color_pair();
     };
 
 }

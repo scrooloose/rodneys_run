@@ -10,3 +10,7 @@ bool Tiles::Floor::is_walkable() {
 string Tiles::Floor::to_char() {
     return string(".");
 }
+
+int Tiles::Floor::color_pair() {
+    return YELLOW_ON_BLACK;
+}

@@ -28,6 +28,12 @@ void UI::MapPanel::render() {
             mvwprintw(this->window, ypos, xpos , t->to_char().c_str());
         }
 
+        Cutscene* cutscene = (Cutscene*) map->cutscene_for(to_render.at(i));
+        if (cutscene && map->positions_have_los(cutscene->get_pos(), player->get_pos())) {
+            wattron(this->window, COLOR_PAIR(cutscene->color_pair()));
+            mvwprintw(this->window, ypos, xpos , cutscene->to_char().c_str());
+        }
+
         Item* item = map->item_for(to_render.at(i));
         if (item && map->positions_have_los(item->get_pos(), player->get_pos())) {
             wattron(this->window, COLOR_PAIR(item->color_pair()));
@@ -39,13 +45,6 @@ void UI::MapPanel::render() {
             wattron(this->window, COLOR_PAIR(RED_ON_BLACK));
             mvwprintw(this->window, ypos, xpos , mob->to_char().c_str());
         }
-
-        Cutscene* cutscene = (Cutscene*) map->cutscene_for(to_render.at(i));
-        if (cutscene && map->positions_have_los(cutscene->get_pos(), player->get_pos())) {
-            wattron(this->window, COLOR_PAIR(cutscene->color_pair()));
-            mvwprintw(this->window, ypos, xpos , cutscene->to_char().c_str());
-        }
-
     }
 
     int ypos = player->get_pos().get_y() - y_offset + 1;

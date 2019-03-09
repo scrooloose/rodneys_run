@@ -77,6 +77,10 @@ void Inventory::use_item(string item_type) {
     remove(item_type, 1);
 }
 
+void Inventory::use_item(Item& item) {
+    remove(item.get_type(), 1);
+}
+
 vector<Item*> Inventory::get_items() {
     return items;
 }
@@ -86,6 +90,18 @@ vector<Item*> Inventory::get_wieldable_items() {
 
     for (unsigned i = 0; i < items.size(); i++){
         if (items.at(i)->is_wieldable()) {
+            to_return.push_back(items.at(i));
+        }
+    }
+
+    return to_return;
+}
+
+vector<Item*> Inventory::get_usable_items() {
+    vector<Item*> to_return;
+
+    for (unsigned i = 0; i < items.size(); i++){
+        if (items.at(i)->is_usable()) {
             to_return.push_back(items.at(i));
         }
     }

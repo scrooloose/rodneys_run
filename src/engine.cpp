@@ -117,6 +117,10 @@ bool Engine::handle_keypress(int key) {
             state = VIEW_INVENTORY;
             turn_taken = false;
             break;
+        case (int)'u':
+            state = USE;
+            turn_taken = false;
+            break;
         case (int)'o':
             do_open();
             break;
@@ -334,6 +338,11 @@ void Engine::main_loop() {
                 state = NEUTRAL;
                 player->turn_taken();
                 break;
+            case USE:
+                do_use();
+                state = NEUTRAL;
+                player->turn_taken();
+                break;
             case FIRE:
                 if (fire_weapon()) {
                     player->turn_taken();
@@ -444,4 +453,27 @@ void Engine::do_wield() {
 
     Item* to_wield = wieldables.at(key);
     player->wield((Weapon*)to_wield);
+}
+
+void Engine::do_use() {
+    vector<Item*> usables = player->get_inventory()->get_usable_items();
+
+    if (usables.empty()) {
+        MessageLog::add_message("You have nothing to use!");
+        return;
+    }
+
+    inventory_panel->render_selection_dialog(usables);
+    int key = getch() - 48;
+    key--; // we render the items starting from 1, not 0
+
+    if (key < 0 || key > 9 || key > (int)usables.size()) {
+        MessageLog::add_message("Invalid selection");
+        return;
+    }
+
+    // FIXME: all of this should be in Player or Inventory
+    Item* to_use = usables.at(key);
+    to_use->affect_recipient(player);
+    player->get_inventory()->use_item(*to_use);
 }

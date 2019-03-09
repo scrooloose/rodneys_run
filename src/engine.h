@@ -37,6 +37,7 @@ class Engine {
             MODAL_MSG,
             VIEW_INVENTORY,
             WIELD,
+            USE,
             FIRE
         };
 
@@ -64,6 +65,7 @@ class Engine {
         void game_over_lost();
         void game_over_won();
         void do_wield();
+        void do_use();
 
         bool fire_weapon();
         Position get_position_from_user();

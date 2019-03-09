@@ -10,7 +10,7 @@ class Cheese : public Item {
     public:
         Cheese(Position p);
         virtual void affect_recipient(ItemAffectee* ia);
-        virtual bool is_instant_usage_item();
+        virtual bool is_usable();
 };
 
 #endif

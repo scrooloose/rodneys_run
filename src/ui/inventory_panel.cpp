@@ -26,7 +26,7 @@ void UI::InventoryPanel::render(vector<Item*> items) {
 void UI::InventoryPanel::render_selection_dialog(vector<Item*> items) {
     werase(window);
     box(window, 0, 0);
-    mvwprintw(window, 1, 1, "Wield what?");
+    mvwprintw(window, 1, 1, "Select an item");
 
     for (unsigned i=1; i <= items.size(); i++) {
         stringstream out;

@@ -73,6 +73,10 @@ bool Item::is_instant_usage_item() {
     return false;
 }
 
+bool Item::is_usable() {
+    return false;
+}
+
 bool Item::is_wieldable() {
     return false;
 }

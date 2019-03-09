@@ -28,10 +28,11 @@ void Player::move_to(const Position& position) {
 void Player::pick_up_items() {
     Item* item = map->remove_item(get_pos());
     if (item) {
-        item->affect_recipient(this);
         MessageLog::add_message(item->get_pickup_msg());
 
-        if (!item->is_instant_usage_item()) {
+        if (item->is_instant_usage_item()) {
+            item->affect_recipient(this);
+        } else {
             inventory->add(item);
         }
     }

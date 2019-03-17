@@ -64,6 +64,8 @@ Mobile* MapMetaInfParser::mob_for(string type, int xpos, int ypos) {
         return MobileFactory::build_zombie(map, Position(xpos, ypos));
     else if (type == "giant_spider")
         return MobileFactory::build_giant_spider(map, Position(xpos, ypos));
+    else if (type == "rat")
+        return MobileFactory::build_rat(map, Position(xpos, ypos));
     else
         throw MapParsingException("Unrecognised mobile type:" + type);
 }

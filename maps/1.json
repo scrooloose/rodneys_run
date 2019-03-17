@@ -1,72 +1,55 @@
 {
-    "name": "The office building",
-    "start_position": {"x": 6, "y": 52}, "mobiles": [
-        { "type": "giant_spider", "x": 29, "y": 51 },
-        { "type": "zombie", "x": 23, "y": 43 },
-        { "type": "zombie", "x": 25, "y": 45 },
-        { "type": "zombie", "x": 6, "y": 46 },
-        { "type": "zombie", "x": 4, "y": 44 },
-        { "type": "zombie", "x": 5, "y": 43 },
-        { "type": "zombie", "x": 45, "y": 30 },
-        { "type": "zombie", "x": 48, "y": 29 },
-        { "type": "zombie", "x": 50, "y": 30 },
-        { "type": "zombie", "x": 57, "y": 30 },
-        { "type": "zombie", "x": 65, "y": 29 },
-        { "type": "zombie", "x": 53, "y": 35 },
-        { "type": "zombie", "x": 52, "y": 34 },
-        { "type": "zombie", "x": 49, "y": 35 },
-        { "type": "zombie", "x": 43, "y": 35 },
-        { "type": "zombie", "x": 42, "y": 42 },
-        { "type": "zombie", "x": 45, "y": 43 },
-        { "type": "zombie", "x": 45, "y": 42 },
-        { "type": "zombie", "x": 49, "y": 42 },
-        { "type": "zombie", "x": 59, "y": 42 },
-        { "type": "zombie", "x": 59, "y": 45 },
-        { "type": "zombie", "x": 60, "y": 45 },
-        { "type": "zombie", "x": 55, "y": 45 },
-        { "type": "zombie", "x": 43, "y": 46 },
-        { "type": "zombie", "x": 49, "y": 50 },
-        { "type": "zombie", "x": 53, "y": 51 },
-        { "type": "zombie", "x": 58, "y": 53 },
-        { "type": "zombie", "x": 53, "y": 53 },
-        { "type": "zombie", "x": 72, "y": 43 },
-        { "type": "zombie", "x": 96, "y": 44 },
-        { "type": "zombie", "x": 97, "y": 40 },
-        { "type": "zombie", "x": 95, "y": 42 },
-        { "type": "zombie", "x": 77, "y": 35 },
-        { "type": "zombie", "x": 79, "y": 37 },
-        { "type": "zombie", "x": 83, "y": 33 },
-        { "type": "zombie", "x": 71, "y": 25 },
-        { "type": "zombie", "x": 80, "y": 1 },
-        { "type": "zombie", "x": 76, "y": 1 },
-        { "type": "zombie", "x": 70, "y": 1 },
-        { "type": "zombie", "x": 71, "y": 1 }
+    "name": "A Strange Awakening",
+    "start_position": {"x": 16, "y": 43},
+    "mobiles": [
+        { "type": "rat", "x": 32, "y": 23 },
+        { "type": "rat", "x": 30, "y": 18 },
+        { "type": "rat", "x": 35, "y": 16 },
+        { "type": "rat", "x": 33, "y": 14 },
+        { "type": "rat", "x": 34, "y": 17 },
+        { "type": "rat", "x": 30, "y": 17 },
+        { "type": "rat", "x": 32, "y": 14 }
     ],
     "items": [
-        { "type": "cheese",      "quantity": 1, "x": 1, "y": 45 },
-        { "type": "cheese",      "quantity": 1, "x": 97, "y": 31},
-        { "type": "cheese",      "quantity": 1, "x": 73, "y": 54 },
-        { "type": "9mm_round",   "quantity": 5, "x": 1, "y": 46 },
-        { "type": "9mm_round",   "quantity": 5, "x": 2, "y": 46 },
-        { "type": "9mm_round",   "quantity": 5, "x": 87, "y": 47 },
-        { "type": "9mm_round",   "quantity": 5, "x": 99, "y": 45 },
-        { "type": "drawing_pin", "quantity": 1, "x": 7, "y": 52 },
-        { "type": "pistol",      "quantity": 1, "x": 1, "y": 44 }
+        { "type": "cheese", "quantity": 1, "x": 35, "y": 35 },
+        { "type": "cheese", "quantity": 1, "x": 27, "y": 31 },
+        { "type": "cheese", "quantity": 1, "x": 67, "y": 39 },
+        { "type": "cheese", "quantity": 1, "x": 64, "y":  3 },
+        { "type": "drawing_pin", "quantity": 1, "x": 65, "y":  19 }
     ],
     "keys": [
-        { "door_id": 1, "name": "Office floor key", "x": 88, "y": 47 },
-        { "door_id": 2, "name": "Lift access key", "x": 68, "y": 35 }
     ],
     "locked-doors": [
-        { "door_id": 1, "name": "Office floor", "x": 39, "y": 29 },
-        { "door_id": 1, "name": "Office floor", "x": 65, "y": 52 },
-        { "door_id": 2, "name": "Lift area", "x": 88, "y": 9 }
     ],
     "cutscenes": [
-        { "x": 7, "y": 52,
+        {
+            "x": 16, "y": 43,
             "pages": [
-                "story1.txt",
-                "story2.txt"
+                "story_1_1_1.txt",
+                "story_1_1_2.txt",
+                "story_1_1_3.txt",
+                "story_1_1_5.txt",
+                "story_1_1_6.txt"
+            ]
+        },
+        {
+            "x": 35, "y": 35,
+            "pages": [
+                "story_1_2_1.txt"
+            ]
+        },
+        {
+            "x": 19, "y": 31,
+            "pages": [
+                "story_1_3_1.txt",
+                "story_1_3_2.txt"
+            ]
+        },
+        {
+            "x": 65, "y": 19,
+            "pages": [
+                "story_1_4_1.txt",
+                "story_1_4_2.txt"
             ]
         }
     ]

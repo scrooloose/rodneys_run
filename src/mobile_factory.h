@@ -12,6 +12,7 @@ class MobileFactory {
     public:
         static Mobile* build_zombie(Map* m, const Position& p);
         static Mobile* build_giant_spider(Map* m, const Position& p);
+        static Mobile* build_rat(Map* m, const Position& p);
 
 };
 

@@ -16,7 +16,7 @@ string Item::get_inv_string() {
         sprintf(msg, "%d * %s", quantity, name.c_str());
         return string(msg);
     } else {
-        return "a " + name;
+        return name;
     }
 }
 

@@ -21,3 +21,14 @@ Mobile* MobileFactory::build_giant_spider(Map* m, const Position& p) {
     mob->set_health(5);
     return mob;
 }
+
+Mobile* MobileFactory::build_rat(Map* m, const Position& p) {
+    Mobile* mob = new Mobile(p, m, 15);
+    MovementStrategy* sms = new ScentMovementStrategy(m, mob);
+    AI* ai = new MeleeAI(mob, m, sms);
+    mob->set_ai(ai);
+    mob->set_attack_dice(2, 4, 0);
+    mob->set_renderable_char("R");
+    mob->set_health(20);
+    return mob;
+}

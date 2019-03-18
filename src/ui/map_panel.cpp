@@ -49,8 +49,10 @@ void UI::MapPanel::render() {
 
     int ypos = player->get_pos().get_y() - y_offset + 1;
     int xpos = player->get_pos().get_x() - x_offset + 1;
-    wattron(this->window, COLOR_PAIR(WHITE_ON_BLACK));
+    wattron(this->window, COLOR_PAIR(GREEN_ON_BLACK));
     mvwprintw(this->window, ypos, xpos, player->to_char().c_str());
+
+    wattron(this->window, COLOR_PAIR(WHITE_ON_BLACK));
     box(this->window, 0, 0);
     wnoutrefresh(this->window);
 }
